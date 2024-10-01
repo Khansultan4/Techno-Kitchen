@@ -16,7 +16,7 @@ const corsConfig = {
   credentials: true,
 };
 
-const apiRouter = require("./routers/api.router");
+const apiRouter = require("./routers/routers.api");
 
 app.use(cors(corsConfig));
 app.use(cookieParser());
