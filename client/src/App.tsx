@@ -1,30 +1,35 @@
-import { useState } from 'react'
-import './App.css'
-function App() {
-  const [count, setCount] = useState(0)
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-        </a>
-        <a href="https://react.dev" target="_blank">
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+import HomePage from "./pages/HomePage/HomePage";
+import Root from "./Root";
+
+function App() {
+  // const { user } = useAppSelector((state) => state.userSlice);
+
+
+
+  const router = createBrowserRouter([
+    {
+      element: <Root />,
+      path: "/",
+      children: [
+        {
+          path: "/",
+          element: (
+            <ProtectedRoute authUser={undefined} redirectTo="/">
+              <HomePage/>
+            </ProtectedRoute>
+          ),
+        }
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;
