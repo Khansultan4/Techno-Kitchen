@@ -20,7 +20,7 @@ export default function MyConfigsPage(): JSX.Element {
       ];
     return (
        <div >
-        <Typography className={styles.wrapper} variant="h3" component="h2">Мои конфигурации</Typography>
+        <Typography textAlign={'center'} className={styles.wrapper} variant="h3" component="h2">Мои конфигурации</Typography>
      <TableContainer className={styles.table} sx={{ maxWidth: 1200 }} component={Paper}>
        <Table  size="small" aria-label="a dense table">
          <TableHead>
