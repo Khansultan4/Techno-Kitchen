@@ -1,21 +1,31 @@
 const router = require("express").Router();
-const { Build, Item, itemBundle, Type } = require("../../db/models");
+const { Build, Item, itemBundle, Type, Rating, Comment, User } = require("../../db/models");
 
-router.get("/build", async (req, res) => {
+router.get("/all", async (req, res) => {
     try {
       const entries = await Build.findAll(
-    //     {       
-    //     include: [
-    //       {
-    //         model: Item,
-    //         through: {model: itemBundle},
-    //         include:[{
-    //         model: Type,
-    //         }
-    //         ]
-    //       },
-    //     ],
-    //   }
+        {       
+        include: [
+          {
+            model: Item,
+            through: {model: itemBundle},
+            include:[{
+            model: Type,
+            }
+            ]
+          },
+          {
+            model: Rating,
+          },
+          {
+            model: Comment,
+          },
+          {
+            model: User,
+            as: 'Owner'
+          }
+        ],
+      }
     );
       console.log(entries);
       res.json(entries);
