@@ -1,0 +1,18 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+.photo {
+  height: 400px;
+  width: auto;
+}
+.button{
+  align-items: center;
+  font-size: 25px;
+  width: 20%;
+  margin-top: 5%;
+  margin-left: 40%;
+  background-color: hsl(74, 100%, 50%);
+}
