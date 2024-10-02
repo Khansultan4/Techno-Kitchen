@@ -21,6 +21,9 @@ module.exports = {
       image: {
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.TEXT
+      },
       TypeId: {
         type: Sequelize.INTEGER,
         references: {
