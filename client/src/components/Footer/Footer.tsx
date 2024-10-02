@@ -1,4 +1,4 @@
-import { Typography, Grid, Divider, Box, img } from '@material-ui/core';
+import { Typography, Grid, Divider, Box, img } from '@mui/material';
 import styles from './Footer.module.css';
 
 export default function Footer(): JSX.Element {
