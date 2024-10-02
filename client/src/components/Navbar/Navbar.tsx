@@ -20,7 +20,7 @@ export default function Navbar(): JSX.Element {
       <AppBar position="static">
         <Toolbar>
 
-          <img src='/tk.png'
+          <img src='/tk3.png'
           height="40px"
           ></img>           
 
