@@ -19,11 +19,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: (
-            <ProtectedRoute authUser={undefined} redirectTo="/">
-              <HomePage/>
-            </ProtectedRoute>
-          ),
+          element: <HomePage/>
         }
       ],
     },
