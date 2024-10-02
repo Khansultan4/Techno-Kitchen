@@ -20,14 +20,16 @@ export default function Navbar(): JSX.Element {
       <AppBar position="static">
         <Toolbar>
 
-           
+          <img src='/tk.png'
+          height="40px"
+          ></img>           
 
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ ml:1, mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
@@ -36,9 +38,9 @@ export default function Navbar(): JSX.Element {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '18px' } }}
           >
-            Techno-Kitchen
+            Techno<br/>Kitchen
           </Typography>
           
           <Button

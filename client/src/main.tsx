@@ -13,7 +13,7 @@ const darkTheme = createTheme({
             paper: '#1e1e1e', // Dark paper background
         },
         primary: {
-            main: '#bb86fc', // Primary color
+            main: '#c0ff01', // Primary color
         },
         secondary: {
             main: '#03dac6', // Secondary color
