@@ -1,7 +1,9 @@
 import { Button, Typography } from "@mui/material";
 import styles from './HomePage.module.css';
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 export default function HomePage(): JSX.Element {
+    const navigate: NavigateFunction = useNavigate();
     return (
       <div>
         <div className={styles.wrapper}>
@@ -24,7 +26,7 @@ export default function HomePage(): JSX.Element {
       src="../../../public/configurator.png">
       </img>
       </div >
-      <Button className={styles.button} variant="contained">Собрать ПК</Button>
+      <Button onClick={() => navigate("/myConfigs")} className={styles.button} variant="contained">Собрать ПК</Button>
       </div>
     )
   }

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks";
 
 import HomePage from "./pages/HomePage/HomePage";
 import Root from "./Root";
+import MyConfigsPage from "./pages/MyConfigPage/MyConfigsPage";
 
 function App() {
   // const { user } = useAppSelector((state) => state.userSlice);
@@ -20,6 +21,10 @@ function App() {
         {
           path: "/",
           element: <HomePage/>
+        },
+        {
+          path: "/myConfigs",
+          element: <MyConfigsPage/>
         }
       ],
     },
