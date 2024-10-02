@@ -15,7 +15,7 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER
       },
-      description: {
+      specifications: {
         type: Sequelize.JSONB
       },
       image: {
@@ -28,10 +28,7 @@ module.exports = {
           key: 'id',
         }
       },
-      isInStock: {
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
+        createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW")
