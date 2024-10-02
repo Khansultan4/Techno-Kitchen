@@ -17,18 +17,15 @@ import StarBorder from '@mui/icons-material/StarBorder';
 
 export default function ListOfComponents() {
   const [open, setOpen] = useState([false, false, true]);
-  const [singleOpen, setSingleOpen] = useState(false);
 
   const handleExpander = (index: number) => {
    setOpen((prev) => {
-      prev[index] = !prev[index];
-      return prev;
+    const newPrev = [...prev]
+      newPrev[index] = !newPrev[index];
+      return newPrev;
     });
   };
 
-  const handleTestButton = () => {
-    console.log(open);
-  };
 
   return (
     <List
@@ -41,25 +38,12 @@ export default function ListOfComponents() {
         </ListSubheader>
       }
     >
-      <button onClick={handleTestButton}>test</button>
-      <ListItemButton>
-        <ListItemIcon>
-          <img src="/tk3.png" height="30px" />
-        </ListItemIcon>
-        <ListItemText primary="Видеокарта" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <img src="/tk3.png" height="30px" />
-        </ListItemIcon>
-        <ListItemText primary="Процессор" />
-      </ListItemButton>
 
       <ListItemButton onClick={() => handleExpander(0)}>
         <ListItemIcon>
           <img src="/tk3.png" height="30px" />
         </ListItemIcon>
-        <ListItemText primary="Материнская плата" />
+        <ListItemText primary="Видеокарта" />
         {open[0] ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
@@ -78,7 +62,7 @@ export default function ListOfComponents() {
         <ListItemIcon>
           <img src="/tk3.png" height="30px" />
         </ListItemIcon>
-        <ListItemText primary="Материнская плата" />
+        <ListItemText primary="Процессор" />
         {open[1] ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
@@ -92,6 +76,57 @@ export default function ListOfComponents() {
           </ListItemButton>
         </List>
       </Collapse>
+  
+      <ListItemButton onClick={() => handleExpander(2)}>
+        <ListItemIcon>
+          <img src="/tk3.png" height="30px" />
+        </ListItemIcon>
+        <ListItemText primary="Охлаждение" />
+        {open[2] ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+
+      <Collapse in={open[2]} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="kek" secondary="efwf" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+  
+      <ListItemButton onClick={() => handleExpander(3)}>
+        <ListItemIcon>
+          <img src="/tk3.png" height="30px" />
+        </ListItemIcon>
+        <ListItemText primary="Оперативная память" />
+        {open[3] ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+
+      <Collapse in={open[4]} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="kek" secondary="efwf" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
+      <Collapse in={open[4]} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="kek" secondary="efwf" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
+
     </List>
   );
 }
