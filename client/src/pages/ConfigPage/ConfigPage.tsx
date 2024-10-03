@@ -63,7 +63,7 @@ export default function ConfigPage(): JSX.Element {
   const [data, setData] = useState<Build | null>(null);
   const [specs, setSpecs] = useState({});
   const { id } = useParams()
-console.log(data)
+console.log(specs)
   useEffect(() => {
     const fetchData = async () => {
       
@@ -71,7 +71,7 @@ console.log(data)
           const response = await axiosInstance.get<Build>(
             `${import.meta.env.VITE_API}/build/${id}`
           );
-          setData(response.data[0]);
+          setData(response.data);
           setSpecs(response.data.Items[0].specifications);
         } catch (error) {
           console.log(error);
