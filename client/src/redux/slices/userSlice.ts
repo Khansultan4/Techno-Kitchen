@@ -8,16 +8,20 @@ import {
 import { IUser } from '../types/stateTypes';
 import { createSlice } from '@reduxjs/toolkit';
 
+export type Error = {
+  message: string;
+};
+
 export type UserState = {
   user: IUser;
   loading: boolean;
-  error: object;
+  error: unknown;
 };
 
-const initialState = {
+const initialState:UserState = {
   user: initUserState,
   loading: true,
-  error: {},
+  error: { message: '' },
 };
 
 const userSlice = createSlice({

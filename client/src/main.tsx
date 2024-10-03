@@ -9,18 +9,18 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#121212', // Dark background
-      paper: '#1e1e1e', // Dark paper background
+      default: '#121212',
+      paper: '#1e1e1e',
     },
     primary: {
-      main: '#c0ff01', // Primary color
+      main: '#c0ff01',
     },
     secondary: {
-      main: '#03dac6', // Secondary color
+      main: '#03dac6',
     },
     text: {
-      primary: '#ffffff', // Text color
-      secondary: '#b0b0b0', // Secondary text color
+      primary: '#ffffff',
+      secondary: '#b0b0b0',
     },
   },
 });
