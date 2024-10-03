@@ -20,7 +20,7 @@ export default function MyConfigsPage(): JSX.Element {
   console.log('124',entries);
     
   function createData(
-    photo: string,
+        photo: string,
         name: string,
         price: string,
         update: number,
@@ -30,8 +30,11 @@ export default function MyConfigsPage(): JSX.Element {
         return { photo, name, price, update, rating, moore };
       }
       // const rows = entries
+      // const avergeScore = entries.reduce((acc,el) => acc + el, 0)/entries.length
+      console.log('2121', entries);
+      
       const rows = entries.map((el) => 
-        createData(el.image,el.title, '268000 Р', el.updatedAt, StarsReadOnly({value: 0.5}), '...'),
+        createData(el.image,el.title, '268000 Р', el.updatedAt, StarsReadOnly({value: el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length}), '...'),
       )
 
 
