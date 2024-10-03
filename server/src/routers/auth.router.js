@@ -13,14 +13,14 @@ router.post('/signup', async (req, res) => {
         email,
       },
       defaults: {
-        username,
+        login: username,
         email,
         password: await bcrypt.hash(password, 10),
       },
     });
 
     if (!isCreated) {
-      res.status(400).json({ message: 'User already exist' });
+      res.status(401).json({ message: 'User already exist' });
     } else {
       const plainUser = user.get();
       delete plainUser.password;
