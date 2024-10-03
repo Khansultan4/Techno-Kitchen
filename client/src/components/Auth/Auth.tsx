@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import FormModal from '../../ui/Modal';
-import { Link } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 
@@ -18,11 +18,29 @@ export default function Auth() {
     >
       {!isRegister ? <Login /> : <Register />}
       {!isRegister ? (
-        <Link onClick={() => setIsregister(true)}>Create an account</Link>
+        <>
+          <Box sx={{ minWidth: '200px' }}>
+            <Typography>Still don't have an acoount?</Typography>
+            <Link
+              sx={{ cursor: 'pointer' }}
+              onClick={() => setIsregister(true)}
+            >
+              Sign up
+            </Link>
+          </Box>
+        </>
       ) : (
-        <Link onClick={() => setIsregister(false)}>
-          Have already an account?
-        </Link>
+        <>
+          <Box sx={{ minWidth: '200px' }}>
+            <Typography>Already have an account?</Typography>
+            <Link
+              sx={{ cursor: 'pointer' }}
+              onClick={() => setIsregister(false)}
+            >
+              Sign in
+            </Link>
+          </Box>
+        </>
       )}
     </FormModal>
   );

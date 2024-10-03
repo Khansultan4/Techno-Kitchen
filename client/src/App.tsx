@@ -2,21 +2,25 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import './app.css'
 
-import HomePage from "./pages/HomePage/HomePage";
-import Root from "./Root";
+
+import HomePage from './pages/HomePage/HomePage';
+import Root from './Root';
+import { fetchUser } from './redux/thunkActions';
 import Configurator from "./pages/ConfiguratorPage/ConfiguratorPage";
+import MyConfigsPage from "./pages/MyConfigPage/MyConfigsPage";
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
   // const { user } = useAppSelector((state) => state.userSlice);
-
-
 
   const router = createBrowserRouter([
     {
       element: <Root />,
-      path: "/",
+      path: '/',
       children: [
         {
           path: "/",
@@ -25,6 +29,10 @@ function App() {
         {
           path: "/configurator",
           element: <Configurator/>
+        },
+        {
+          path: "/myConfigs",
+          element: <MyConfigsPage/>
         }
       ],
     },

@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import LoginPageInputs from './LoginPageInputs';
 
 export default function Login() {
   return (
@@ -9,6 +10,7 @@ export default function Login() {
       <Typography sx={{ color: '#b9bbbe' }}>
         We are happy that you are with us!
       </Typography>
+      <LoginPageInputs />
     </>
   );
 }

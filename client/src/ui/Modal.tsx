@@ -7,7 +7,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  height: 400,
+  minHeight: 400,
   bgcolor: '#36393f',
   borderRadius: '10px',
   boxShadow: 24,
@@ -33,7 +33,9 @@ export default function FormModal({
 }: FormModalProps) {
   return (
     <div>
-      <Button onClick={handleOpen}>{btnText}</Button>
+      <Button variant="contained" sx={{ ml: 2 }} onClick={handleOpen}>
+        {btnText}
+      </Button>
       <Modal
         open={isOpen}
         onClose={handleClose}

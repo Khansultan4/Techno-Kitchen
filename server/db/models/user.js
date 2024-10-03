@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     static associate({Build, Comment, Rating}) {
-      this.hasMany(Build, {foreignKey: 'UserId'})
+      this.hasMany(Build, {foreignKey: 'UserId', as: 'ownedBuilds'})
       this.hasMany(Comment, {foreignKey: 'UserId'})
-      this.belongsToMany(Build, {through: {model: Rating}, foreignKey: 'UserId', as: 'owner'})
+      this.belongsToMany(Build, {through: {model: Rating}, foreignKey: 'UserId', as: 'ratingOwner'})
     }
   }
   User.init({

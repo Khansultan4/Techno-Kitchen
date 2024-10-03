@@ -1,11 +1,11 @@
 export interface IUser {
   id: number;
-  name: string;
+  username: string;
   email: string;
 }
 
 export interface IAuth {
-  name: string;
+  username?: string;
   email: string;
   password: string;
 }

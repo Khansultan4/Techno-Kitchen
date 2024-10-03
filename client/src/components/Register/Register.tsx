@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import RegisterPageInputs from './RegisterPageInputs';
 
 export default function Register() {
   return (
@@ -9,6 +10,7 @@ export default function Register() {
       <Typography sx={{ color: '#b9bbbe' }}>
         Start configurate your own PC
       </Typography>
+      <RegisterPageInputs />
     </>
   );
 }
