@@ -63,7 +63,7 @@ export default function ConfigPage(): JSX.Element {
   const [data, setData] = useState<Build | null>(null);
   const [specs, setSpecs] = useState({});
   const { id } = useParams()
-
+console.log(data)
   useEffect(() => {
     const fetchData = async () => {
       
@@ -71,7 +71,7 @@ export default function ConfigPage(): JSX.Element {
           const response = await axiosInstance.get<Build>(
             `${import.meta.env.VITE_API}/build/${id}`
           );
-          setData(response.data);
+          setData(response.data[0]);
           setSpecs(response.data.Items[0].specifications);
         } catch (error) {
           console.log(error);
@@ -101,7 +101,7 @@ export default function ConfigPage(): JSX.Element {
               {data?.title}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: 2 }}>
-              {data?.Items[0].price} ₽
+            {data?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
             </Typography>
             <Rating
               name="read-only"
@@ -116,7 +116,7 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-              {Object.entries(specs).map((item, index) => {
+              {Object.entries(specs)?.map((item, index) => {
                 return <li key={index}>{`${item[0]}: ${item[1]}`}</li>;
               })}
             </ul>
