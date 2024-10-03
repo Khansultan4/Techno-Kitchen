@@ -12,10 +12,11 @@ import AdminPage from './pages/AdminPage/AdminPAge';
 import ConfigPage from "./pages/ConfigPage/ConfigPage";
 function App() {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, []);
   const { user } = useAppSelector((state) => state.user);
+  
+  useEffect(() => {
+    dispatch(fetchUser);
+  }, []);
 
   const router = createBrowserRouter([
     {

@@ -1,26 +1,24 @@
-import { Box, TextField, Typography } from '@mui/material';
-import React from 'react';
+import { Box, TextField } from '@mui/material';
 import styles from './styles.module.css';
-import { IConfiguratorBuild } from '../../types/types';
-import { initConfiguratorBuild } from '../../redux/initStates/initStates';
-const MUIstyles = {
-  bgcolor: 'background.paper',
-};
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+
 
 export default function PreveiwPanel({
   className,
-  currentBuild,
 }: {
   className?: string;
-  currentBuild: IConfiguratorBuild;
 }) {
+
+  const dispatch = useAppDispatch()
+  const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
+
   return (
     <Box sx={{ bgcolor: 'background.paper' }} className={className}>
       <Box className={styles.imageWrapper}>
         <img src="https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-305x171.jpg" />
         <TextField
           id="standard-size-normal"
-          value={currentBuild.title}
+          value={configuratorBuild.title}
           variant="standard"
         />
       </Box>
