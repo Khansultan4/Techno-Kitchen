@@ -1,3 +1,4 @@
+import { CancelPresentation } from '@mui/icons-material';
 import { Backdrop, Box, Modal, Fade, Button } from '@mui/material';
 import { ReactNode } from 'react';
 
@@ -48,7 +49,18 @@ export default function FormModal({
         }}
       >
         <Fade in={isOpen}>
-          <Box sx={style}>{children}</Box>
+          <Box sx={style}>
+            <CancelPresentation
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                cursor: 'pointer',
+              }}
+            />
+            {children}
+          </Box>
         </Fade>
       </Modal>
     </div>

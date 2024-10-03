@@ -53,7 +53,7 @@ export default function RegisterPageInputs() {
     <form onSubmit={submitHandler}>
       {errAlert && (
         <Alert icon={<ErrorOutline fontSize="inherit" />} severity="error">
-          {error.message}
+          {error?.message}
         </Alert>
       )}
       <InputWithLabels
@@ -77,7 +77,13 @@ export default function RegisterPageInputs() {
         onChangeHandler={passwordChangeHandler}
         placeHolder="Type your password"
       />
-      <Tooltip title={!isFormValid ? 'Fill all inputs' : 'Press to sign up'}>
+      <Tooltip
+        title={
+          !isFormValid
+            ? 'Email should contain @ and password should be more than 5 charac ters'
+            : 'Press to sign up'
+        }
+      >
         <div>
           <Button
             type="submit"
