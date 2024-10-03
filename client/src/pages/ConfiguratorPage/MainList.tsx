@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import { IItem } from '../../types/types';
-import { initItem } from '../../redux/initStates/initStates';
 import RadioItemsList from './RadioItemsList';
+import { initItem } from '../../types/initStates';
 export default function MainList({ className }: { className: string }) {
   const [comps, changeComps] = useState<IItem[]>([initItem]);
   useEffect(() => {

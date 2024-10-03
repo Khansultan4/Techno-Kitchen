@@ -3,7 +3,8 @@ import Left from './ListOfComponents'
 import Center from './MainList';
 import Right from './PreveiwPanel'
 import { useState } from 'react';
-import { initConfiguratorBuild } from '../../redux/initStates/initStates';
+import { initConfiguratorBuild } from '../../types/initStates';
+
 export default function Configurator(): JSX.Element {
 
   const [currentBuild, changeCurrentBuild] = useState(initConfiguratorBuild)
