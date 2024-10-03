@@ -9,13 +9,17 @@ import { fetchUser } from './redux/thunkActions';
 import Configurator from './pages/ConfiguratorPage/ConfiguratorPage';
 import MyConfigsPage from './pages/MyConfigPage/MyConfigsPage';
 import AdminPage from './pages/AdminPage/AdminPAge';
+import ConfigPage from './pages/ConfigPage/ConfigPage';
+import Configurator from "./pages/ConfiguratorPage/ConfiguratorPage";
+import MyConfigsPage from "./pages/MyConfigPage/MyConfigsPage";
+import ConfigPage from "./pages/ConfigPage/ConfigPage";
 
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
-  const { user } = useAppSelector((state) => state.user);
+  // const { user } = useAppSelector((state) => state.user);
 
   const router = createBrowserRouter([
     {
@@ -38,9 +42,16 @@ function App() {
           path: '/dashboard',
           element: <AdminPage />,
         },
+          path: '/myConfigs',
+          element: <MyConfigsPage/>
+        },
+        {
+          path: "/Config",
+          element: <ConfigPage/>
+        }
       ],
-    },
-  ]);
+    
+  );
 
   return <RouterProvider router={router} />;
 }

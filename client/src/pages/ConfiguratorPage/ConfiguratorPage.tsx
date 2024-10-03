@@ -1,14 +1,13 @@
 import style from './styles.module.css';
-import Test from './ListOfComponents'
-import MainList from './MainList';
+import Left from './ListOfComponents'
+import Center from './MainList';
+import Right from './PreveiwPanel'
 export default function Configurator(): JSX.Element {
   return (
     <div className={style.wrapper}>
-      <div>
-        <Test></Test>
-      </div>
-      <MainList/>
-      <div>cheburek</div>
+      <Left className={style.left} />
+      <Center className={style.center} />
+      <Right className={style.right} />
     </div>
   );
 }
