@@ -9,7 +9,6 @@ import {
 import { IItem } from '../../types/types';
 
 export default function RadioItemsList({type = 'single', items}: {type?: 'single' | 'several', items: Array<IItem>}):JSX.Element {
-console.log(4, items)
 
   return (
     <Box>
