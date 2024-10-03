@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   Collapse,
+  Box,
 } from '@mui/material';
 
 //! deleteme
@@ -19,7 +20,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 
 
-export default function ListOfComponents() {
+export default function ListOfComponents({className}:{className:string}) {
   const [open, setOpen] = useState([false, false, true]);
 
   const handleExpander = (index: number) => {
@@ -32,6 +33,7 @@ export default function ListOfComponents() {
 
 
   return (
+    <Box className={className}>
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
@@ -132,5 +134,6 @@ export default function ListOfComponents() {
 
 
     </List>
+    </Box>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import {Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography} from '@mui/material'
-export default function MainList() {
+export default function MainList({className}:{className:string}) {
   return (
-    <div>
+    <div className={className}>
     <Typography >Видеокарта</Typography>
-    <Box sx={{bgcolor: 'background.paper', borderRadius:'2px', margin:'20px', width: '50vw'}}>
+    <Box sx={{bgcolor: 'background.paper', borderRadius:'2px', margin:'20px'}}>
         <FormControl
         id='GPUForm'
         >
