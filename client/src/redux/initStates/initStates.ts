@@ -31,6 +31,6 @@ export const initItem: IItem = {
 
 export const initConfiguratorBuild:IConfiguratorBuild = {
   UserId: 0,
-  title: '',
-  description: ''
+  title: 'сборка',
+  description: 'в разработке'
 }

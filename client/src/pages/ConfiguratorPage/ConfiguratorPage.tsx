@@ -12,7 +12,7 @@ export default function Configurator(): JSX.Element {
     <div className={style.wrapper}>
       <Left className={style.left} />
       <Center className={style.center} />
-      <Right className={style.right} currentBuild={currentBuild}/>
+      <Right className={style.right} currentBuild={currentBuild} />
     </div>
   );
 }

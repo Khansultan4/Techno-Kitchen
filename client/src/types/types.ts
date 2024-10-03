@@ -19,14 +19,14 @@ export interface IType {
 }
 
 export interface IConfiguratorBuild {
-  UserId: number,
-  title: string,
-  description:string,
+  UserId: number;
+  title: string;
+  description: string;
 }
 
 export interface IBuild extends IConfiguratorBuild {
-  id: number,
-  image: string,
+  id: number;
+  image: string;
   createdAt: Date;
   updatedAt: Date;
 }
