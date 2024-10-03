@@ -36,7 +36,7 @@ function App() {
           element: <MyConfigsPage/>
         },
         {
-          path: "/Config",
+          path: "/Config/:id",
           element: <ConfigPage/>
         }
       ],

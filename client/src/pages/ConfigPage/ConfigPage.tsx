@@ -2,7 +2,8 @@ import { Typography, Rating, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../redux/hooks';
+//import { useAppSelector } from '../../redux/hooks';
+import { useParams } from 'react-router-dom';
 
 interface Build {
   id: number;
@@ -61,24 +62,24 @@ interface User {
 export default function ConfigPage(): JSX.Element {
   const [data, setData] = useState<Build | null>(null);
   const [specs, setSpecs] = useState({});
-  const { user } = useAppSelector((store) => store.user);
+  const { id } = useParams()
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user.id !== 0) {
+      
         try {
           const response = await axiosInstance.get<Build>(
-            `${import.meta.env.VITE_API}/build/${user.id}`
+            `${import.meta.env.VITE_API}/build/${id}`
           );
           setData(response.data);
           setSpecs(response.data.Items[0].specifications);
         } catch (error) {
           console.log(error);
-        }
+        
       }
     };
     fetchData();
-  }, [user.id]);
+  }, [id]);
 
   return (
     <div style={{ padding: 50 }}>
