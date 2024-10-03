@@ -27,6 +27,7 @@ function App() {
           path: "/configurator",
           element: <Configurator/>
         },
+        {
           path: "/myConfigs",
           element: <MyConfigsPage/>
         }

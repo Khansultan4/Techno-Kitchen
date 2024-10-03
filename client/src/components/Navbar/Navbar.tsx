@@ -51,7 +51,8 @@ export default function Navbar(): JSX.Element {
           <Navsearch/>
           <Button
           variant='contained'
-          sx={{ml: 2}}>
+          sx={{ml: 2}}
+          onClick={() => {navigate('/myConfigs')}}>
             Личный кабинет
           </Button>
         </Toolbar>

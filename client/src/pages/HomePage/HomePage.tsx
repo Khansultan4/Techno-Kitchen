@@ -23,7 +23,7 @@ export default function HomePage(): JSX.Element {
         </Typography>
         </div>
       <img className={styles.photo}
-      src="../../../public/configurator.png">
+      src="../../../public/landingPic.png">
       </img>
       </div >
       <Button onClick={() => navigate("/myConfigs")} className={styles.button} variant="contained">Собрать ПК</Button>
