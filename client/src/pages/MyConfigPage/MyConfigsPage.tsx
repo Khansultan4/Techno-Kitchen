@@ -1,10 +1,26 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import styles from './MyConfigsPage.module.css';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import StarsReadOnly from '../../components/StarsReadOnly/StarsReadOnly';
+import axiosInstance from '../../../axiosInstance';
 export default function MyConfigsPage(): JSX.Element {
-    function createData(
-        photo: string,
+
+  const [entries, setEntries] = useState([]);
+  
+  useEffect(() => {
+    axiosInstance
+      .get(`${import.meta.env.VITE_API}/build/all`)
+      .then((res) => {
+        setEntries(res.data);
+        console.log('1245',res.data)
+      })
+      .catch((err) => console.error(err));
+  }, []);
+  console.log('124',entries);
+    
+  function createData(
+    photo: string,
         name: string,
         price: string,
         update: number,
@@ -13,11 +29,13 @@ export default function MyConfigsPage(): JSX.Element {
       ) {
         return { photo, name, price, update, rating, moore };
       }
-      
-      const rows = [
-        createData('https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-120x0.jpg','№2324456', '268000 Р', 6.0, StarsReadOnly({value: 0.5}), '...'),
-        createData('https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-120x0.jpg','№2324456', '268000 Р', 9.0, StarsReadOnly({value: 4.5}), '...'),
-      ];
+      // const rows = entries
+      const rows = entries.map((el) => 
+        createData(el.image,el.title, '268000 Р', el.updatedAt, StarsReadOnly({value: 0.5}), '...'),
+      )
+
+
+
     return (
        <div >
         <Typography textAlign={'center'} className={styles.wrapper} variant="h3" component="h2">Мои конфигурации</Typography>
