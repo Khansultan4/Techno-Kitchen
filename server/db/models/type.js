@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Type extends Model {
     static associate({Item}) {
-      this.hasMany(Item, {foreignKey: 'TypeId'})
+      this.hasMany(Item)
     }
   }
   Type.init({

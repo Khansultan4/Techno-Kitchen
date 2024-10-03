@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Rating extends Model {
    
     static associate({User, Build}) {
-      this.belongsTo(Build, {foreignKey: 'BuildId'})
+      this.belongsTo(Build)
     }
   }
   Rating.init({

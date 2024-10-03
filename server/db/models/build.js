@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsToMany(Item, {
         through: { model: ItemBundle },
-        foreignKey: 'ItemId',
       });
 
     }
