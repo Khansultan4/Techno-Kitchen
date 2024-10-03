@@ -15,10 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Auth from '../Auth/Auth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogoutUser } from '../../redux/thunkActions';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-
-
-
+import { NavigateFunction, NavLink, useNavigate } from 'react-router-dom';
 
 export default function Navbar(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
@@ -36,11 +33,7 @@ export default function Navbar(): JSX.Element {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-
-          <img src='/tk3.png'
-          height="40px"
-          onClick={() => navigate('/')}
-          ></img>           
+          <img src="/tk3.png" height="40px" onClick={() => navigate('/')}></img>
 
           <IconButton
             size="large"
@@ -56,18 +49,24 @@ export default function Navbar(): JSX.Element {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '18px' } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', sm: 'block', lineHeight: '18px' },
+            }}
             onClick={() => navigate('/')}
           >
             Techno
             <br />
             Kitchen
           </Typography>
-          
+
           <Button
-          variant='text'
-          onClick={() => {navigate('/configurator')}}
-          sx={{ml: 2}}>
+            variant="text"
+            onClick={() => {
+              navigate('/configurator');
+            }}
+            sx={{ ml: 2 }}
+          >
             Конфигуратор
           </Button>
 
@@ -75,9 +74,17 @@ export default function Navbar(): JSX.Element {
 
           {user?.email ? (
             <>
-              <Button variant="contained" sx={{ ml: 2 }}>
-                Личный кабинет
-              </Button>
+              {user?.role === 'admin' ? (
+                <NavLink to="/dashboard">
+                  <Button variant="contained" sx={{ ml: 2 }}>
+                    Админ панель
+                  </Button>
+                </NavLink>
+              ) : (
+                <Button variant="contained" sx={{ ml: 2 }}>
+                  Личный кабинет
+                </Button>
+              )}
               <Button
                 onClick={logoutHandler}
                 variant="contained"
