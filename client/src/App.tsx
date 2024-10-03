@@ -9,6 +9,7 @@ import Root from './Root';
 import { fetchUser } from './redux/thunkActions';
 import Configurator from "./pages/ConfiguratorPage/ConfiguratorPage";
 import MyConfigsPage from "./pages/MyConfigPage/MyConfigsPage";
+import ConfigPage from "./pages/ConfigPage/ConfigPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,6 +34,10 @@ function App() {
         {
           path: "/myConfigs",
           element: <MyConfigsPage/>
+        },
+        {
+          path: "/Config",
+          element: <ConfigPage/>
         }
       ],
     },
