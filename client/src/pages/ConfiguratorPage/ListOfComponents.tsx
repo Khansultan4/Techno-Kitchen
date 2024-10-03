@@ -8,12 +8,16 @@ import {
   Collapse,
 } from '@mui/material';
 
+//! deleteme
+import GPUIcon from './GPUIcon.svg'
+
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import SendIcon from '@mui/icons-material/Send';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
+
 
 export default function ListOfComponents() {
   const [open, setOpen] = useState([false, false, true]);
@@ -60,7 +64,7 @@ export default function ListOfComponents() {
 
       <ListItemButton onClick={() => handleExpander(1)}>
         <ListItemIcon>
-          <img src="/tk3.png" height="30px" />
+        <img src="GPUIcon.svg" alt="" />
         </ListItemIcon>
         <ListItemText primary="Процессор" />
         {open[1] ? <ExpandLess /> : <ExpandMore />}
