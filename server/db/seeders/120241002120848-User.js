@@ -9,7 +9,7 @@ module.exports = {
       [
         {
           login: 'admin',
-          email: 'admin@admin',
+          email: 'admin@admin.com',
           password: await bcrypt.hash('admin123', 10),
           role: 'admin',
         },

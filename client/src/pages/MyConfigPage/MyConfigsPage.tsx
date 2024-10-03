@@ -4,9 +4,12 @@ import styles from './MyConfigsPage.module.css';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import StarsReadOnly from '../../components/StarsReadOnly/StarsReadOnly';
 import axiosInstance from '../../../axiosInstance';
+import { IBuild } from '../../types/types';
+import { initBuild } from '../../types/initStates';
+import InfoButton from '../../components/InfoButton/InfoButton';
 export default function MyConfigsPage(): JSX.Element {
 
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState <IBuild[]>([initBuild]);
   
   useEffect(() => {
     axiosInstance
@@ -17,23 +20,15 @@ export default function MyConfigsPage(): JSX.Element {
       })
       .catch((err) => console.error(err));
   }, []);
-  console.log('124',entries);
+  console.log('124',typeof entries[0]?.updatedAt);
     
-  function createData(
-    photo: string,
-        name: string,
-        price: string,
-        update: number,
-        rating: JSX.Element,
-        moore: string,
-      ) {
-        return { photo, name, price, update, rating, moore };
-      }
-      // const rows = entries
-      const rows = entries.map((el) => 
-        createData(el.image,el.title, '268000 Р', el.updatedAt, StarsReadOnly({value: 0.5}), '...'),
-      )
 
+      // const rows = entries
+      // const avergeScore = entries.reduce((acc,el) => acc + el, 0)/entries.length
+      console.log('2121', entries);
+      
+
+// console.log('123214', InfoButton);
 
 
     return (
@@ -51,19 +46,19 @@ export default function MyConfigsPage(): JSX.Element {
            </TableRow>
          </TableHead>
          <TableBody>
-           {rows.map((row) => (
+           {entries.map((el) => (
              <TableRow
-               key={row.name}
+               key={el.title}
                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
              >
                <TableCell >
-                <img src={row.photo} height='30px'></img>
-                {row.name}
+                <img src={el.image} height='30px'></img>
+                {el.title}
                 </TableCell>
-               <TableCell>{row.price}</TableCell>
-               <TableCell>{row.update}</TableCell>
-               <TableCell>{row.rating}</TableCell>
-               <TableCell>{row.moore}</TableCell>
+               <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
+               <TableCell>{el.updatedAt}</TableCell>
+               <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
+               <TableCell> <InfoButton id={el.id}/></TableCell>
              </TableRow>
            ))}
          </TableBody>

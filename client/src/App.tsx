@@ -12,8 +12,10 @@ import ConfigPage from './pages/ConfigPage/ConfigPage';
 
 function App() {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
+
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchUser);
   }, []);
 
   const router = createBrowserRouter([
@@ -34,16 +36,12 @@ function App() {
           element: <MyConfigsPage />,
         },
         {
+          path: '/Config/:id',
+          element: <ConfigPage />,
+        },
+        {
           path: '/dashboard',
           element: <AdminPage />,
-        },
-        {
-          path: '/myConfigs',
-          element: <MyConfigsPage />,
-        },
-        {
-          path: '/Config',
-          element: <ConfigPage />,
         },
       ],
     },
