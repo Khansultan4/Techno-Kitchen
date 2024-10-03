@@ -4,17 +4,13 @@ import {AppBar, Button, Box, Toolbar, IconButton, Typography, InputBase} from '@
 
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-// export default function Navbar() {
-//   return (
-//     <div>Navbar</div>
-  
-//   )
-// }
 
 
 
 export default function Navbar(): JSX.Element {
+  const navigate: NavigateFunction = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -22,6 +18,7 @@ export default function Navbar(): JSX.Element {
 
           <img src='/tk3.png'
           height="40px"
+          onClick={() => navigate('/')}
           ></img>           
 
           <IconButton
@@ -39,12 +36,14 @@ export default function Navbar(): JSX.Element {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', lineHeight: '18px' } }}
+            onClick={() => navigate('/')}
           >
             Techno<br/>Kitchen
           </Typography>
           
           <Button
           variant='text'
+          onClick={() => {navigate('/configurator')}}
           sx={{ml: 2}}>
             Конфигуратор
           </Button>
