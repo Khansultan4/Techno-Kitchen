@@ -1,15 +1,17 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
-import { initConfiguratorBuild } from "../../types/initStates";
-import { IConfiguratorBuild, IItem } from "../../types/types";
+import { initConfiguratorBuild, initItem, initSelectedItems } from "../../types/initStates";
+import { IConfiguratorBuild, IItem, ISelectedItems } from "../../types/types";
 
 export type configuratorBuildState = {
     configuratorBuild: IConfiguratorBuild;
+    selectedItems: ISelectedItems
     loading: boolean;
     error: unknown;
   };
 
   const initialState:configuratorBuildState = {
     configuratorBuild: initConfiguratorBuild,
+    selectedItems: initSelectedItems,
     loading: true,
     error: { message: '' },
   };

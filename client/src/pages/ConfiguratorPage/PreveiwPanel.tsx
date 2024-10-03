@@ -26,8 +26,9 @@ export default function PreveiwPanel({
 
          <Box>
           <Typography>
-            
+            Процессор:
           </Typography>
+            {configuratorBuild.Items.filter((el) => el.TypeId === 1).map((el2) => <Typography>{el2.title}</Typography>)}
          </Box>
     </Box>
   );
