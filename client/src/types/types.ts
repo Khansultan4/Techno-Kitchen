@@ -6,16 +6,16 @@ export interface IItem {
   TypeId: number;
   price: number;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   Type: IType;
 }
 
 export interface IType {
   id: number;
   title: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IConfiguratorBuild {
@@ -27,6 +27,15 @@ export interface IConfiguratorBuild {
 export interface IBuild extends IConfiguratorBuild {
   id: number;
   image: string;
-  createdAt: Date;
-  updatedAt: Date;
+  Ratings: IRatings[];
+  createdAt: string;
+  updatedAt: string;
+}
+export interface IRatings {
+  id: number;
+  score: number;
+  UserId: number;
+  BuildId: number;
+  createdAt: string;
+  updatedAt: string;
 }

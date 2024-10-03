@@ -22,7 +22,6 @@ export default function PreveiwPanel({
           id="standard-size-normal"
           value={currentBuild.title}
           variant="standard"
-          onChange={}
         />
       </Box>
     </Box>

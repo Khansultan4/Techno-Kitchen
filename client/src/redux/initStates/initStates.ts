@@ -12,8 +12,8 @@ export const initAuthState: IAuth = { username: '', email: '', password: '' };
 export const initType: IType = {
   id: 0,
   title: '',
-  createdAt: new Date(0),
-  updatedAt: new Date(0),
+  createdAt: '',
+  updatedAt: '',
 };
 
 export const initItem: IItem = {
@@ -25,8 +25,8 @@ export const initItem: IItem = {
   Type: initType,
   price: 0,
   description: '',
-  createdAt: new Date(0),
-  updatedAt: new Date(0),
+  createdAt: '',
+  updatedAt: '',
 };
 
 export const initConfiguratorBuild:IConfiguratorBuild = {
