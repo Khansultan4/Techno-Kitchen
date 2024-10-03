@@ -1,11 +1,88 @@
 import { Typography, Rating, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import axiosInstance from '../../../axiosInstance';
+import { useEffect, useState } from 'react';
+//import { useAppSelector } from '../../redux/hooks';
+import { useParams } from 'react-router-dom';
 
+interface Build {
+  id: number;
+  UserId: number;
+  image: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  Items: Item[];
+  Ratings: Rating[];
+  Comments: Comment[];
+  Owner: User;
+}
 
+interface Item {
+  id: number;
+  title: string;
+  price: number;
+  specifications: object;
+  description: string;
+  image: string;
+  TypeId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  ItemBundle: object;
+  Type: object;
+}
+
+interface Rating {
+  UserId: number;
+  BuildId: number;
+  score: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface Comment {
+  id: number;
+  UserId: number;
+  BuildId: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+interface User {
+  id: number;
+  login: string;
+  email: string;
+  password: string;
+  role: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 export default function ConfigPage(): JSX.Element {
+  const [data, setData] = useState<Build | null>(null);
+  const [specs, setSpecs] = useState({});
+  const { id } = useParams()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      
+        try {
+          const response = await axiosInstance.get<Build>(
+            `${import.meta.env.VITE_API}/build/${id}`
+          );
+          setData(response.data);
+          setSpecs(response.data.Items[0].specifications);
+        } catch (error) {
+          console.log(error);
+        
+      }
+    };
+    fetchData();
+  }, [id]);
+
   return (
     <div style={{ padding: 50 }}>
-      {/* Верхний блок с двумя подблоками */}
       <Grid container spacing={2} sx={{ marginBottom: 16 }}>
         <Grid size={{ xs: 12, sm: 4, md: 4, lg: 4, xl: 4 }}>
           <Box
@@ -16,17 +93,21 @@ export default function ConfigPage(): JSX.Element {
             }}
           >
             <img
-              src="https://hyperpc.ru/images/content/main_banner/1800/hyperpc-station-mobile-banner.jpg?1"
+              src={data?.image}
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <Typography variant="h3" sx={{ marginTop: 2 }}>
-              HyperPC
+              {data?.title}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: 2 }}>
-              3 213 900 ₽
+              {data?.Items[0].price} ₽
             </Typography>
-            <Rating name="read-only" value={4} readOnly />
+            <Rating
+              name="read-only"
+              value={calculateAverageRating(data?.Ratings)}
+              readOnly
+            />
           </Box>
         </Grid>
         <Grid size={{ xs: 12, sm: 8, md: 8, lg: 8, xl: 8 }}>
@@ -35,55 +116,43 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-              <li>Видеокарта: MSI GeForce RTX 4090 GAMING SLIM</li>
-              <li>Процессор: Intel® Core™ i9-14900KF </li>
-              <li>Материнская плата: MSI MPG Z790 CARBON II</li>
-              <li>Охлаждение: MSI MEG CORELIQUID S360</li>
-              <li>Оперативная память: 96GB G.SKILL TRIDENT Z5 RGB</li>
-              <li>SSD накопитель: 1TB Samsung 990 PRO </li>
-              <li>SSD накопитель: 2TB Samsung 990 PRO</li>
-              <li>Блок питания: 1000W MSI MPG A1000G</li>
-              <li>Корпус: HYPERPC CYBER Black</li>
-              <li>Вентиляторы: Thermalright TL-B12(R)-S</li>
+              {Object.entries(specs).map((item, index) => {
+                return <li key={index}>{`${item[0]}: ${item[1]}`}</li>;
+              })}
             </ul>
           </Typography>
         </Grid>
       </Grid>
 
-      {/* Средний блок */}
       <Grid container spacing={2} sx={{ marginBottom: 10 }}>
         <Grid size={{ xs: 12 }}>
           <Typography variant="h3" gutterBottom>
             Описание
           </Typography>
           <Typography variant="h5" gutterBottom>
-            Игровая станция HYPERPC CONCEPT 1 - это один из самый мощных
-            игровых компьютеров из когда либо созданных в HYPERPC! Он даст
-            геймеру уникальное ощущение скорости и производительности, и
-            увеличит удобство при использовании благодаря инновационному
-            дизайну. Уникальный дизайн корпуса, это не только красивый внешний
-            вид, это и эффективное охлаждение, достигаемое за счет отсутствия
-            сплошных стенок. Но не стоит беспокоится о шуме, как можно сначала
-            подумать, ведь здесь установлено эксклюзивное охлаждение HYPER
-            WATERCOOLING, построенной нашими лучшими мастерами, с бесшумными
-            вентиляторами. Ни о каком шуме речи тут нет, компьютер не слышно
-            даже под нагрузкой, а о высоких температурах можно просто забыть,
-            эффективность максимальная.
+            {data?.description}
           </Typography>
         </Grid>
       </Grid>
 
-      {/* Нижний блок */}
       <Grid container spacing={2}>
         <Grid size={{ xs: 12 }}>
           <Typography variant="h3" gutterBottom>
             Отзывы
           </Typography>
-          <Typography variant="h5" gutterBottom>
-            (Нет отзывов)
-          </Typography>
+          {data?.Comments.map((comment) => (
+            <Typography variant="h5" gutterBottom key={comment.id}>
+              {comment.content}
+            </Typography>
+          ))}
         </Grid>
       </Grid>
     </div>
   );
+}
+
+function calculateAverageRating(ratings: Rating[] | undefined): number {
+  if (!ratings) return 0;
+  const sum = ratings.reduce((acc, rating) => acc + rating.score, 0);
+  return sum / ratings.length;
 }
