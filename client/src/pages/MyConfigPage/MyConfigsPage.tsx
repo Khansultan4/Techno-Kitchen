@@ -55,7 +55,7 @@ export default function MyConfigsPage(): JSX.Element {
                 <img src={el.image} height='30px'></img>
                 {el.title}
                 </TableCell>
-               <TableCell>268000 Р</TableCell>
+               <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
                <TableCell>{el.updatedAt}</TableCell>
                <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
                <TableCell> <InfoButton id={el.id}/></TableCell>
