@@ -4,6 +4,7 @@ import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
 //import { useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
+import { IItem } from '../../types/types';
 
 interface Build {
   id: number;
@@ -13,7 +14,7 @@ interface Build {
   description: string;
   createdAt: string;
   updatedAt: string;
-  Items: Item[];
+  Items: IItem[];
   Ratings: Rating[];
   Comments: Comment[];
   Owner: User;
@@ -61,9 +62,9 @@ interface User {
 }
 export default function ConfigPage(): JSX.Element {
   const [data, setData] = useState<Build | null>(null);
-  const [specs, setSpecs] = useState({});
+  
   const { id } = useParams()
-console.log(specs)
+
   useEffect(() => {
     const fetchData = async () => {
       
@@ -72,7 +73,8 @@ console.log(specs)
             `${import.meta.env.VITE_API}/build/${id}`
           );
           setData(response.data);
-          setSpecs(response.data.Items[0].specifications);
+          
+          
         } catch (error) {
           console.log(error);
         
@@ -116,9 +118,9 @@ console.log(specs)
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-              {Object.entries(specs)?.map((item, index) => {
-                return <li key={index}>{`${item[0]}: ${item[1]}`}</li>;
-              })}
+             {data?.Items.map(item => <li>
+              {item.Type.title}
+             </li>)}
             </ul>
           </Typography>
         </Grid>
