@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { initConfiguratorBuild } from '../../redux/initStates/initStates';
 export default function Configurator(): JSX.Element {
 
-  const [currentBuild, changeCurrentBuild] = useState(initConfiguratorBuild)
-  console.log(currentBuild)
+ //? const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
+
+
   return (
     <div className={style.wrapper}>
       <Left className={style.left} />

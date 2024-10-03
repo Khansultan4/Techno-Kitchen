@@ -2,8 +2,11 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styles from './MyConfigsPage.module.css';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import StarsReadOnly from '../../components/StarsReadOnly/StarsReadOnly';
+import StarsReadOnly from '../../components/Stars/StarsReadOnly';
 import axiosInstance from '../../../axiosInstance';
+import { IBuild } from '../../types/types';
+import { initBuild } from '../../types/initStates';
+import InfoButton from '../../components/Buttons/InfoButton';
 export default function MyConfigsPage(): JSX.Element {
 
   const [entries, setEntries] = useState([]);

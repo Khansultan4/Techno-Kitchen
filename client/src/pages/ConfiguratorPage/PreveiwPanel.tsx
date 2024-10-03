@@ -1,11 +1,8 @@
 import { Box, TextField, Typography } from '@mui/material';
-import React from 'react';
 import styles from './styles.module.css';
-import { IConfiguratorBuild } from '../../types/types';
-import { initConfiguratorBuild } from '../../redux/initStates/initStates';
-const MUIstyles = {
-  bgcolor: 'background.paper',
-};
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { changeTitle } from '../../redux/slices/configuratorBuildSlice';
+
 
 export default function PreveiwPanel({
   className,
@@ -20,11 +17,16 @@ export default function PreveiwPanel({
         <img src="https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-305x171.jpg" />
         <TextField
           id="standard-size-normal"
-          value={currentBuild.title}
+          defaultValue={configuratorBuild.title}
           variant="standard"
-          onChange={}
-        />
-      </Box>
+          />
+         </Box>
+
+         <Box>
+          <Typography>
+            
+          </Typography>
+         </Box>
     </Box>
   );
 }
