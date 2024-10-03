@@ -7,20 +7,21 @@ import axiosInstance from '../../../axiosInstance';
 import { IBuild } from '../../types/types';
 import { initBuild } from '../../types/initStates';
 import InfoButton from '../../components/InfoButton/InfoButton';
+import { useAppSelector } from '../../redux/hooks';
 export default function MyConfigsPage(): JSX.Element {
 
   const [entries, setEntries] = useState <IBuild[]>([initBuild]);
-  
+  const {user} = useAppSelector((state) => state.user)
   useEffect(() => {
     axiosInstance
-      .get(`${import.meta.env.VITE_API}/build/all`)
+      .get(`${import.meta.env.VITE_API}/build/byuser/${user.id}`)
       .then((res) => {
         setEntries(res.data);
-        console.log('1245',res.data)
+        console.log('1245',id)
       })
       .catch((err) => console.error(err));
   }, []);
-  console.log('124',typeof entries[0]?.updatedAt);
+  console.log('124',user.id);
     
 
       // const rows = entries

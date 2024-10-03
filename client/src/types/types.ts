@@ -33,7 +33,7 @@ export interface IType {
 }
 
 export interface IConfiguratorBuild {
-  Owner: IUser;
+  UserId: number;  
   title: string;
   Items: IItem[];
   description: string;
@@ -46,6 +46,7 @@ export interface IBuild extends IConfiguratorBuild {
   createdAt: string;
   updatedAt: string;
   Comments: IComment[];
+  Owner: IUser;
 }
 
 export interface IRating {

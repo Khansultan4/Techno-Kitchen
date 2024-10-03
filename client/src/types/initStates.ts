@@ -64,5 +64,6 @@ export const initBuild: IBuild = {
   export const initConfiguratorBuild:IConfiguratorBuild = {
     UserId: 0,
     title: 'сборка',
-    description: 'в разработке'
+    description: 'в разработке',
+    Items: [initItem]
   }

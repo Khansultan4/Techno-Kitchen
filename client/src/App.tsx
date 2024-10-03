@@ -9,13 +9,14 @@ import Configurator from './pages/ConfiguratorPage/ConfiguratorPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import MyConfigsPage from './pages/MyConfigPage/MyConfigsPage';
 import ConfigPage from './pages/ConfigPage/ConfigPage';
+import ConfigsPage from './pages/ConfigsPage/ConfigsPage';
 
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUser);
+    dispatch(fetchUser());
   }, []);
 
   const router = createBrowserRouter([
@@ -30,6 +31,10 @@ function App() {
         {
           path: '/configurator',
           element: <Configurator />,
+        },
+        {
+          path: '/configs',
+          element: <ConfigsPage />,
         },
         {
           path: '/myConfigs',
