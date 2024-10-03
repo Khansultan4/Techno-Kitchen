@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography} from '@mui/material'
+import axiosInstance from '../../../axiosInstance'
+import {IItem} from '../../types/types'
+import { initItem } from '../../redux/initStates/initStates'
 export default function MainList({className}:{className:string}) {
+
+  const [comps, changeComps] = useState<IItem[]>([initItem])
+
+  useEffect(() => {
+    axiosInstance.get('/api/item/all').then((res) => changeComps(res.data))
+  }, [])
+  //!--------------------------------------------------------------------
+  console.log(1, comps)
+  console.log(2, comps[0].TypeId)
+  console.log(3, comps.filter((el) => el.TypeId === 1))
+  //!--------------------------------------------------------------------
   return (
     <div className={className}>
     <Typography >Видеокарта</Typography>
