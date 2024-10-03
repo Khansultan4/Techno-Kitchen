@@ -15,10 +15,10 @@ export type Error = {
 export type UserState = {
   user: IUser;
   loading: boolean;
-  error: Error;
+  error: unknown;
 };
 
-const initialState = {
+const initialState:UserState = {
   user: initUserState,
   loading: true,
   error: { message: '' },
