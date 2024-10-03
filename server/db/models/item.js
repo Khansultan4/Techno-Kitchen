@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 
         this.belongsToMany(Build, {
           through: { model: ItemBundle },
-          foreignKey: 'BuildId',
         });
     }
   }

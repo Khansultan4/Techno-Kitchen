@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance, { setAccessToken } from '../../axiosInstance';
-import { IUser, IAuth } from './types/stateTypes';
 import axios from 'axios';
+import { IAuth, IUser } from '../types/types';
 
 export const fetchUser = createAsyncThunk('user/get', async () => {
   const response = await axiosInstance.get<{

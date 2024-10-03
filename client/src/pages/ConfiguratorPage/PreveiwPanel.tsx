@@ -6,11 +6,13 @@ import { changeTitle } from '../../redux/slices/configuratorBuildSlice';
 
 export default function PreveiwPanel({
   className,
-  currentBuild,
 }: {
   className?: string;
-  currentBuild: IConfiguratorBuild;
 }) {
+
+  const dispatch = useAppDispatch()
+  const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
+
   return (
     <Box sx={{ bgcolor: 'background.paper' }} className={className}>
       <Box className={styles.imageWrapper}>

@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     
     static associate({User, Build}) {
-      this.belongsTo(User, {foreignKey: 'UserId'})
-      this.belongsTo(Build, {foreignKey: 'BuildId'})
+      this.belongsTo(User)
+      this.belongsTo(Build)
     }
   }
   Comment.init({

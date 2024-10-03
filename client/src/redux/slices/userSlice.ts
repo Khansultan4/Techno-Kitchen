@@ -1,3 +1,4 @@
+import { IUser } from '../../types/types';
 import { initUserState } from '../initStates/initStates';
 import {
   fetchLogoutUser,
@@ -5,7 +6,6 @@ import {
   fetchSignUpUser,
   fetchUser,
 } from '../thunkActions';
-import { IUser } from '../types/stateTypes';
 import { createSlice } from '@reduxjs/toolkit';
 
 export type Error = {
