@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate({Build}) {
-      this.belongsTo(Build, {foreignKey: 'BuildId'})
+      this.belongsTo(Build)
     }
   }
   ItemBundle.init(
