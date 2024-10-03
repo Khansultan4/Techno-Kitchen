@@ -4,80 +4,21 @@ import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
 //import { useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
-import { IItem } from '../../types/types';
+import { IRating, IBuild } from '../../types/types';
 
-interface Build {
-  id: number;
-  UserId: number;
-  image: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  Items: IItem[];
-  Ratings: Rating[];
-  Comments: Comment[];
-  Owner: User;
-}
-
-interface Item {
-  id: number;
-  title: string;
-  price: number;
-  specifications: object;
-  description: string;
-  image: string;
-  TypeId: number;
-  createdAt: Date;
-  updatedAt: Date;
-  ItemBundle: object;
-  Type: object;
-}
-
-interface Rating {
-  UserId: number;
-  BuildId: number;
-  score: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface Comment {
-  id: number;
-  UserId: number;
-  BuildId: number;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface User {
-  id: number;
-  login: string;
-  email: string;
-  password: string;
-  role: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
 export default function ConfigPage(): JSX.Element {
-  const [data, setData] = useState<Build | null>(null);
-  
-  const { id } = useParams()
+  const [data, setData] = useState<IBuild | null>(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      
-        try {
-          const response = await axiosInstance.get<Build>(
-            `${import.meta.env.VITE_API}/build/${id}`
-          );
-          setData(response.data);
-          
-          
-        } catch (error) {
-          console.log(error);
-        
+      try {
+        const response = await axiosInstance.get<IBuild>(
+          `${import.meta.env.VITE_API}/build/${id}`
+        );
+        setData(response.data);
+      } catch (error) {
+        console.log(error);
       }
     };
     fetchData();
@@ -103,7 +44,7 @@ export default function ConfigPage(): JSX.Element {
               {data?.title}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: 2 }}>
-            {data?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
+              {data?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
             </Typography>
             <Rating
               name="read-only"
@@ -118,9 +59,9 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-             {data?.Items.map(item => <li>
-              {item.Type.title}
-             </li>)}
+              {data?.Items.map((item) => (
+                <li>{item.Type.title}</li>
+              ))}
             </ul>
           </Typography>
         </Grid>
@@ -153,7 +94,7 @@ export default function ConfigPage(): JSX.Element {
   );
 }
 
-function calculateAverageRating(ratings: Rating[] | undefined): number {
+function calculateAverageRating(ratings: IRating[] | undefined): number {
   if (!ratings) return 0;
   const sum = ratings.reduce((acc, rating) => acc + rating.score, 0);
   return sum / ratings.length;
