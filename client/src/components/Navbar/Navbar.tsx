@@ -81,7 +81,7 @@ export default function Navbar(): JSX.Element {
                   </Button>
                 </NavLink>
               ) : (
-                <Button variant="contained" sx={{ ml: 2 }}>
+                <Button onClick={() => navigate('/myConfigs')} variant="contained" sx={{ ml: 2 }}>
                   Личный кабинет
                 </Button>
               )}
