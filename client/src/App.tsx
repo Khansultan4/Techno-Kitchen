@@ -7,6 +7,7 @@ import './app.css'
 import HomePage from "./pages/HomePage/HomePage";
 import Root from "./Root";
 import Configurator from "./pages/ConfiguratorPage/ConfiguratorPage";
+import MyConfigsPage from "./pages/MyConfigPage/MyConfigsPage";
 
 function App() {
   // const { user } = useAppSelector((state) => state.userSlice);
@@ -25,6 +26,9 @@ function App() {
         {
           path: "/configurator",
           element: <Configurator/>
+        },
+          path: "/myConfigs",
+          element: <MyConfigsPage/>
         }
       ],
     },
