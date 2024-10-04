@@ -20,4 +20,22 @@ router.get('/all', async (req, res) => {
   res.json(body);
 });
 
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const rawData = await Item.findOne({
+      where: { id },
+      include: {
+        model: Type,
+      },
+      order: [['id', 'ASC']],
+    });
+
+    res.json(rawData.get({ plain: true }));
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+});
+
 module.exports = router;

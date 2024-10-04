@@ -6,14 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ChangeEvent, useEffect, useState } from 'react';
-import axiosInstance from '../../../axiosInstance';
-import { IItem } from '../../types/types';
+import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+import { IItem, IType } from '../../types/types';
 
 import DropDown from './DropDown';
 import EditModal from './EditModal';
 import { Button, Pagination, Tooltip } from '@mui/material';
 import { DeleteForeverOutlined } from '@mui/icons-material';
+import axiosInstance from '../../../axiosInstance';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,9 +35,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function AdminTable() {
-  const [items, setItems] = useState<IItem[]>([]);
+type AdminTableProps = {
+  types: IType[];
+  items: IItem[];
+  setItems: Dispatch<SetStateAction<IItem[]>>;
+};
 
+export default function AdminTable({
+  types,
+  items,
+  setItems,
+}: AdminTableProps) {
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
 
@@ -52,13 +60,23 @@ export default function AdminTable() {
     page * rowsPerPage
   );
 
-  useEffect(() => {
-    axiosInstance
-      .get<IItem[]>(`${import.meta.env.VITE_API}/item/all`)
-      .then((res) => setItems(res.data));
-  }, []);
+  const onDeleteItem = async (id: number): Promise<void> => {
+    try {
+      if (confirm('Do you really want to delete this item?')) {
+        const response = await axiosInstance.delete(
+          `${import.meta.env.VITE_API}/admin/delete/${id}`
+        );
 
-  console.log(items);
+        if (response.status === 200) {
+          setItems((prev) =>
+            prev.filter((item) => item.id !== response.data.id)
+          );
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Paper>
@@ -110,12 +128,19 @@ export default function AdminTable() {
                 <StyledTableCell align="right">
                   <Tooltip title="Edit Item">
                     <div>
-                      <EditModal />
+                      <EditModal
+                        setItems={setItems}
+                        types={types}
+                        id={item.id}
+                      />
                     </div>
                   </Tooltip>
                   <Tooltip title="Delete this item">
                     <div>
-                      <Button sx={{ mt: '10px' }}>
+                      <Button
+                        onClick={() => onDeleteItem(item.id)}
+                        sx={{ mt: '10px' }}
+                      >
                         <DeleteForeverOutlined />
                       </Button>
                     </div>

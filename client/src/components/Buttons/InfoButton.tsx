@@ -8,7 +8,7 @@ const navigate: NavigateFunction = useNavigate();
   return (
     <Box sx={{ '& button': { m: 1 } }}>
       <div>
-        <Button onClick={() => navigate(`/Config/${id}`)} size="small">...</Button>
+        <Button onClick={() => navigate(`/Config/${id}`)} variant="contained" size="small">Подробнее</Button>
       </div>
     </Box>
   );
