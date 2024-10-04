@@ -9,10 +9,9 @@
   width: auto;
 }
 .button{
-  align-items: center;
-  font-size: 24px;
-  width: 20%;
-  margin-top: 5%;
-  margin-left: 40%;
-  background-color: hsl(74, 100%, 50%);
+  justify-content: center;
+  font-size: 40px;
+  margin-left: 45% ;
+  width: 30%;
+  height: 10%;
 }

@@ -26,8 +26,19 @@ export default function ConfigsPage(): JSX.Element {
       })
       .catch((err) => console.error(err));
   }, []);
+
   console.log('124',typeof entries[0]?.updatedAt);
-    
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
 
       // const rows = entries
       // const avergeScore = entries.reduce((acc,el) => acc + el, 0)/entries.length
@@ -64,7 +75,7 @@ export default function ConfigsPage(): JSX.Element {
                 {el.title}
                 </TableCell>
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
-               <TableCell>{el.updatedAt}</TableCell>
+               <TableCell>{formatDate(el.updatedAt)}</TableCell>
                <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
                <TableCell>  
                 <ConfigInfo id = {el.id} entries={el.Items}></ConfigInfo>

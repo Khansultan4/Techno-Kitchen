@@ -41,7 +41,7 @@ export default function ConfigModal({
             onClick={() => {
               navigate(`/configurator/${id}`);
             }}
-            sx={{ ml: 2 }}
+            sx={{ ml: 1 }}
             size="small"
           >
             Изменить

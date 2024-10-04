@@ -31,6 +31,19 @@ export default function MyConfigsPage(): JSX.Element {
       })
       .catch((err) => console.error(err));
   }, [user.id]);
+  
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
+
 
   console.log('2121', user.id);
 
@@ -72,7 +85,7 @@ export default function MyConfigsPage(): JSX.Element {
                 <TableCell>
                   {el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽
                 </TableCell>
-                <TableCell>{el.updatedAt}</TableCell>
+                <TableCell>{formatDate(el.updatedAt)}</TableCell>
                 <TableCell>
                   <StarsReadOnly
                     value={
