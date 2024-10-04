@@ -9,9 +9,10 @@ import { useAppSelector } from '../../redux/hooks';
 import Auth from '../../components/Auth/Auth';
 
 export default function ConfigPage(): JSX.Element {
-  const [data, setData] = useState<IBuild | null>(null);
+  const [build, setBuild] = useState<IBuild | null>(null);
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState<number | null>(null);
+  const [userNames, setUserNames] = useState<string[]>([])
   const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
 
@@ -21,13 +22,20 @@ export default function ConfigPage(): JSX.Element {
         const response = await axiosInstance.get<IBuild>(
           `${import.meta.env.VITE_API}/build/${id}`
         );
-        setData(response.data);
+        setBuild(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+  axiosInstance.get<string[]>(
+  `${import.meta.env.VITE_API}/users/logins`
+    ).then((res) => setUserNames(res.data))
+  }, [])
+
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +53,14 @@ export default function ConfigPage(): JSX.Element {
           score: rating,
         }
       );
-      console.log('Response:', response);
+      setBuild((prev) => {
+        const newPrev:IBuild = { ...(prev as IBuild) };
+        newPrev.Comments = newPrev.Comments || []
+        newPrev.Ratings = newPrev.Ratings || []
+        newPrev.Comments.push({content: comment, id: 0, UserId: user.id, BuildId: Number(id)})
+        newPrev.Ratings.push({UserId: user.id, BuildId: Number(id), score: rating, id: 0})
+        return newPrev
+  })
       setComment('');
       setRating(null);
     } catch (error) {
@@ -65,20 +80,21 @@ export default function ConfigPage(): JSX.Element {
             }}
           >
             <img
-              src={data?.image}
+              src={build?.image}
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <Typography variant="h3" sx={{ marginTop: 2 }}>
-              {data?.title}
+              {build?.title}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: 2 }}>
-              {data?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
+              {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
             </Typography>
             <Rating
               name="read-only"
-              value={calculateAverageRating(data?.Ratings)}
+              value={calculateAverageRating(build?.Ratings)}
               readOnly
+              precision={0.1}
             />
           </Box>
         </Grid>
@@ -88,7 +104,7 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-              {data?.Items.map((item) => (
+              {build?.Items.map((item) => (
                 <li key={item.Type.id}>{item.Type.title}</li>
               ))}
             </ul>
@@ -102,7 +118,7 @@ export default function ConfigPage(): JSX.Element {
             Описание
           </Typography>
           <Typography variant="h5" gutterBottom>
-            {data?.description}
+            {build?.description}
           </Typography>
         </Grid>
       </Grid>
@@ -113,12 +129,15 @@ export default function ConfigPage(): JSX.Element {
             Отзывы
           </Typography>
 
-          {data?.Comments.map((comment) => (
+          {build?.Comments.map((comment) => (
             <div key={comment.id}>
+        <Typography variant="h6" gutterBottom>
+          {userNames[comment.UserId] || 'Anonymous'}
+        </Typography>
               <StarsReadOnly
                 value={
                   (
-                    data.Ratings.find(
+                    build.Ratings.find(
                       (el) => el.UserId === comment.UserId
                     ) as IRating
                   )?.score
@@ -129,6 +148,8 @@ export default function ConfigPage(): JSX.Element {
               </Typography>
             </div>
           ))}
+
+          
 
           {user.id ? (
             <>
@@ -144,12 +165,12 @@ export default function ConfigPage(): JSX.Element {
                   onChange={(e) => setComment(e.target.value)}
                   fullWidth
                   margin="normal"
-                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
                 />
                 <Rating
                   name="comment-rating"
                   value={rating}
-                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
                   onChange={(event, newValue) => {
                     setRating(newValue);
                   }}
@@ -158,17 +179,20 @@ export default function ConfigPage(): JSX.Element {
                   variant="contained"
                   color="primary"
                   type="submit"
-                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
-                  onClick={() => console.log(rating)}
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
                 >
                   Отправить
                 </Button>
               </form>
             </>
           ) : (
-            <Typography variant="h5" gutterBottom>
-              Чтобы оставить отзыв, пожалуйста, авторизуйтесь <Auth />
+            
+            <Box sx={{ marginTop: 6, marginBottom: 2, display: 'flex', alignItems: 'center' }}>
+            <Typography variant="subtitle1" gutterBottom>
+              Чтобы оставить отзыв, пожалуйста, авторизуйтесь
             </Typography>
+            <Auth />
+          </Box>
           )}
         </Grid>
       </Grid>
