@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import FormModal from '../../ui/Modal';
 import ModifyForm from './ModifyForm';
-import { IType } from '../../types/types';
+import { IItem, IType } from '../../types/types';
 
 type AddItemProps = {
   types: IType[];
+  setItems: Dispatch<SetStateAction<IItem[]>>;
 };
 
-export default function AddItem({ types }: AddItemProps) {
+export default function AddItem({ types, setItems }: AddItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = (): void => setIsOpen(true);
   const handleClose = (): void => setIsOpen(false);
@@ -19,7 +20,7 @@ export default function AddItem({ types }: AddItemProps) {
       btnText="Add Item"
       variant="contained"
     >
-      <ModifyForm types={types} />
+      <ModifyForm setItems={setItems} types={types} />
     </FormModal>
   );
 }

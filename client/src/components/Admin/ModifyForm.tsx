@@ -5,20 +5,27 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { IType } from '../../types/types';
+import { IItem, IType } from '../../types/types';
 import { UploadFile } from '@mui/icons-material';
 import DynamicSpecificationForm from './DynamicSpecificationForm';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useState,
+} from 'react';
 import styles from './ModifyForm.module.css';
 import axiosInstance from '../../../axiosInstance';
 
 type ModifyFormProps = {
   types: IType[];
+  setItems: Dispatch<SetStateAction<IItem[]>>;
 };
 
 export type Specification = {
   key: string;
-  value: string;
+  value: string | unknown;
 };
 
 const VisuallyHiddenInput = styled('input')({
@@ -33,17 +40,15 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-export default function ModifyForm({ types }: ModifyFormProps) {
+export default function ModifyForm({ types, setItems }: ModifyFormProps) {
   const [inputs, setInputs] = useState({
     title: '',
     description: '',
     price: '',
   });
   const [typeId, setTypeID] = useState('1');
-  const [specsJson, setSpecsJson] = useState({});
   const [image, setImage] = useState<File | string>('');
   const [imagePreview, setImagePreview] = useState('');
-  const [specIsAdded, setSpecIsAdded] = useState(false);
 
   const handleTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setTypeID(e.target.value);
@@ -68,23 +73,14 @@ export default function ModifyForm({ types }: ModifyFormProps) {
 
   const handleSpecificationChange = (
     index: number,
-    event: ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
-    const { name, value } = event.target;
+    const { name, value } = (event as ChangeEvent<HTMLInputElement>).target;
     setSpecifications((prevSpecs) =>
       prevSpecs.map((spec, i) =>
         i === index ? { ...spec, [name]: value } : spec
       )
     );
-  };
-
-  const handleAddSpec = () => {
-    const formattedSpecifications = specifications.reduce((acc: any, spec) => {
-      acc[spec.key] = spec.value;
-      return acc;
-    }, {});
-    setSpecsJson(formattedSpecifications);
-    setSpecIsAdded(true);
   };
 
   const handleAddField = (): void => {
@@ -101,6 +97,10 @@ export default function ModifyForm({ types }: ModifyFormProps) {
     e: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
+    const formattedSpecifications = specifications.reduce((acc: any, spec) => {
+      acc[spec.key] = spec.value;
+      return acc;
+    }, {});
     const { title, description, price } = inputs;
     const formData = new FormData();
 
@@ -109,7 +109,7 @@ export default function ModifyForm({ types }: ModifyFormProps) {
     formData.append('price', price);
     formData.append('TypeId', typeId);
     if (image) formData.append('image', image);
-    formData.append('specifications', JSON.stringify(specsJson));
+    formData.append('specifications', JSON.stringify(formattedSpecifications));
 
     try {
       const response = await axiosInstance.post(
@@ -121,14 +121,13 @@ export default function ModifyForm({ types }: ModifyFormProps) {
           },
         }
       );
-      console.log(response.data);
+      setItems((prev) => [...prev, response.data]);
       if (response.status === 200) {
         setInputs({ title: '', description: '', price: '' });
         setImage('');
         setImagePreview('');
         setTypeID('1');
         setSpecifications([{ key: '', value: '' }]);
-        setSpecIsAdded(false);
         alert('Successfully added');
       }
     } catch (error) {
@@ -212,8 +211,6 @@ export default function ModifyForm({ types }: ModifyFormProps) {
         handleAddField={handleAddField}
         handleRemoveField={handleRemoveField}
         specifications={specifications}
-        handleAddSpec={handleAddSpec}
-        specIsAdded={specIsAdded}
       />
       <Button variant="contained" type="submit">
         Add Item
