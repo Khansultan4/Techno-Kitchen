@@ -28,6 +28,7 @@ const Input = styled('input')({
 });
 
 type InputWithLabelsProps = {
+  name: string;
   value: string;
   label: string;
   type: string;
@@ -36,6 +37,7 @@ type InputWithLabelsProps = {
 };
 
 export default function InputWithLabels({
+  name,
   value,
   label,
   type,
@@ -46,6 +48,7 @@ export default function InputWithLabels({
     <Wrapper>
       <Label>{label}</Label>
       <Input
+        name={name}
         type={type}
         value={value}
         onChange={onChangeHandler}

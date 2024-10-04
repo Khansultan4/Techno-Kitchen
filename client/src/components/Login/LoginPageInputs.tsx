@@ -56,6 +56,7 @@ export default function LoginPageInputs() {
         label="Email address"
         value={email}
         type="email"
+        name="email"
         onChangeHandler={emailChangeHandler}
         placeHolder="Type your email address"
       />
@@ -63,6 +64,7 @@ export default function LoginPageInputs() {
         label="Password"
         value={password}
         type="password"
+        name="password"
         onChangeHandler={passwordChangeHandler}
         placeHolder="Type your password"
       />

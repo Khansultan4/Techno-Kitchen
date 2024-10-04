@@ -15,7 +15,7 @@ function App() {
   const { user } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUser);
+    dispatch(fetchUser());
   }, []);
 
   const router = createBrowserRouter([
