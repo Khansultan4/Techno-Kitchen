@@ -6,10 +6,16 @@ import StarsReadOnly from '../../components/Stars/StarsReadOnly';
 import axiosInstance from '../../../axiosInstance';
 import { IBuild } from '../../types/types';
 import { initBuild } from '../../types/initStates';
-import InfoButton from '../../components/InfoButton/InfoButton';
+import InfoButton from '../../components/Buttons/InfoButton';
+import FormModal from '../../ui/Modal';
+import ConfigModal from '../../components/ConfigsModal/ConfigsModal';
+import ConfigInfo from '../../components/ConfigInfo/ConfigInfo';
 export default function ConfigsPage(): JSX.Element {
 
-  const [entries, setEntries] = useState <IBuild[]>([initBuild]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
+  const [entries, setEntries] = useState<IBuild[]>([initBuild]);
   
   useEffect(() => {
     axiosInstance
@@ -46,7 +52,9 @@ export default function ConfigsPage(): JSX.Element {
            </TableRow>
          </TableHead>
          <TableBody>
-           {entries.map((el) => (
+           {entries.map((el) => {
+            console.log('внутри map', el)
+            return (
              <TableRow
                key={el.title}
                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -58,9 +66,11 @@ export default function ConfigsPage(): JSX.Element {
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
                <TableCell>{el.updatedAt}</TableCell>
                <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
-               <TableCell> <InfoButton id={el.id}/></TableCell>
+               <TableCell>  
+                <ConfigInfo id = {el.id} entries={el.Items}></ConfigInfo>
+                </TableCell>
              </TableRow>
-           ))}
+           )})}
          </TableBody>
        </Table>
      </TableContainer>
