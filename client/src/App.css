@@ -1,13 +1,15 @@
 #root {
-
   margin: 0 auto;
 
 }
-
 .flex {
   display: flex;
 }
 
+body {
+  background-color: red;
+  height: 1000px;
+}
 
 @keyframes logo-spin {
   from {

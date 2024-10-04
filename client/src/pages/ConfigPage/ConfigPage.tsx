@@ -1,13 +1,18 @@
-import { Typography, Rating, Box } from '@mui/material';
+import { Typography, Rating, Box, TextField, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
-//import { useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { IRating, IBuild } from '../../types/types';
+import StarsReadOnly from '../../components/Stars/StarsReadOnly';
+import { useAppSelector } from '../../redux/hooks';
+import Auth from '../../components/Auth/Auth';
 
 export default function ConfigPage(): JSX.Element {
   const [data, setData] = useState<IBuild | null>(null);
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState<number | null>(null);
+  const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,6 +28,30 @@ export default function ConfigPage(): JSX.Element {
     };
     fetchData();
   }, [id]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!comment || rating === null || rating < 1 || rating > 5) {
+      alert('Invalid comment or rating');
+      return;
+    }
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API}/build/${id}/comments`,
+        {
+          UserId: user.id,
+          BuildId: id,
+          content: comment,
+          score: rating,
+        }
+      );
+      console.log('Response:', response);
+      setComment('');
+      setRating(null);
+    } catch (error) {
+      console.log('Error submitting comment or rating:', error);
+    }
+  };
 
   return (
     <div style={{ padding: 50 }}>
@@ -60,7 +89,7 @@ export default function ConfigPage(): JSX.Element {
           <Typography variant="h5" gutterBottom>
             <ul>
               {data?.Items.map((item) => (
-                <li>{item.Type.title}</li>
+                <li key={item.Type.id}>{item.Type.title}</li>
               ))}
             </ul>
           </Typography>
@@ -83,11 +112,64 @@ export default function ConfigPage(): JSX.Element {
           <Typography variant="h3" gutterBottom>
             Отзывы
           </Typography>
+
           {data?.Comments.map((comment) => (
-            <Typography variant="h5" gutterBottom key={comment.id}>
-              {comment.content}
-            </Typography>
+            <div key={comment.id}>
+              <StarsReadOnly
+                value={
+                  (
+                    data.Ratings.find(
+                      (el) => el.UserId === comment.UserId
+                    ) as IRating
+                  )?.score
+                }
+              />
+              <Typography variant="h5" gutterBottom key={comment.id}>
+                {comment.content}
+              </Typography>
+            </div>
           ))}
+
+          {user.id ? (
+            <>
+              <Typography variant="h5" gutterBottom>
+                Оставить отзыв:
+              </Typography>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  label="Ваш отзыв"
+                  multiline
+                  rows={4}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
+                />
+                <Rating
+                  name="comment-rating"
+                  value={rating}
+                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
+                  onChange={(event, newValue) => {
+                    setRating(newValue);
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={data?.Comments.some((el) => el.UserId === user.id)}
+                  onClick={() => console.log(rating)}
+                >
+                  Отправить
+                </Button>
+              </form>
+            </>
+          ) : (
+            <Typography variant="h5" gutterBottom>
+              Чтобы оставить отзыв, пожалуйста, авторизуйтесь <Auth />
+            </Typography>
+          )}
         </Grid>
       </Grid>
     </div>
