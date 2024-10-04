@@ -27,6 +27,7 @@ type FormModalProps = {
   handleClose: () => void;
   btnText: string | JSX.Element;
   variant?: 'text' | 'outlined' | 'contained';
+  size?: 'large' | 'medium' | 'small'
   id?: number;
 };
 
@@ -37,6 +38,7 @@ export default function FormModal({
   btnText,
   children,
   variant,
+  size,
   editModalOpen,
   id,
 }: FormModalProps) {
@@ -50,7 +52,7 @@ export default function FormModal({
   };
   return (
     <div>
-      <Button variant={variant} sx={{ ml: 2 }} onClick={onOpenModal}>
+      <Button size={size} variant={variant} sx={{ ml: 2 }} onClick={onOpenModal}>
         {btnText}
       </Button>
       <Modal
