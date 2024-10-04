@@ -1,7 +1,8 @@
 import { styled, alpha } from '@mui/material/styles';
-
 import SearchIcon from '@mui/icons-material/Search';
-import {InputBase} from '@mui/material'
+import { InputBase, List, ListItem, ListItemText, Paper } from '@mui/material';
+import { useState } from 'react';
+import axiosInstance from '../../../axiosInstance';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -33,7 +34,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
@@ -45,17 +45,49 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
 export default function Navsearch() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [results, setResults] = useState([]);
+
+  const handleSearch = async (e) => {
+    const val = e.target.value;
+    setSearchTerm(val);
+    
+    if (val.length > 2) {
+      try {
+        const res = await axiosInstance.get(`${import.meta.env.VITE_API}/build/search?query=${val}`);
+        setResults(res.data);
+      } catch (error) {
+        console.error(error);
+      } 
+    } else {
+      setResults([]); 
+    }
+  };
+console.log('111',results);
+
   return (
-    <Search>
-    <SearchIconWrapper>
-      <SearchIcon />
-    </SearchIconWrapper>
-    <StyledInputBase
-      placeholder="Search…"
-      inputProps={{ 'aria-label': 'search' }}
-    />
-  </Search>
-  )
+    <>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </Search>
+      <Paper style={{ maxHeight: 200, overflow: 'auto' }}>
+        <List>
+          {results.map((item) => (
+            <ListItem button key={item.id}>
+              <ListItemText primary={item.title} />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
+    </>
+  );
 }

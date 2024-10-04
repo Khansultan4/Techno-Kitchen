@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { Op } = require('sequelize');
 const { Build, Item, itemBundle, Type, Rating, Comment, User } = require("../../db/models");
 
 router.get("/all", async (req, res) => {
@@ -34,9 +35,50 @@ router.get("/all", async (req, res) => {
       res.sendStatus(400);
     }
   });
-
-
-
+  
+  
+  
+    router.get("/search", async (req, res) => {
+      const { query } = req.query; 
+      if (!query) {
+        return res.status(400).json({ message: "Search query cannot be empty" });
+      }
+      try {
+        const entries = await Build.findAll({
+          include: [
+            {
+              model: Item,
+              through: {model: itemBundle},
+              include: [{
+                model: Type
+              }]
+            },
+            {
+              model: Rating,
+            },
+            {
+              model: Comment,
+            },
+            {
+              model: User,
+              as: 'Owner'
+            }
+          ],
+          where: {
+            title: {
+              [Op.iLike]: `%${query}%`
+            }
+          },
+        });
+    
+        console.log(entries);
+        res.json(entries);
+      } catch (error) {
+        console.error(error);
+        res.sendStatus(400);
+      }
+    });
+  
   router.get("/:id", async (req, res) => {
     const {id} = req.params
     try {
@@ -106,8 +148,6 @@ router.get("/all", async (req, res) => {
       res.sendStatus(400);
     }
   });
-
-
 
 
 
