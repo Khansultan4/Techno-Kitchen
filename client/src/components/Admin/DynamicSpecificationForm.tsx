@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { Specification } from './ModifyForm';
-import { Add, Delete } from '@mui/icons-material';
+import { Add, Check, Delete } from '@mui/icons-material';
 
 type DynamicSpecificationFormProps = {
   handleAddField: () => void;
@@ -12,6 +12,7 @@ type DynamicSpecificationFormProps = {
   ) => void;
   specifications: Specification[];
   handleAddSpec: () => void;
+  specIsAdded: boolean;
 };
 
 export default function DynamicSpecificationForm({
@@ -20,6 +21,7 @@ export default function DynamicSpecificationForm({
   handleSpecificationChange,
   specifications,
   handleAddSpec,
+  specIsAdded,
 }: DynamicSpecificationFormProps) {
   return (
     <Box sx={{ border: '1px solid #b9bbbe', my: 2, p: 2 }}>
@@ -44,19 +46,34 @@ export default function DynamicSpecificationForm({
               size="small"
               sx={{ m: '5px' }}
             />
-            {spec.key && spec.value && (
-              <Button type="button" onClick={handleAddSpec}>
-                <Add />
+            {specIsAdded && (
+              <Box
+                sx={{
+                  ml: 1,
+                  height: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Check />
+              </Box>
+            )}
+            {!specIsAdded && (
+              <Button type="button" onClick={() => handleRemoveField(index)}>
+                <Delete />
               </Button>
             )}
-            <Button type="button" onClick={() => handleRemoveField(index)}>
-              <Delete />
-            </Button>
           </Box>
         ))}
-      <Button type="button" onClick={handleAddField}>
-        Add More Specification
-      </Button>
+      <Box>
+        <Button disabled={specIsAdded} type="button" onClick={handleAddField}>
+          Add More Specification
+        </Button>
+        <Button disabled={specIsAdded} type="button" onClick={handleAddSpec}>
+          Submit all Specifications
+        </Button>
+      </Box>
     </Box>
   );
 }

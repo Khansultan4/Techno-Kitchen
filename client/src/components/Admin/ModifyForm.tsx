@@ -43,6 +43,7 @@ export default function ModifyForm({ types }: ModifyFormProps) {
   const [specsJson, setSpecsJson] = useState({});
   const [image, setImage] = useState<File | string>('');
   const [imagePreview, setImagePreview] = useState('');
+  const [specIsAdded, setSpecIsAdded] = useState(false);
 
   const handleTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setTypeID(e.target.value);
@@ -83,7 +84,7 @@ export default function ModifyForm({ types }: ModifyFormProps) {
       return acc;
     }, {});
     setSpecsJson(formattedSpecifications);
-    alert('added');
+    setSpecIsAdded(true);
   };
 
   const handleAddField = (): void => {
@@ -127,6 +128,7 @@ export default function ModifyForm({ types }: ModifyFormProps) {
         setImagePreview('');
         setTypeID('1');
         setSpecifications([{ key: '', value: '' }]);
+        setSpecIsAdded(false);
         alert('Successfully added');
       }
     } catch (error) {
@@ -211,6 +213,7 @@ export default function ModifyForm({ types }: ModifyFormProps) {
         handleRemoveField={handleRemoveField}
         specifications={specifications}
         handleAddSpec={handleAddSpec}
+        specIsAdded={specIsAdded}
       />
       <Button variant="contained" type="submit">
         Add Item
