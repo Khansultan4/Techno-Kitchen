@@ -8,8 +8,12 @@ import { IBuild } from '../../types/types';
 import { initBuild } from '../../types/initStates';
 import InfoButton from '../../components/Buttons/InfoButton';
 import { useAppSelector } from '../../redux/hooks';
+import FormModal from '../../ui/Modal';
+import ModifyForm from '../../components/Admin/ModifyForm';
 export default function MyConfigsPage(): JSX.Element {
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleOpen = (): void => setIsOpen(true);
+  const handleClose = (): void => setIsOpen(false);
   const [entries, setEntries] = useState <IBuild[]>([initBuild]);
   const {user} = useAppSelector((state) => state.user)
   useEffect(() => {
@@ -59,7 +63,13 @@ export default function MyConfigsPage(): JSX.Element {
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
                <TableCell>{el.updatedAt}</TableCell>
                <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
-               <TableCell> <InfoButton id={el.id}/></TableCell>
+               <TableCell> <FormModal
+      isOpen={isOpen}
+      handleOpen={handleOpen}
+      handleClose={handleClose}
+      btnText="..."
+    >
+    </FormModal><InfoButton id={el.id}/></TableCell>
              </TableRow>
            ))}
          </TableBody>
