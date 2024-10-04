@@ -36,7 +36,9 @@ const userSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
-      state.user = action.payload;
+      if(action.payload) {
+        state.user = action.payload;
+      }
     });
     builder.addCase(fetchLogoutUser.fulfilled, (state) => {
       state.user = initUserState;

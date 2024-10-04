@@ -14,7 +14,6 @@ import ConfigsPage from './pages/ConfigsPage/ConfigsPage';
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
