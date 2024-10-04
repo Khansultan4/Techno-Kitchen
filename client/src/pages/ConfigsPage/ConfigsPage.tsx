@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styles from './ConfigsPage.module.css';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import StarsReadOnly from '../../components/StarsReadOnly/StarsReadOnly';
+import StarsReadOnly from '../../components/Stars/StarsReadOnly';
 import axiosInstance from '../../../axiosInstance';
 import { IBuild } from '../../types/types';
 import { initBuild } from '../../types/initStates';
