@@ -115,7 +115,7 @@ export default function AdminTable() {
                   </Tooltip>
                   <Tooltip title="Delete this item">
                     <div>
-                      <Button sx={{ mt: '10px' }} variant="contained">
+                      <Button sx={{ mt: '10px' }}>
                         <DeleteForeverOutlined />
                       </Button>
                     </div>

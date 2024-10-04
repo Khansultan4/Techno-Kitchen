@@ -17,6 +17,7 @@ export default function AddItem({ types }: AddItemProps) {
       handleOpen={handleOpen}
       handleClose={handleClose}
       btnText="Add Item"
+      variant="contained"
     >
       <ModifyForm types={types} />
     </FormModal>
