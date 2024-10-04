@@ -57,6 +57,9 @@ export default function AdminTable() {
       .get<IItem[]>(`${import.meta.env.VITE_API}/item/all`)
       .then((res) => setItems(res.data));
   }, []);
+
+  console.log(items);
+
   return (
     <Paper>
       <TableContainer sx={{ mb: '20px' }} component={Paper}>
@@ -82,7 +85,11 @@ export default function AdminTable() {
                   <img
                     width="80px"
                     height="80px"
-                    src={item.image}
+                    src={
+                      item.image.includes('uploads')
+                        ? `${import.meta.env.VITE_BASE_URL}${item.image}`
+                        : item.image
+                    }
                     alt="image"
                   />
                 </StyledTableCell>

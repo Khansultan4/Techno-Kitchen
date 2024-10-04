@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import FormModal from '../../ui/Modal';
+import ModifyForm from './ModifyForm';
+import { IType } from '../../types/types';
 
-export default function AddItem() {
+type AddItemProps = {
+  types: IType[];
+};
+
+export default function AddItem({ types }: AddItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = (): void => setIsOpen(true);
   const handleClose = (): void => setIsOpen(false);
@@ -12,7 +18,7 @@ export default function AddItem() {
       handleClose={handleClose}
       btnText="Add Item"
     >
-      hahaha
+      <ModifyForm types={types} />
     </FormModal>
   );
 }

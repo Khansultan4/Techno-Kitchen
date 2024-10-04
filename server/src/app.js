@@ -16,7 +16,9 @@ const corsConfig = {
   credentials: true,
 };
 
-const apiRouter = require("./routers/routers.api");
+const apiRouter = require('./routers/routers.api');
+
+app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));
 
 app.use(cors(corsConfig));
 app.use(cookieParser());
