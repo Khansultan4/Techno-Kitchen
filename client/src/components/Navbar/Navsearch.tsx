@@ -1,8 +1,11 @@
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { InputBase, List, ListItem, ListItemText, Paper } from '@mui/material';
+import { InputBase, Paper, Typography } from '@mui/material';
 import { useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Result } from '../../types/types';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -45,26 +48,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navsearch() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
+const ResultItem = styled('div')(({ theme }) => ({
+  padding: theme.spacing(1),
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.black, 0.05),
+  },
+}));
 
-  const handleSearch = async (e) => {
-    const val = e.target.value;
+export default function Navsearch() {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [results, setResults] = useState<Result[]>([]);
+  const navigate: NavigateFunction = useNavigate();
+
+  const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val: string = e.target.value;
     setSearchTerm(val);
-    
+
     if (val.length > 2) {
       try {
-        const res = await axiosInstance.get(`${import.meta.env.VITE_API}/build/search?query=${val}`);
+        const res = await axiosInstance.get<Result[]>(`${import.meta.env.VITE_API}/build/search?query=${val}`);
         setResults(res.data);
       } catch (error) {
         console.error(error);
-      } 
+      }
     } else {
-      setResults([]); 
+      setResults([]);
     }
   };
-console.log('111',results);
 
   return (
     <>
@@ -80,13 +91,17 @@ console.log('111',results);
         />
       </Search>
       <Paper style={{ maxHeight: 200, overflow: 'auto' }}>
-        <List>
-          {results.map((item) => (
-            <ListItem button key={item.id}>
-              <ListItemText primary={item.title} />
-            </ListItem>
-          ))}
-        </List>
+        {results.length > 0 ? (
+          results.map((item: Result) => (
+            <ResultItem key={item.id}>
+              <Typography onClick={() => navigate(`/Config/${item.id}`)} variant="body1">{item.title}</Typography>
+            </ResultItem>
+          ))
+        ) : (
+          <Typography variant="body1" style={{ padding: '16px', textAlign: 'center' }}>
+            Нет результатов
+          </Typography>
+        )}
       </Paper>
     </>
   );
