@@ -1,5 +1,6 @@
 import { CancelPresentation } from '@mui/icons-material';
-import { Backdrop, Box, Modal, Fade, Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Backdrop, Box, Modal, Fade, Button, IconButton } from '@mui/material';
 import { ReactNode } from 'react';
 
 const style = {
@@ -69,15 +70,18 @@ export default function FormModal({
       >
         <Fade in={isOpen}>
           <Box sx={style}>
-            <CancelPresentation
-              onClick={handleClose}
+            <IconButton
               sx={{
                 position: 'absolute',
-                top: '10px',
-                right: '10px',
+                top: '3px',
+                right: '3px',
                 cursor: 'pointer',
               }}
-            />
+              color="primary"
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
             {children}
           </Box>
         </Fade>

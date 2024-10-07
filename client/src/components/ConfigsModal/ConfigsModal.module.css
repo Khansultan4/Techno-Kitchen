@@ -6,4 +6,7 @@
 }
 .buttons{
     display: flex;
+    align-items: center;
+    margin-left: 29%;
+    margin-top: 35%;
 }

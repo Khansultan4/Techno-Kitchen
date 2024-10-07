@@ -79,3 +79,7 @@ export interface ISelectedItems {
   case: IItem;
   termo: IItem;
 }
+export interface Result {
+  id: number;
+  title: string;
+}
