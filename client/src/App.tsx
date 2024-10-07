@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import './App.css'
+import './App.css';
 import HomePage from './pages/HomePage/HomePage';
 import Root from './Root';
 import { fetchUser } from './redux/thunkActions';
@@ -16,7 +16,7 @@ function App() {
   const { user } = useAppSelector((state) => state.user);
   useEffect(() => {
     dispatch(fetchUser());
-  }, []);
+  }, [user.id]);
 
   const router = createBrowserRouter([
     {
