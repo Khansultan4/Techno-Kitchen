@@ -33,7 +33,8 @@ export default function Navbar(): JSX.Element {
     <Box sx={{ flexGrow: 1, position: 'fixed', width:'100vw', top: 0, zIndex:10 }}>
       <AppBar position="static">
         <Toolbar>
-          <img src="/tk3.png" height="40px" onClick={() => navigate('/')}></img>
+          <img                   src="/icons/computer.svg"
+                  style={{ width: '35px', height: 'auto', display: 'inline-block' }} onClick={() => navigate('/')}></img>
 
           <IconButton
             size="large"

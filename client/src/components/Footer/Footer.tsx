@@ -1,50 +1,42 @@
-import { Typography, Divider, Box, img,  } from '@mui/material';
+import { Typography, Divider, Box, img, Grid2 } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import styles from './Footer.module.css';
 
 export default function Footer(): JSX.Element {
   return (
-    <Box className={styles.footer} sx={{bgcolor: 'background.paper'}}>
+    <Box className={styles.footer} sx={{ bgcolor: 'background.paper' }}>
       <Divider />
       <div className={styles.footerContent}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 3 }}>
-           
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              px={3}
-            >
-              <Box mt={2}>
+              <Box sx={{my: 'auto', display:'flex', alignContent:'center', px:3, alignItems:"center", height:'100%'}}>
                 <img
-                  src="/tk3.png"
-                  style={{ maxWidth: '60%', height: 'auto' }}
+                  src="/icons/computer.svg"
+                  style={{ width: '50px', height: 'auto', display: 'inline-block' }}
                 />
-              </Box>
+                <Typography
+                  variant="body2"
+                  align="left"
+                  className={styles.copyright}
+                  sx={{ml: 1}}
+                >
+                  Copyright ©️2009-2024 <br/> TECHNO-KITCHEN
+                </Typography>
             </Box>
-            <Box mt={2}>
-              <Typography
-                variant="body2"
-                align="center"
-                className={styles.copyright}
-              >
-                Copyright ©️2009-2024 TECHNO-KITCHEN.
-              </Typography>
-            </Box>
+
           </Grid>
           <Grid size={{ xs: 12, md: 3 }}>
-           
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Модели
             </Typography>
-            <Box mt={2}>
-              {['Игровые компьютеры', 'Рабочие станции', 'Каталог'].map(
+            <Box mx={'auto'} width={'50%'}>
+              {['Игровые компьютеры', 'Рабочие станции', 'каталог'].map(
                 (item) => (
                   <Typography
                     key={item}
                     align="center"
                     style={{ color: 'white' }}
+                    variant='body2'
                   >
                     {item}
                   </Typography>
@@ -52,40 +44,41 @@ export default function Footer(): JSX.Element {
               )}
             </Box>
           </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
-            
+          <Grid size={{ xs: 12, md: 3}} sx={{maxWidth:'400px'}}>
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Категории
             </Typography>
-            <Box mt={2}>
+            <Grid container columnGap={1} sx={{justifyContent: 'space-evenly', }}>
               {[
                 'Процессоры',
                 'Видеокарты',
                 'Материнские платы',
                 'Оперативная память',
                 'SSD и HDD',
-                'Системы охлаждения',
+                'Охлаждение',
               ].map((item) => (
+                <Grid size={1}>
                 <Typography
                   key={item}
-                  align="center"
+                  align='right'
                   style={{ color: 'white' }}
-                >
+                  variant='body2'
+                  >
                   {item}
                 </Typography>
+                </Grid>
               ))}
-            </Box>
+            </Grid>
           </Grid>
           <Grid size={{ xs: 12, md: 3 }}>
-            
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Наши контакты
             </Typography>
-            <Box mt={2}>
-              <Typography align="center" style={{ color: 'white' }}>
+            <Box>
+              <Typography variant="body2" align="center" style={{ color: 'white' }}>
                 8 (800) 000 00-00
               </Typography>
-              <Typography align="center" style={{ color: 'white' }}>
+              <Typography variant="body2" align="center" style={{ color: 'white' }}>
                 г. Волково, ул. Фантазийная, д.123
               </Typography>
             </Box>

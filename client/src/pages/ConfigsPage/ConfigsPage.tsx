@@ -26,8 +26,19 @@ export default function ConfigsPage(): JSX.Element {
       })
       .catch((err) => console.error(err));
   }, []);
+
   console.log('124',typeof entries[0]?.updatedAt);
-    
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
 
       // const rows = entries
       // const avergeScore = entries.reduce((acc,el) => acc + el, 0)/entries.length
@@ -40,8 +51,10 @@ export default function ConfigsPage(): JSX.Element {
     return (
        <div >
         <Typography textAlign={'center'} className={styles.wrapper} variant="h3" component="h2">Конфигурации</Typography>
-     <TableContainer className={styles.table} sx={{ maxWidth: 1200 }} component={Paper}>
-       <Table  size="small" aria-label="a dense table">
+        <Paper  sx={{ maxWidth: 1200, margin: 'auto' }}>
+
+        <TableContainer className={styles.table} sx={{ width: '98%', margin: 'auto' }} >
+       <Table  size="medium" aria-label="a dense table">
          <TableHead>
            <TableRow>
              <TableCell>Название</TableCell>
@@ -60,11 +73,13 @@ export default function ConfigsPage(): JSX.Element {
                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
              >
                <TableCell >
-                <img src={el.image} height='30px'></img>
+                <div>
                 {el.title}
+                </div>
+                <img src={el.image} height='40px'></img>
                 </TableCell>
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
-               <TableCell>{el.updatedAt}</TableCell>
+               <TableCell>{formatDate(el.updatedAt)}</TableCell>
                <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
                <TableCell>  
                 <ConfigInfo id = {el.id} entries={el.Items}></ConfigInfo>
@@ -74,6 +89,7 @@ export default function ConfigsPage(): JSX.Element {
          </TableBody>
        </Table>
      </TableContainer>
+        </Paper>
      </div>
      )
  }
