@@ -39,12 +39,12 @@ export default function MainList({ className }: { className: string }) {
 
   return (
     <div className={className}>
-      <RadioItemsList items={CPUs} type='several' />
+      <RadioItemsList items={CPUs}/>
       <RadioItemsList items={GPUs} />
       <RadioItemsList items={motherboards} />
-      <RadioItemsList items={RAMs} />
-      <RadioItemsList items={SSDs} />
-      <RadioItemsList items={cooling} />
+      <RadioItemsList items={RAMs} type='several' />
+      <RadioItemsList items={SSDs} type='several' />
+      <RadioItemsList items={cooling} type='several' />
       <RadioItemsList items={HDDs} type='several'/>
       <RadioItemsList items={powerUnits} />
       <RadioItemsList items={cases} />

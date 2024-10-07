@@ -1,10 +1,8 @@
 import { Box, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { changeTitle } from '../../redux/slices/configuratorBuildSlice';
+import { useAppSelector } from '../../redux/hooks';
 
 export default function PreveiwPanel({ className }: { className?: string }) {
-  const dispatch = useAppDispatch();
   const { selectedItems, configuratorBuild } = useAppSelector(
     (state) => state.configuratorBuild
   );
@@ -34,23 +32,35 @@ export default function PreveiwPanel({ className }: { className?: string }) {
       </Box>
       <Box>
         <Typography>Оперативная память:</Typography>
-        {/* {selectedItems.RAM.map((el) => {console.log(el);return null})} */}
+        {selectedItems.RAM.map((el) =>  (
+          <Typography key={el.id}>
+            {el.title}
+          </Typography>
+        ))}
       </Box>
       <Box>
         <Typography>SSD накопитель:</Typography>
-        {/* {selectedItems.SSD.map((el) => (
-          <Typography>{el.title}</Typography>
-        ))} */}
+        {selectedItems.SSD.map((el) =>  (
+          <Typography key={el.id}>
+            {el.title}
+          </Typography>
+        ))}
       </Box>
       <Box>
         <Typography>Система охлаждения:</Typography>
-        {/* {selectedItems.cooling.map((el) => (
-          <Typography>{el.title}</Typography>
-        ))} */}
+        {selectedItems.cooling.map((el) =>  (
+          <Typography key={el.id}>
+            {el.title}
+          </Typography>
+        ))}
       </Box>
       <Box>
         <Typography>Жесткий диск:</Typography>
-        {/* <Typography>{selectedItems.HHD.title}</Typography> */}
+        {selectedItems.HHD.map((el) =>  (
+          <Typography key={el.id}>
+            {el.title}
+          </Typography>
+        ))}
       </Box>
       <Box>
         <Typography>Блок питания:</Typography>

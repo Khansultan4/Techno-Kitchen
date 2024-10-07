@@ -1,5 +1,5 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
-import { initConfiguratorBuild, initItem, initSelectedItems } from "../../types/initStates";
+import { initConfiguratorBuild, initSelectedItems } from "../../types/initStates";
 import { IConfiguratorBuild, IItem, ISelectedItems } from "../../types/types";
 
 export type configuratorBuildState = {
@@ -78,7 +78,7 @@ export type configuratorBuildState = {
           }
         }
     },
-    extraReducers: (builder) => {
+    extraReducers: () => {
     },
   })
 

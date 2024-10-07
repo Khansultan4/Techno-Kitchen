@@ -1,7 +1,6 @@
 import {
   Box,
   Checkbox,
-  FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -78,14 +77,11 @@ export default memo(function RadioItemsList({
             ref={form}
             name="Group"
             onChange={() => {
-              dispatch(changeSeveralSelectedImes(severalSelectHandler(el)));
+              dispatch(changeSeveralSelectedImes(severalSelectHandler()));
             }}
           >
-            <p>test</p>
-            <button type="button" onClick={() => testHandler()}>
-              console.log
-            </button>
-            {items.map((el, i) => {
+            <RadioGroup>
+            {items.map((el) => {
               return (
                 <FormControlLabel
                   key={el.id}
@@ -104,6 +100,7 @@ export default memo(function RadioItemsList({
                 />
               );
             })}
+            </RadioGroup>
           </form>
         )}
       </Box>
