@@ -6,7 +6,6 @@ import axiosInstance from '../../../axiosInstance';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { Result } from '../../types/types';
 
-
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -34,17 +33,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
-  width: '100%',
+  width: '200px',
+  height: '40px', 
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
   },
 }));
 
@@ -54,6 +48,12 @@ const ResultItem = styled('div')(({ theme }) => ({
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.black, 0.05),
   },
+  maxHeight: 150,
+  marginLeft:'15px',
+  height: '40px', 
+  width: '200px',
+  display: 'flex',  
+  alignItems: 'center', 
 }));
 
 export default function Navsearch() {
@@ -67,7 +67,9 @@ export default function Navsearch() {
 
     if (val.length > 2) {
       try {
-        const res = await axiosInstance.get<Result[]>(`${import.meta.env.VITE_API}/build/search?query=${val}`);
+        const res = await axiosInstance.get<Result[]>(
+          `${import.meta.env.VITE_API}/build/search?query=${val}`
+        );
         setResults(res.data);
       } catch (error) {
         console.error(error);
@@ -79,30 +81,31 @@ export default function Navsearch() {
 
   return (
     <>
+    <div>
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
+          placeholder="Поиск сборок…"
           inputProps={{ 'aria-label': 'search' }}
           value={searchTerm}
           onChange={handleSearch}
         />
       </Search>
-      <Paper style={{ maxHeight: 200, overflow: 'auto' }}>
-        {results.length > 0 ? (
-          results.map((item: Result) => (
-            <ResultItem key={item.id}>
-              <Typography onClick={() => navigate(`/Config/${item.id}`)} variant="body1">{item.title}</Typography>
-            </ResultItem>
-          ))
-        ) : (
-          <Typography variant="body1" style={{ padding: '16px', textAlign: 'center' }}>
-            Нет результатов
-          </Typography>
-        )}
+      <Paper style={{ position:'fixed', maxWidth: 1500,maxHeight: 1000, overflow: 'auto' }}>
+        {results.map((item: Result) => (
+          <ResultItem key={item.id}>
+            <Typography
+              onClick={() => navigate(`/Config/${item.id}`)}
+              variant="body1"
+            >
+              {item.title}
+            </Typography>
+          </ResultItem>
+        ))}
       </Paper>
+      </div>
     </>
   );
 }
