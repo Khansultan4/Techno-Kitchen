@@ -34,35 +34,35 @@ export default function PreveiwPanel({ className }: { className?: string }) {
       </Box>
       <Box>
         <Typography>Оперативная память:</Typography>
-        {selectedItems.RAM.map((el) => {console.log(el);return null})}
+        {/* {selectedItems.RAM.map((el) => {console.log(el);return null})} */}
       </Box>
       <Box>
         <Typography>SSD накопитель:</Typography>
-        {selectedItems.SSD.map((el) => (
+        {/* {selectedItems.SSD.map((el) => (
           <Typography>{el.title}</Typography>
-        ))}
+        ))} */}
       </Box>
       <Box>
         <Typography>Система охлаждения:</Typography>
-        {selectedItems.cooling.map((el) => (
+        {/* {selectedItems.cooling.map((el) => (
           <Typography>{el.title}</Typography>
-        ))}
+        ))} */}
       </Box>
       <Box>
         <Typography>Жесткий диск:</Typography>
-        <Typography>{selectedItems.CPU.title}</Typography>
+        <Typography>{selectedItems.HHD.title}</Typography>
       </Box>
       <Box>
         <Typography>Блок питания:</Typography>
-        <Typography>{selectedItems.CPU.title}</Typography>
+        <Typography>{selectedItems.power.title}</Typography>
       </Box>
       <Box>
         <Typography>Корпус:</Typography>
-        <Typography>{selectedItems.CPU.title}</Typography>
+        <Typography>{selectedItems.case.title}</Typography>
       </Box>
       <Box>
         <Typography>Термоинтерфейс:</Typography>
-        <Typography>{selectedItems.CPU.title}</Typography>
+        <Typography>{selectedItems.termo.title}</Typography>
       </Box>
     </Box>
   );
