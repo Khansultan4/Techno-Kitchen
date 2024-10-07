@@ -82,16 +82,18 @@ export default memo(function RadioItemsList({
           >
             <RadioGroup>
             {items.map((el) => {
+              const RadioElement = ({checked}:{checked: boolean}) => <Radio checked={checked} name={String(el.id)} />
               return (
                 <FormControlLabel
                   key={el.id}
                   label={el.title}
                   name="Radio"
+                  className='curt'
                   control={
                     <Checkbox
-                      icon={<Radio checked={false} name={String(el.id)} />}
+                         icon={<RadioElement checked={false}/> }
                       checkedIcon={
-                        <Radio checked={true} name={String(el.id)} />
+                        <RadioElement checked={true}/> 
                       }
                       key={el.id}
                       value={el.id}

@@ -1,11 +1,18 @@
-import { Box, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { changeItems } from '../../redux/slices/configuratorBuildSlice';
 
 export default function PreveiwPanel({ className }: { className?: string }) {
+  const dispatch = useAppDispatch();
   const { selectedItems, configuratorBuild } = useAppSelector(
     (state) => state.configuratorBuild
   );
+
+  const submitHandler = () => {
+    console.log(Object.values(selectedItems));
+    dispatch(changeItems(Object.values(selectedItems)))
+  };
 
   return (
     <Box sx={{ bgcolor: 'background.paper' }} className={className}>
@@ -32,34 +39,26 @@ export default function PreveiwPanel({ className }: { className?: string }) {
       </Box>
       <Box>
         <Typography>Оперативная память:</Typography>
-        {selectedItems.RAM.map((el) =>  (
-          <Typography key={el.id}>
-            {el.title}
-          </Typography>
+        {selectedItems.RAM.map((el) => (
+          <Typography key={el.id}>{el.title}</Typography>
         ))}
       </Box>
       <Box>
         <Typography>SSD накопитель:</Typography>
-        {selectedItems.SSD.map((el) =>  (
-          <Typography key={el.id}>
-            {el.title}
-          </Typography>
+        {selectedItems.SSD.map((el) => (
+          <Typography key={el.id}>{el.title}</Typography>
         ))}
       </Box>
       <Box>
         <Typography>Система охлаждения:</Typography>
-        {selectedItems.cooling.map((el) =>  (
-          <Typography key={el.id}>
-            {el.title}
-          </Typography>
+        {selectedItems.cooling.map((el) => (
+          <Typography key={el.id}>{el.title}</Typography>
         ))}
       </Box>
       <Box>
         <Typography>Жесткий диск:</Typography>
-        {selectedItems.HHD.map((el) =>  (
-          <Typography key={el.id}>
-            {el.title}
-          </Typography>
+        {selectedItems.HHD.map((el) => (
+          <Typography key={el.id}>{el.title}</Typography>
         ))}
       </Box>
       <Box>
@@ -74,6 +73,10 @@ export default function PreveiwPanel({ className }: { className?: string }) {
         <Typography>Термоинтерфейс:</Typography>
         <Typography>{selectedItems.termo.title}</Typography>
       </Box>
+      <Button variant="contained" sx={{ marginTop: '40px' }}
+      onClick={submitHandler}>
+        Сохранить
+      </Button>
     </Box>
   );
 }
