@@ -9,8 +9,7 @@ export default function Footer(): JSX.Element {
       <div className={styles.footerContent}>
         <Grid container spacing={2}>
           <Grid size={{ xs: 12, md: 3 }}>
-
-              <Box sx={{mt: 2, display:'flex', alignContent:'center', px:3, alignItems:"center"}}>
+              <Box sx={{my: 'auto', display:'flex', alignContent:'center', px:3, alignItems:"center", height:'100%'}}>
                 <img
                   src="/icons/computer.svg"
                   style={{ width: '50px', height: 'auto', display: 'inline-block' }}
@@ -23,16 +22,15 @@ export default function Footer(): JSX.Element {
                 >
                   Copyright ©️2009-2024 <br/> TECHNO-KITCHEN
                 </Typography>
-
             </Box>
-            <Box mt={2}></Box>
+
           </Grid>
           <Grid size={{ xs: 12, md: 3 }}>
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Модели
             </Typography>
-            <Box mt={2} mx={'auto'} width={'50%'}>
-              {['Игровые компьютеры', 'Рабочие станции', 'Каталог'].map(
+            <Box mx={'auto'} width={'50%'}>
+              {['Игровые компьютеры', 'Рабочие станции', 'каталог'].map(
                 (item) => (
                   <Typography
                     key={item}
@@ -46,11 +44,11 @@ export default function Footer(): JSX.Element {
               )}
             </Box>
           </Grid>
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid size={{ xs: 12, md: 3}} sx={{maxWidth:'400px'}}>
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Категории
             </Typography>
-            <Grid mt={1} container columnGap={1} sx={{justifyContent: 'space-evenly'}}>
+            <Grid container columnGap={1} sx={{justifyContent: 'space-evenly', }}>
               {[
                 'Процессоры',
                 'Видеокарты',
@@ -76,11 +74,11 @@ export default function Footer(): JSX.Element {
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Наши контакты
             </Typography>
-            <Box mt={2}>
-              <Typography align="center" style={{ color: 'white' }}>
+            <Box>
+              <Typography variant="body2" align="center" style={{ color: 'white' }}>
                 8 (800) 000 00-00
               </Typography>
-              <Typography align="center" style={{ color: 'white' }}>
+              <Typography variant="body2" align="center" style={{ color: 'white' }}>
                 г. Волково, ул. Фантазийная, д.123
               </Typography>
             </Box>
