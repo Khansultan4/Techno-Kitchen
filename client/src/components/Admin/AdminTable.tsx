@@ -8,10 +8,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { IItem, IType } from '../../types/types';
-
+import ArticleIcon from '@mui/icons-material/Article';
 import DropDown from './DropDown';
 import EditModal from './EditModal';
-import { Button, Pagination, Tooltip } from '@mui/material';
+import { Box, Button, Pagination, Tooltip } from '@mui/material';
 import { DeleteForeverOutlined } from '@mui/icons-material';
 import axiosInstance from '../../../axiosInstance';
 
@@ -19,6 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    fontSize: 20
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -84,13 +85,13 @@ export default function AdminTable({
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>image</StyledTableCell>
-              <StyledTableCell align="center">Title</StyledTableCell>
-              <StyledTableCell align="center">Description</StyledTableCell>
-              <StyledTableCell align="center">Specifications</StyledTableCell>
-              <StyledTableCell align="center">Price</StyledTableCell>
-              <StyledTableCell align="right">Modify</StyledTableCell>
+              <StyledTableCell>№</StyledTableCell>
+              <StyledTableCell>Изображение</StyledTableCell>
+              <StyledTableCell align="left">Описание</StyledTableCell>
+              <StyledTableCell align="left">Наименование</StyledTableCell>
+              <StyledTableCell align="left">Спецификации</StyledTableCell>
+              <StyledTableCell align="left">Цена</StyledTableCell>
+              <StyledTableCell align="right">Инструменты</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,20 +112,20 @@ export default function AdminTable({
                     alt="image"
                   />
                 </StyledTableCell>
-                <StyledTableCell align="center">{item.title}</StyledTableCell>
-                <StyledTableCell align="center">
+                <StyledTableCell align="left" sx={{minWidth: '100px', maxWidth: '350px'}} >
                   <Tooltip title={item.description} placement="top" arrow>
-                    <div>
-                      {item.description.length > 20
+                    <Box color='text.secondary'>
+                      {item.description.length > 500
                         ? item.description.slice(0, 21) + '...'
                         : item.description}
-                    </div>
+                    </Box>
                   </Tooltip>
                 </StyledTableCell>
+                  <StyledTableCell align="left">{item.title}</StyledTableCell>
                 <StyledTableCell align="center">
                   <DropDown specifications={item.specifications} />
                 </StyledTableCell>
-                <StyledTableCell align="center">{item.price}</StyledTableCell>
+                <StyledTableCell align="left">{item.price}</StyledTableCell>
                 <StyledTableCell align="right">
                   <Tooltip title="Edit Item">
                     <div>
