@@ -10,22 +10,26 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 600,
   minHeight: 400,
+  maxHeight: 600,
   bgcolor: '#36393f',
   borderRadius: '10px',
   boxShadow: 24,
   padding: '25px',
   display: 'flex',
   flexDirection: 'column',
+  overflowY: 'auto',
 };
 
 type FormModalProps = {
   children: ReactNode;
   isOpen: boolean;
-  handleOpen: () => void;
+  handleOpen?: () => void;
+  editModalOpen?: (id: number) => Promise<void>;
   handleClose: () => void;
   btnText: string | JSX.Element;
   variant?: 'text' | 'outlined' | 'contained';
   size?: 'large' | 'medium' | 'small';
+  id?: number;
 };
 
 export default function FormModal({
@@ -36,14 +40,24 @@ export default function FormModal({
   children,
   variant,
   size,
+  editModalOpen,
+  id,
 }: FormModalProps) {
-  console.log('Modal is opened');
+  const onOpenModal = () => {
+    if (id && editModalOpen) {
+      editModalOpen(id);
+    }
+    if (handleOpen) {
+      handleOpen();
+    }
+  };
   return (
     <div>
-      <Button size={size} variant={variant} sx={{ ml: 2 }} onClick={handleOpen}>
+      <Button size={size} variant={variant} sx={{ ml: 2 }} onClick={onOpenModal}>
         {btnText}
       </Button>
       <Modal
+        disableScrollLock={true}
         open={isOpen}
         onClose={handleClose}
         closeAfterTransition

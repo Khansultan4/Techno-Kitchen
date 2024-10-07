@@ -8,14 +8,27 @@ import {
 } from '@mui/material';
 import { IItem } from '../../types/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
+import { changeSelectedItems, changeItems } from '../../redux/slices/configuratorBuildSlice';
 
-export default function RadioItemsList({type = 'single', items}: {type?: 'single' | 'several', items: Array<IItem>}):JSX.Element {
-  const dispatch = useAppDispatch()
-  const {selectedItems} = useAppSelector((state) => state.configuratorBuild)
-  const form = useRef()
+export default memo(function RadioItemsList({
+  type = 'single',
+  items,
+}: {
+  type?: 'single' | 'several';
+  items: Array<IItem>;
+}): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { selectedItems } = useAppSelector((state) => state.configuratorBuild);
+
+  const testHandler = () => {
+    console.log(selectedItems)
+  }
+
+  const form = useRef<HTMLFormElement | null>(null);
   return (
     <Box>
+      <button onClick={()=> testHandler()}>click</button>
       <Typography>{items[0]?.Type.title}</Typography>
       <Box
         sx={{
@@ -24,7 +37,8 @@ export default function RadioItemsList({type = 'single', items}: {type?: 'single
           margin: '20px',
         }}
       >
-        <FormControl id="Form">
+        <div></div>
+        <form id="Form" ref={form}>
           <RadioGroup name="Group">
             {items.map((el) => (
               <FormControlLabel
@@ -32,12 +46,13 @@ export default function RadioItemsList({type = 'single', items}: {type?: 'single
                 value={el.id}
                 control={<Radio />}
                 label={el.title}
-                onSelect={() => console.log(123)}
+                onClick={() => dispatch(changeSelectedItems(el))}
               />
             ))}
           </RadioGroup>
-        </FormControl>
+        </form>
       </Box>
     </Box>
   );
 }
+)

@@ -1,6 +1,6 @@
 export interface IUser {
   id: number;
-  username: string;
+  login: string;
   email: string;
   role: string;
 }
@@ -54,8 +54,8 @@ export interface IRating {
   score: number;
   UserId: number;
   BuildId: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IComment {
@@ -63,8 +63,8 @@ export interface IComment {
   UserId: number;
   BuildId: number;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ISelectedItems {

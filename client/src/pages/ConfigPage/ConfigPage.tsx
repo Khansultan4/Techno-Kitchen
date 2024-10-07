@@ -1,13 +1,19 @@
-import { Typography, Rating, Box } from '@mui/material';
+import { Typography, Rating, Box, TextField, Button } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
-//import { useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { IRating, IBuild } from '../../types/types';
+import StarsReadOnly from '../../components/Stars/StarsReadOnly';
+import { useAppSelector } from '../../redux/hooks';
+import Auth from '../../components/Auth/Auth';
 
 export default function ConfigPage(): JSX.Element {
-  const [data, setData] = useState<IBuild | null>(null);
+  const [build, setBuild] = useState<IBuild | null>(null);
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState<number | null>(null);
+  const [userNames, setUserNames] = useState<string[]>([])
+  const { user } = useAppSelector((state) => state.user);
   const { id } = useParams();
 
   useEffect(() => {
@@ -16,13 +22,51 @@ export default function ConfigPage(): JSX.Element {
         const response = await axiosInstance.get<IBuild>(
           `${import.meta.env.VITE_API}/build/${id}`
         );
-        setData(response.data);
+        setBuild(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+  axiosInstance.get<string[]>(
+  `${import.meta.env.VITE_API}/users/logins`
+    ).then((res) => setUserNames(res.data))
+  }, [])
+
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!comment || rating === null || rating < 1 || rating > 5) {
+      alert('Invalid comment or rating');
+      return;
+    }
+    try {
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API}/build/${id}/comments`,
+        {
+          UserId: user.id,
+          BuildId: id,
+          content: comment,
+          score: rating,
+        }
+      );
+      setBuild((prev) => {
+        const newPrev:IBuild = { ...(prev as IBuild) };
+        newPrev.Comments = newPrev.Comments || []
+        newPrev.Ratings = newPrev.Ratings || []
+        newPrev.Comments.push({content: comment, id: 0, UserId: user.id, BuildId: Number(id)})
+        newPrev.Ratings.push({UserId: user.id, BuildId: Number(id), score: rating, id: 0})
+        return newPrev
+  })
+      setComment('');
+      setRating(null);
+    } catch (error) {
+      console.log('Error submitting comment or rating:', error);
+    }
+  };
 
   return (
     <div style={{ padding: 50 }}>
@@ -36,20 +80,21 @@ export default function ConfigPage(): JSX.Element {
             }}
           >
             <img
-              src={data?.image}
+              src={build?.image}
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <Typography variant="h3" sx={{ marginTop: 2 }}>
-              {data?.title}
+              {build?.title}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: 2 }}>
-              {data?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
+              {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
             </Typography>
             <Rating
               name="read-only"
-              value={calculateAverageRating(data?.Ratings)}
+              value={calculateAverageRating(build?.Ratings)}
               readOnly
+              precision={0.1}
             />
           </Box>
         </Grid>
@@ -59,8 +104,8 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
           <Typography variant="h5" gutterBottom>
             <ul>
-              {data?.Items.map((item) => (
-                <li>{item.Type.title}</li>
+              {build?.Items.map((item) => (
+                <li key={item.Type.id}>{item.Type.title}</li>
               ))}
             </ul>
           </Typography>
@@ -73,7 +118,7 @@ export default function ConfigPage(): JSX.Element {
             Описание
           </Typography>
           <Typography variant="h5" gutterBottom>
-            {data?.description}
+            {build?.description}
           </Typography>
         </Grid>
       </Grid>
@@ -83,11 +128,72 @@ export default function ConfigPage(): JSX.Element {
           <Typography variant="h3" gutterBottom>
             Отзывы
           </Typography>
-          {data?.Comments.map((comment) => (
-            <Typography variant="h5" gutterBottom key={comment.id}>
-              {comment.content}
-            </Typography>
+
+          {build?.Comments.map((comment) => (
+            <div key={comment.id}>
+        <Typography variant="h6" gutterBottom>
+          {userNames[comment.UserId] || 'Anonymous'}
+        </Typography>
+              <StarsReadOnly
+                value={
+                  (
+                    build.Ratings.find(
+                      (el) => el.UserId === comment.UserId
+                    ) as IRating
+                  )?.score
+                }
+              />
+              <Typography variant="h5" gutterBottom key={comment.id}>
+                {comment.content}
+              </Typography>
+            </div>
           ))}
+
+          
+
+          {user.id ? (
+            <>
+              <Typography variant="h5" gutterBottom>
+                Оставить отзыв:
+              </Typography>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  label="Ваш отзыв"
+                  multiline
+                  rows={4}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  fullWidth
+                  margin="normal"
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
+                />
+                <Rating
+                  name="comment-rating"
+                  value={rating}
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
+                  onChange={(event, newValue) => {
+                    setRating(newValue);
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={build?.Comments.some((el) => el.UserId === user.id)}
+                >
+                  Отправить
+                </Button>
+              </form>
+            </>
+          ) : (
+            
+            <Box sx={{ marginTop: 6, marginBottom: 2, display: 'flex', alignItems: 'center' }}>
+            <Typography variant="subtitle1" gutterBottom>
+              Чтобы оставить отзыв, пожалуйста, авторизуйтесь
+            </Typography>
+            <Auth />
+          </Box>
+          )}
         </Grid>
       </Grid>
     </div>
