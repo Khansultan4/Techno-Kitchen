@@ -14,13 +14,13 @@ module.exports = {
           role: 'admin',
         },
         {
-          login: '111',
+          login: 'Александр Рева',
           email: '111@111.com',
           password: await bcrypt.hash('111111', 10),
           role: 'user',
         },
         {
-          login: '222',
+          login: 'Техно Князь',
           email: '222@222.com',
           password: await bcrypt.hash('222222', 10),
           role: 'user',

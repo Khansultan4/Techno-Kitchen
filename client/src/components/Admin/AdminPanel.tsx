@@ -28,7 +28,7 @@ export default function AdminPanel() {
           padding: '20px',
         }}
       >
-        <Typography sx={{ fontSize: '20px' }}>Admin Dashboard</Typography>
+        <Typography sx={{ fontSize: '20px' }}>Панель управления</Typography>
         <AddItem setItems={setItems} types={types} />
       </Box>
       <AdminTable setItems={setItems} items={items} types={types} />

@@ -17,7 +17,7 @@ export default function AddItem({ types, setItems }: AddItemProps) {
       isOpen={isOpen}
       handleOpen={handleOpen}
       handleClose={handleClose}
-      btnText="Add Item"
+      btnText="Добавить Железяку"
       variant="contained"
     >
       <ModifyForm setItems={setItems} types={types} />

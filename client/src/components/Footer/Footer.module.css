@@ -17,6 +17,11 @@
     margin-top: 20px;
   }
   
+  .copyright {
+    margin: 0 auto;
+    display: inline-block;
+  }
+
   @media (max-width: 960px) {
     .footerContent {
       flex-direction: column;
