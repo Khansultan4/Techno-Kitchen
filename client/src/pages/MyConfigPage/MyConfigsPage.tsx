@@ -62,7 +62,7 @@ export default function MyConfigsPage(): JSX.Element {
         sx={{ maxWidth: 1200 }}
         component={Paper}
       >
-        <Table size="small" aria-label="a dense table">
+        <Table size="medium" aria-label="a dense table">
           <TableHead>
             <TableRow>
               <TableCell>Название</TableCell>
