@@ -26,7 +26,9 @@ export default function HomePage(): JSX.Element {
       src="/landingPic.png">
       </img>
       </div >
-      <Button onClick={() => navigate("/configs")} className={styles.button} variant="contained">Собрать ПК</Button>
+      <div className={styles.button}>
+      <Button onClick={() => navigate("/configs")} variant="contained">Собрать ПК</Button>
+      </div>
       </div>
     )
   }

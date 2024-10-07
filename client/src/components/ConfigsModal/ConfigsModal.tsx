@@ -22,8 +22,8 @@ export default function ConfigModal({
     const navigate: NavigateFunction = useNavigate();
   return (
     <div>
-      <TableContainer sx={{ maxWidth: 600 }} component={Paper}>
-        <Table size="small" aria-label="a dense table">
+      <TableContainer sx={{ marginTop: 2, marginLeft: 2 ,width: 520, maxWidth: 600 }} component={Paper}>
+        <Table size="medium" aria-label="a dense table">
           <TableBody>
             {entries.map((item) => (
               <TableRow key={item.id}>
@@ -41,7 +41,7 @@ export default function ConfigModal({
             onClick={() => {
               navigate(`/configurator/${id}`);
             }}
-            sx={{ ml: 2 }}
+            sx={{ ml: 1 }}
             size="small"
           >
             Изменить
