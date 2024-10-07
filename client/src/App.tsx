@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-
+import './App.css'
 import HomePage from './pages/HomePage/HomePage';
 import Root from './Root';
 import { fetchUser } from './redux/thunkActions';
@@ -9,11 +9,11 @@ import Configurator from './pages/ConfiguratorPage/ConfiguratorPage';
 import AdminPage from './pages/AdminPage/AdminPage';
 import MyConfigsPage from './pages/MyConfigPage/MyConfigsPage';
 import ConfigPage from './pages/ConfigPage/ConfigPage';
+import ConfigsPage from './pages/ConfigsPage/ConfigsPage';
 
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
@@ -30,6 +30,10 @@ function App() {
         {
           path: '/configurator',
           element: <Configurator />,
+        },
+        {
+          path: '/configs',
+          element: <ConfigsPage />,
         },
         {
           path: '/myConfigs',

@@ -1,6 +1,6 @@
 export interface IUser {
   id: number;
-  username: string;
+  login: string;
   email: string;
   role: string;
 }
@@ -33,7 +33,7 @@ export interface IType {
 }
 
 export interface IConfiguratorBuild {
-  Owner: IUser;
+  UserId: number;
   title: string;
   Items: IItem[];
   description: string;
@@ -46,6 +46,7 @@ export interface IBuild extends IConfiguratorBuild {
   createdAt: string;
   updatedAt: string;
   Comments: IComment[];
+  Owner: IUser;
 }
 
 export interface IRating {
@@ -53,8 +54,8 @@ export interface IRating {
   score: number;
   UserId: number;
   BuildId: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IComment {
@@ -62,6 +63,19 @@ export interface IComment {
   UserId: number;
   BuildId: number;
   content: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface ISelectedItems {
+  CPU: IItem;
+  GPU: IItem;
+  mother: IItem;
+  RAM: IItem[];
+  SSD: IItem[];
+  cooling: IItem[];
+  HHD: IItem[];
+  power: IItem;
+  case: IItem;
+  termo: IItem;
 }

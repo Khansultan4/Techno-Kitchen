@@ -12,7 +12,9 @@ export default function Configurator(): JSX.Element {
   const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
 
 
-  console.log(configuratorBuild)
+ //? const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
+
+
   return (
     <div className={style.wrapper}>
       <Left className={style.left} />

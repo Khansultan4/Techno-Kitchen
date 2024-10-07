@@ -23,10 +23,10 @@ export default function HomePage(): JSX.Element {
         </Typography>
         </div>
       <img className={styles.photo}
-      src="../../../public/landingPic.png">
+      src="/landingPic.png">
       </img>
       </div >
-      <Button onClick={() => navigate("/myConfigs")} className={styles.button} variant="contained">Собрать ПК</Button>
+      <Button onClick={() => navigate("/configs")} className={styles.button} variant="contained">Собрать ПК</Button>
       </div>
     )
   }

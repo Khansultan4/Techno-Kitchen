@@ -4,3 +4,6 @@
 .wrapper{
     margin-left: 45%;
 }
+.buttons{
+    display: flex;
+}

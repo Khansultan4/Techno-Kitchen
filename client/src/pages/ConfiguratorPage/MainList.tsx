@@ -2,9 +2,26 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import { IItem } from '../../types/types';
 import RadioItemsList from './RadioItemsList';
-import { initItem } from '../../types/initStates';
+import { initItem, initType } from '../../types/initStates';
 export default function MainList({ className }: { className: string }) {
-  const [comps, changeComps] = useState<IItem[]>([initItem]);
+
+  const initItems: IItem[] = [initItem];
+  for(let i = 0; i < 10; i++){
+    initItems.push({
+      id: 0,
+      title: '',
+      image: '',
+      specifications: Object(),
+      TypeId: i,
+      Type: initType,
+      price: 0,
+      description: '',
+      createdAt: '',
+      updatedAt: '',
+    })
+  }
+
+  const [comps, changeComps] = useState<IItem[]>(initItems);
   useEffect(() => {
     axiosInstance.get('/api/item/all').then((res) => changeComps(res.data));
   }, []);
@@ -22,13 +39,13 @@ export default function MainList({ className }: { className: string }) {
 
   return (
     <div className={className}>
-      <RadioItemsList items={CPUs} />
+      <RadioItemsList items={CPUs} type='several' />
       <RadioItemsList items={GPUs} />
       <RadioItemsList items={motherboards} />
       <RadioItemsList items={RAMs} />
       <RadioItemsList items={SSDs} />
       <RadioItemsList items={cooling} />
-      <RadioItemsList items={HDDs} />
+      <RadioItemsList items={HDDs} type='several'/>
       <RadioItemsList items={powerUnits} />
       <RadioItemsList items={cases} />
       <RadioItemsList items={termoInterfaces} />

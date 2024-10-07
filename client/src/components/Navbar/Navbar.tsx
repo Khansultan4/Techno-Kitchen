@@ -30,7 +30,7 @@ export default function Navbar(): JSX.Element {
     }
   };
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, position: 'fixed', width:'100vw', top: 0, zIndex:10 }}>
       <AppBar position="static">
         <Toolbar>
           <img src="/tk3.png" height="40px" onClick={() => navigate('/')}></img>
@@ -81,7 +81,7 @@ export default function Navbar(): JSX.Element {
                   </Button>
                 </NavLink>
               ) : (
-                <Button variant="contained" sx={{ ml: 2 }}>
+                <Button onClick={() => navigate('/myConfigs')} variant="contained" sx={{ ml: 2 }}>
                   Личный кабинет
                 </Button>
               )}

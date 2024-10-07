@@ -1,5 +1,6 @@
 import {
   Box,
+  Checkbox,
   FormControl,
   FormControlLabel,
   Radio,
@@ -7,8 +8,40 @@ import {
   Typography,
 } from '@mui/material';
 import { IItem } from '../../types/types';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useRef, memo } from 'react';
+import {
+  changeSelectedItems,
+  changeItems,
+} from '../../redux/slices/configuratorBuildSlice';
+import { initItem } from '../../types/initStates';
 
-export default function RadioItemsList({type = 'single', items}: {type?: 'single' | 'several', items: Array<IItem>}):JSX.Element {
+export default memo(function RadioItemsList({
+  type = 'single',
+  items,
+}: {
+  type?: 'single' | 'several';
+  items: Array<IItem>;
+}): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { selectedItems } = useAppSelector((state) => state.configuratorBuild);
+
+  const form = useRef<HTMLFormElement | null>(null);
+
+  const testHandler = () => {
+    const formData = form.current
+      ? new FormData(form.current as HTMLFormElement).getAll('Radio')
+      : [];
+    console.log(formData.map((el) => items.find((el2) => el2.id == Number(el))) );
+  };
+
+  const severalSelectHandler = ():IItem[] => {
+    const formData = form.current
+    ? new FormData(form.current as HTMLFormElement).getAll('Radio')
+    : [];
+    const result = formData.map((el) => items.find((el2) => el2.id == Number(el)));
+    return (IItem in result) ? result : [initItem]
+  }
 
   return (
     <Box>
@@ -20,19 +53,47 @@ export default function RadioItemsList({type = 'single', items}: {type?: 'single
           margin: '20px',
         }}
       >
-        <FormControl id="CPUForm">
-          <RadioGroup name="GPUGroup">
-            {items.map((el) => (
-              <FormControlLabel
-                key={el.id}
-                value={el.id}
-                control={<Radio />}
-                label={el.title}
-              />
-            ))}
-          </RadioGroup>
-        </FormControl>
+        {type === 'single' ? (
+          <form id="Form" ref={form}>
+            <RadioGroup name="Group">
+              {items.map((el) => (
+                <FormControlLabel
+                  key={el.id}
+                  value={el.id}
+                  control={<Radio />}
+                  label={el.title}
+                  onClick={() => dispatch(changeSelectedItems(el))}
+                />
+              ))}
+            </RadioGroup>
+          </form>
+        ) : (
+          <form id="Form" ref={form} name="Group" onChange={(e) => {dispatch(changeSelectedItems(severalSelectHandler()))}}>
+            <p>test</p>
+            <button type="button" onClick={() => testHandler()}>
+              console.log
+            </button>
+            {items.map((el, i) => {
+              return (
+                <FormControlLabel
+                  label={el.title}
+                  name="Radio"
+                  control={
+                    <Checkbox
+                      icon={<Radio checked={false} name={String(el.id)} />}
+                      checkedIcon={
+                        <Radio checked={true} name={String(el.id)} />
+                      }
+                      key={el.id}
+                      value={el.id}
+                    />
+                  }
+                />
+              );
+            })}
+          </form>
+        )}
       </Box>
     </Box>
   );
-}
+});
