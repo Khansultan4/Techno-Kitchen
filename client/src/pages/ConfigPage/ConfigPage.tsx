@@ -1,4 +1,4 @@
-import { Typography, Rating, Box, TextField, Button } from '@mui/material';
+import { Typography, Rating, Box, TextField, Button, TableContainer, Table, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { IRating, IBuild } from '../../types/types';
 import StarsReadOnly from '../../components/Stars/StarsReadOnly';
 import { useAppSelector } from '../../redux/hooks';
 import Auth from '../../components/Auth/Auth';
+import styles from '../../components/ConfigsModal/ConfigsModal.module.css';
 
 export default function ConfigPage(): JSX.Element {
   const [build, setBuild] = useState<IBuild | null>(null);
@@ -84,41 +85,55 @@ export default function ConfigPage(): JSX.Element {
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-            <Typography variant="h3" sx={{ marginTop: 2 }}>
-              {build?.title}
-            </Typography>
+    <Box sx={{ padding: 2, border: '1px solid #ddd', borderRadius: 1, fontSize: 14}}>
+      <Typography variant="h3" sx={{ marginTop: 2 }}>
+        {build?.title}
+      </Typography>
 
-            <Typography variant="h6" sx={{ marginTop: 2 }}>
-             Пользователь: {userNames[build?.UserId]}
-            </Typography>
+      <Typography variant="h6" sx={{ marginTop: 2, color: 'text.secondary' }}>
+        Пользователь: {userNames[build?.UserId]}
+      </Typography>
 
+      <Typography variant="h5" sx={{ marginTop: 2 }}>
+        {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
+      </Typography>
 
-            <Typography variant="h5" sx={{ marginTop: 2 }}>
-              {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
-            </Typography>
-            <Rating
-              name="read-only"
-              value={calculateAverageRating(build?.Ratings)}
-              readOnly
-              precision={0.1}
-            />
+      <Rating
+        name="read-only"
+        value={calculateAverageRating(build?.Ratings)}
+        readOnly
+        precision={0.1}
+      />
+    </Box>
           </Box>
         </Grid>
         <Grid size={{ xs: 12, sm: 8, md: 8, lg: 8, xl: 8 }}>
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h3" gutterBottom align='center'>
             Конфигурация:
           </Typography>
-          <Typography variant="h5" gutterBottom>
-            <ul>
-              {build?.Items.map((item) => (
-                <li key={item.Type.id}>{item.Type.title} : {item.title}</li>
-              ))}
-            </ul>
-          </Typography>
+          
+          <div>
+      <TableContainer sx={{ marginTop: 2, marginLeft: 2, width: 720, minWidth: 1200  }} >
+        <Table size="medium" aria-label="a dense table">
+          <TableBody>
+            {build?.Items.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.Type?.title}:</TableCell>
+                <TableCell>{item.title}</TableCell>
+                <TableCell>{JSON.stringify(item.specifications)}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <div className={styles.buttons}>
+           
+    </div>
+    </div>
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} sx={{ marginBottom: 10 }}>
+      <Grid container spacing={5} sx={{ marginBottom: 10 }}>
         <Grid size={{ xs: 12 }}>
           <Typography variant="h3" gutterBottom>
             Описание
@@ -136,7 +151,7 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
 
           {build?.Comments.map((comment) => (
-            <div key={comment.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px', backgroundColor: '#1d1d1d' }}>
+            <Box key={comment.id} sx={{ backgroundColor: 'background.paper', marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px' }} >
         <Typography variant="h5" gutterBottom>
           {userNames[comment.UserId] || 'Anonymous'}
         </Typography>
@@ -159,11 +174,18 @@ export default function ConfigPage(): JSX.Element {
               variant="body2" color="text.secondary" style={{ marginTop: '10px' }}>
            
            {comment.createdAt ? 
-        `${new Date(comment.createdAt).getDate()}.${String(new Date(comment.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(comment.createdAt).getFullYear()}` 
+        `${new Date(comment.createdAt).toLocaleDateString('ru-RU', {
+          year: '2-digit',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        })}` 
         : 'No date available'}
           
         </Typography>
-            </div>
+            </Box>
           ))}
 
           
