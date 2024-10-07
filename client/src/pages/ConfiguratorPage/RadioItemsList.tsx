@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useRef, memo } from 'react';
 import {
   changeSelectedItems,
-  changeItems,
+  changeSeveralSelectedImes,
 } from '../../redux/slices/configuratorBuildSlice';
 import { initItem } from '../../types/initStates';
 
@@ -32,16 +32,21 @@ export default memo(function RadioItemsList({
     const formData = form.current
       ? new FormData(form.current as HTMLFormElement).getAll('Radio')
       : [];
-    console.log(formData.map((el) => items.find((el2) => el2.id == Number(el))) );
+    console.log('formData',
+      formData.map((el) => items.find((el2) => el2.id == Number(el)))
+    );
+    console.log('selected', selectedItems)
   };
 
-  const severalSelectHandler = ():IItem[] => {
+  const severalSelectHandler = (): IItem[] => {
     const formData = form.current
-    ? new FormData(form.current as HTMLFormElement).getAll('Radio')
-    : [];
-    const result = formData.map((el) => items.find((el2) => el2.id == Number(el)));
-    return (IItem in result) ? result : [initItem]
-  }
+      ? new FormData(form.current as HTMLFormElement).getAll('Radio')
+      : [];
+    const result = formData
+      .map((el) => items.find((el2) => el2.id == Number(el)))
+      .filter((el) => el !== undefined);
+    return result.some((el) => 'TypeId' in el) ? result : [initItem];
+  };
 
   return (
     <Box>
@@ -68,7 +73,14 @@ export default memo(function RadioItemsList({
             </RadioGroup>
           </form>
         ) : (
-          <form id="Form" ref={form} name="Group" onChange={(e) => {dispatch(changeSelectedItems(severalSelectHandler()))}}>
+          <form
+            id="Form"
+            ref={form}
+            name="Group"
+            onChange={() => {
+              dispatch(changeSeveralSelectedImes(severalSelectHandler(el)));
+            }}
+          >
             <p>test</p>
             <button type="button" onClick={() => testHandler()}>
               console.log
@@ -76,6 +88,7 @@ export default memo(function RadioItemsList({
             {items.map((el, i) => {
               return (
                 <FormControlLabel
+                  key={el.id}
                   label={el.title}
                   name="Radio"
                   control={

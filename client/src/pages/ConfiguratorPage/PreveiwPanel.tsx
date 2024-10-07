@@ -50,7 +50,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
       </Box>
       <Box>
         <Typography>Жесткий диск:</Typography>
-        <Typography>{selectedItems.HHD.title}</Typography>
+        {/* <Typography>{selectedItems.HHD.title}</Typography> */}
       </Box>
       <Box>
         <Typography>Блок питания:</Typography>

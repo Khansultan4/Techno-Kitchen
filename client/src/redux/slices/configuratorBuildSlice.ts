@@ -29,7 +29,7 @@ export type configuratorBuildState = {
         changeItems(state:Draft<configuratorBuildState>, action: PayloadAction<IItem[]>):void {
             state.configuratorBuild.Items = action.payload;
         },
-        changeSelectedItems(state:Draft<configuratorBuildState>, action: PayloadAction<IItem | IItem[]>) {
+        changeSelectedItems(state:Draft<configuratorBuildState>, action: PayloadAction<IItem>) {
             switch (action.payload.TypeId) {
               case 1: {
                 state.selectedItems.CPU = (action.payload as IItem);
@@ -41,22 +41,6 @@ export type configuratorBuildState = {
               }
               case 3: {
                 state.selectedItems.mother = (action.payload as IItem)
-                break;
-              }
-              case 4: {
-                state.selectedItems.RAM = (action.payload as IItem[])
-                break;
-              }
-              case 5: {
-                state.selectedItems.SSD = (action.payload as IItem[])
-                break;
-              }
-              case 6: {
-                state.selectedItems.cooling = (action.payload as IItem[])
-                break;
-              }
-              case 7: {
-                state.selectedItems.HHD = (action.payload as IItem[])
                 break;
               }
               case 8: {
@@ -72,6 +56,26 @@ export type configuratorBuildState = {
                 break;
               }
             }
+        },
+        changeSeveralSelectedImes (state:Draft<configuratorBuildState>, action: PayloadAction<IItem[]>) {
+          switch (action.payload[0].TypeId) {
+            case 4: {
+              state.selectedItems.RAM = (action.payload as IItem[])
+              break;
+            }
+            case 5: {
+              state.selectedItems.SSD = (action.payload as IItem[])
+              break;
+            }
+            case 6: {
+              state.selectedItems.cooling = (action.payload as IItem[])
+              break;
+            }
+            case 7: {
+              state.selectedItems.HHD = (action.payload as IItem[])
+              break;
+            }
+          }
         }
     },
     extraReducers: (builder) => {
@@ -79,4 +83,4 @@ export type configuratorBuildState = {
   })
 
 export default configuratorBuildSlace.reducer
-export const {changeTitle, changeDescription, changeItems, changeSelectedItems} = configuratorBuildSlace.actions
+export const {changeTitle, changeDescription, changeItems, changeSelectedItems, changeSeveralSelectedImes} = configuratorBuildSlace.actions
