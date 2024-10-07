@@ -87,6 +87,12 @@ export default function ConfigPage(): JSX.Element {
             <Typography variant="h3" sx={{ marginTop: 2 }}>
               {build?.title}
             </Typography>
+
+            <Typography variant="h6" sx={{ marginTop: 2 }}>
+             Пользователь: {userNames[build?.UserId]}
+            </Typography>
+
+
             <Typography variant="h5" sx={{ marginTop: 2 }}>
               {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
             </Typography>
@@ -105,7 +111,7 @@ export default function ConfigPage(): JSX.Element {
           <Typography variant="h5" gutterBottom>
             <ul>
               {build?.Items.map((item) => (
-                <li key={item.Type.id}>{item.Type.title}</li>
+                <li key={item.Type.id}>{item.Type.title} : {item.title}</li>
               ))}
             </ul>
           </Typography>
@@ -130,10 +136,12 @@ export default function ConfigPage(): JSX.Element {
           </Typography>
 
           {build?.Comments.map((comment) => (
-            <div key={comment.id}>
-        <Typography variant="h6" gutterBottom>
+            <div key={comment.id} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ddd', borderRadius: '5px', backgroundColor: '#1d1d1d' }}>
+        <Typography variant="h5" gutterBottom>
           {userNames[comment.UserId] || 'Anonymous'}
         </Typography>
+
+        <div style={{ marginBottom: '10px' }}>
               <StarsReadOnly
                 value={
                   (
@@ -143,9 +151,18 @@ export default function ConfigPage(): JSX.Element {
                   )?.score
                 }
               />
-              <Typography variant="h5" gutterBottom key={comment.id}>
+              </div>
+              <Typography variant="body1" gutterBottom key={comment.id}>
                 {comment.content}
-              </Typography>
+              </Typography >
+              <Typography 
+              variant="body2" color="text.secondary" style={{ marginTop: '10px' }}>
+           
+           {comment.createdAt ? 
+        `${new Date(comment.createdAt).getDate()}.${String(new Date(comment.createdAt).getMonth() + 1).padStart(2, '0')}.${new Date(comment.createdAt).getFullYear()}` 
+        : 'No date available'}
+          
+        </Typography>
             </div>
           ))}
 
@@ -158,7 +175,7 @@ export default function ConfigPage(): JSX.Element {
               </Typography>
               <form onSubmit={handleSubmit}>
                 <TextField
-                  label="Ваш отзыв"
+                  label="" 
                   multiline
                   rows={4}
                   value={comment}
@@ -166,7 +183,9 @@ export default function ConfigPage(): JSX.Element {
                   fullWidth
                   margin="normal"
                   disabled={build?.Comments.some((el) => el.UserId === user.id)}
+                  sx={{ backgroundColor: 'rgba(128, 128, 128, 0.1)' }} 
                 />
+                <Box display='flex' alignItems='center'> 
                 <Rating
                   name="comment-rating"
                   value={rating}
@@ -174,6 +193,7 @@ export default function ConfigPage(): JSX.Element {
                   onChange={(event, newValue) => {
                     setRating(newValue);
                   }}
+                
                 />
                 <Button
                   variant="contained"
@@ -183,6 +203,7 @@ export default function ConfigPage(): JSX.Element {
                 >
                   Отправить
                 </Button>
+                </Box>
               </form>
             </>
           ) : (
