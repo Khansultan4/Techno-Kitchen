@@ -45,7 +45,7 @@ export default function MyConfigsPage(): JSX.Element {
   };
 
 
-  console.log('2121', user.id);
+  // console.log('2121', user.id);
 
   return (
     <div >
