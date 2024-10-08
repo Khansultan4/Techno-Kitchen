@@ -46,9 +46,9 @@ function App() {
         },
         {
           path: '/dashboard',
-          element: ( <ProtectedRoute authUser = {user.login} redirectTo="/">
+          element: ( 
             <AdminPage />
-            </ProtectedRoute>),
+           ),
         },
       ],
     },
