@@ -83,3 +83,9 @@ export interface Result {
   id: number;
   title: string;
 }
+
+export interface IMessage {
+  id: number;
+  text: string;
+  User: IUser;
+}

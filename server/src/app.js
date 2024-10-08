@@ -6,7 +6,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 const cors = require('cors');
 const removeHeaders = require('../middlewares/removeHeaders');
@@ -30,6 +29,4 @@ app.use(removeHeaders);
 
 app.use('/api', apiRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server started at PORT ${PORT}`);
-});
+module.exports = app;

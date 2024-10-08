@@ -149,6 +149,8 @@ router.get('/byuser/:UserId', async (req, res) => {
   }
 });
 
-
+router.post('/add', async (req,res) => {
+  console.log(req.body)
+})
 
 module.exports = router;

@@ -64,3 +64,11 @@ export const fetchLogoutUser = createAsyncThunk('user/logout', async () => {
   await axiosInstance.get(`${import.meta.env.VITE_API}/auth/logout`);
   setAccessToken('');
 });
+
+
+//? ===============================Build Thunk Actions===============================
+
+export const fetchAddBuild = createAsyncThunk('build/add', async (build) => {
+  await axiosInstance.post('/build/add', build)
+  return 
+})
