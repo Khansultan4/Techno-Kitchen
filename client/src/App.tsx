@@ -10,6 +10,7 @@ import AdminPage from './pages/AdminPage/AdminPage';
 import MyConfigsPage from './pages/MyConfigPage/MyConfigsPage';
 import ConfigPage from './pages/ConfigPage/ConfigPage';
 import ConfigsPage from './pages/ConfigsPage/ConfigsPage';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -17,6 +18,8 @@ function App() {
   useEffect(() => {
     dispatch(fetchUser());
   }, []);
+  console.log('122', user);
+  
 
   const router = createBrowserRouter([
     {
@@ -45,7 +48,9 @@ function App() {
         },
         {
           path: '/dashboard',
-          element: <AdminPage />,
+          element: ( <ProtectedRoute authUser = {user.login} redirectTo="/">
+            <AdminPage />
+            </ProtectedRoute>),
         },
       ],
     },

@@ -28,7 +28,7 @@ type FormModalProps = {
   handleClose: () => void;
   btnText: string | JSX.Element;
   variant?: 'text' | 'outlined' | 'contained';
-  size?: 'large' | 'medium' | 'small'
+  size?: 'large' | 'medium' | 'small';
   id?: number;
 };
 

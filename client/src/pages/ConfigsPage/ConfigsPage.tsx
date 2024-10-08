@@ -50,8 +50,8 @@ export default function ConfigsPage(): JSX.Element {
 
     return (
        <div >
-        <Typography textAlign={'center'} className={styles.wrapper} variant="h3" component="h2">Конфигурации</Typography>
-        <Paper  sx={{ maxWidth: 1200, margin: 'auto' }}>
+        <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Конфигурации</Typography>
+        <Paper  sx={{ maxWidth: 1200, margin: 'auto', marginBottom:'100px' }}>
 
         <TableContainer className={styles.table} sx={{ width: '98%', margin: 'auto' }} >
        <Table  size="medium" aria-label="a dense table">
@@ -60,8 +60,7 @@ export default function ConfigsPage(): JSX.Element {
              <TableCell>Название</TableCell>
              <TableCell>Цена</TableCell>
              <TableCell>Обновлено</TableCell>
-             <TableCell>Рейтинг</TableCell>
-             <TableCell></TableCell>
+             <TableCell sx={{ maxWidth: '100px'}}>Рейтинг</TableCell>
            </TableRow>
          </TableHead>
          <TableBody>
@@ -72,18 +71,27 @@ export default function ConfigsPage(): JSX.Element {
                key={el.title}
                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
              >
-               <TableCell >
-                <div>
-                {el.title}
+               <TableCell>
+                <div className={styles.name}>
+                <img className={styles.image} src={el.image} height='40px'></img>
+                <div className={styles.text}>{el.title}</div>
                 </div>
-                <img src={el.image} height='40px'></img>
                 </TableCell>
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
                <TableCell>{formatDate(el.updatedAt)}</TableCell>
-               <TableCell><StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} /></TableCell>
-               <TableCell>  
+               <TableCell sx={{ maxWidth: '100px'}}>
+                <div className={styles.rating}>
+                  <div className={styles.info}>
+              <StarsReadOnly value={el.Ratings.reduce((acc,val) => acc + val.score, 0)/el.Ratings.length} />
+                </div>
+                <div >
+               <ConfigInfo id = {el.id} entries={el.Items}></ConfigInfo>
+               </div>
+               </div>
+               </TableCell>
+               {/* <TableCell>  
                 <ConfigInfo id = {el.id} entries={el.Items}></ConfigInfo>
-                </TableCell>
+                </TableCell> */}
              </TableRow>
            )})}
          </TableBody>
