@@ -92,6 +92,27 @@ export default function ConfigPage(): JSX.Element {
     }
   };
 
+
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      const response = await axiosInstance.delete(
+        `${import.meta.env.VITE_API}/build/${id}/comments/${commentId}`
+      );
+      setBuild((prev) => {
+        const newPrev: IBuild = { ...(prev as IBuild) };
+        newPrev.Comments = newPrev.Comments.filter((comment) => comment.id !== commentId);
+        // Also remove the associated rating if any
+        newPrev.Ratings = newPrev.Ratings.filter((rating) => rating.id !== commentId);
+        return newPrev;
+      });
+    } catch (error) {
+      console.log('Error deleting comment:', error);
+    }
+  };
+
+
+
+
   return (
     <div style={{ padding: 50 }}>
       <Grid container spacing={2} sx={{ marginBottom: 16 }}>
@@ -244,6 +265,18 @@ export default function ConfigPage(): JSX.Element {
                     })}`
                   : 'No date available'}
               </Typography>
+
+              {comment.UserId === user.id && (
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => handleDeleteComment(comment.id)}
+      >
+        Удалить
+      </Button>
+    )}
+
+
             </Box>
           ))}
           {user.id ? (
