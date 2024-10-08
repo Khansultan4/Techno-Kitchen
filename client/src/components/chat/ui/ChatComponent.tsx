@@ -21,6 +21,7 @@ export default function ChatComponent({ setChatOpen }: ChatComponentProps) {
         sx={{
           width: '400px',
           position: 'absolute',
+          zIndex: '10',
           top: '30%',
           left: '30%',
           transform: 'translate(-30%, -30%)',

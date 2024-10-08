@@ -11,7 +11,13 @@ const cors = require('cors');
 const removeHeaders = require('../middlewares/removeHeaders');
 
 const corsConfig = {
-  origin: ['http://26.179.213.238:5173', 'http://127.0.0.1:5173', 'http://26.179.213.238:5173', 'http://26.126.227.55:5173'],
+  origin: [
+    'http://localhost:5173',
+    'http://26.179.213.238:5173',
+    'http://127.0.0.1:5173',
+    'http://26.179.213.238:5173',
+    'http://26.126.227.55:5173',
+  ],
   credentials: true,
 };
 

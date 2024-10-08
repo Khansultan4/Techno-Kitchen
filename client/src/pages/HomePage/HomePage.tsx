@@ -1,4 +1,4 @@
-import { Badge, Button, Typography } from '@mui/material';
+import { Badge, Box, Button, Typography } from '@mui/material';
 import styles from './HomePage.module.css';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -10,10 +10,7 @@ export default function HomePage(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
   const [isChatOpen, setChatOpen] = useState<boolean>(false);
 
-  const unread = JSON.parse(localStorage.getItem('unread')) || {
-    unreadMessages: 0,
-  };
-
+  const unread = JSON.parse(localStorage.getItem('unread')) || {};
   return (
     <div>
       <div className={styles.wrapper}>
@@ -38,12 +35,27 @@ export default function HomePage(): JSX.Element {
         <img className={styles.photo} src="/landingPic legacy.png"></img>
       </div>
       <div className={styles.button}>
-        <Button onClick={() => navigate('/configs')} variant="contained">
+        <Button
+          sx={{ width: '10%' }}
+          onClick={() => navigate('/configs')}
+          variant="contained"
+        >
           Собрать ПК
         </Button>
-        {user.email && (
+      </div>
+      {user.email && (
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            mt: '10px',
+          }}
+        >
           <Badge
-            sx={{ zIndex: 0 }}
+            sx={{
+              zIndex: 9,
+            }}
             badgeContent={user.id !== unread.id ? unread.unreadMessages : 0}
             color="error"
             anchorOrigin={{
@@ -54,18 +66,17 @@ export default function HomePage(): JSX.Element {
             <Button
               onClick={() => {
                 setChatOpen(true);
-
                 if (unread.id !== user.id) {
                   unread.unreadMessages = 0;
                 }
               }}
               variant="contained"
             >
-              Chat
+              Поболтать
             </Button>
           </Badge>
-        )}
-      </div>
+        </Box>
+      )}
       {isChatOpen && <ChatComponent setChatOpen={setChatOpen} />}
     </div>
   );

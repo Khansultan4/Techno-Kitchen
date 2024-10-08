@@ -52,7 +52,14 @@ export default function UsersList({ users, loggedUser }: USersListProps) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem>
+        <MenuItem
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            cursor: 'cell',
+          }}
+        >
           {users.map((user: IUser) => (
             <Box
               key={user.id}
@@ -63,7 +70,7 @@ export default function UsersList({ users, loggedUser }: USersListProps) {
             >
               <AdjustRounded color="primary" />
               <Typography marginLeft="10px">
-                {user.id !== loggedUser.id ? user.login : 'You'}
+                {user.id !== loggedUser.id ? user.login : 'Вы сами'}
               </Typography>
             </Box>
           ))}
