@@ -32,7 +32,7 @@ export default function HomePage(): JSX.Element {
             сейчас!
           </Typography>
         </div>
-        <img className={styles.photo} src="/landingPic2.png"></img>
+        <img className={styles.photo} src="/landingPic legacy.png"></img>
       </div>
       <div className={styles.button}>
         <Button onClick={() => navigate('/configs')} variant="contained">

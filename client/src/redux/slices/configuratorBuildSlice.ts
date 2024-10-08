@@ -7,14 +7,14 @@ export type configuratorBuildState = {
     configuratorBuild: IConfiguratorBuild;
     selectedItems: ISelectedItems
     loading: boolean;
-    error: Error;
+    error: unknown;
   };
 
   const initialState:configuratorBuildState = {
     configuratorBuild: initConfiguratorBuild,
     selectedItems: initSelectedItems,
     loading: true,
-    error: 'vse ok',
+    error: null
   };
 
   const configuratorBuildSlace = createSlice({
