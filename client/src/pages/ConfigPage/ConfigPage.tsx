@@ -95,13 +95,12 @@ export default function ConfigPage(): JSX.Element {
 
   const handleDeleteComment = async (commentId: number) => {
     try {
-      const response = await axiosInstance.delete(
+      const res = await axiosInstance.delete(
         `${import.meta.env.VITE_API}/build/${id}/comments/${commentId}`
       );
       setBuild((prev) => {
         const newPrev: IBuild = { ...(prev as IBuild) };
         newPrev.Comments = newPrev.Comments.filter((comment) => comment.id !== commentId);
-        // Also remove the associated rating if any
         newPrev.Ratings = newPrev.Ratings.filter((rating) => rating.id !== commentId);
         return newPrev;
       });
