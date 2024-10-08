@@ -80,6 +80,7 @@ export default function ConfigPage(): JSX.Element {
           BuildId: Number(id),
           score: rating,
           id: 0,
+          createdAt: String(new Date())
         });
         return newPrev;
       });
@@ -109,7 +110,7 @@ export default function ConfigPage(): JSX.Element {
             <Box
               sx={{
                 padding: 2,
-                border: '1px solid #ddd',
+                border: '1px dotted  #ddd',
                 borderRadius: 1,
                 fontSize: 14,
               }}
@@ -174,7 +175,7 @@ export default function ConfigPage(): JSX.Element {
 
       <Grid container spacing={5} sx={{ marginBottom: 10 }}>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Описание
           </Typography>
           <Typography variant="h5" gutterBottom>
@@ -185,7 +186,7 @@ export default function ConfigPage(): JSX.Element {
 
       <Grid container spacing={2}>
         <Grid size={{ xs: 12 }}>
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             Отзывы
           </Typography>
 
@@ -196,7 +197,7 @@ export default function ConfigPage(): JSX.Element {
                 backgroundColor: 'background.paper',
                 marginBottom: '20px',
                 padding: '10px',
-                border: '1px solid #ddd',
+                border: '1px dotted  #ddd',
                 borderRadius: '5px',
               }}
             >
