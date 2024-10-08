@@ -14,11 +14,11 @@ export default function HomePage(): JSX.Element {
   return (
     <div>
       <div className={styles.wrapper}>
-        <div>
-          <Typography variant="h3" component="h2">
+        <div className={styles.text}>
+          <Typography variant="h2" component="h2">
             Конфигуратор ПК
           </Typography>
-          <Typography variant="h6" component="h4">
+          <Typography variant="h5" component="h4">
             <br />
             Добро пожаловать в Конфигуратор Идеального ПК!
             <br />
@@ -35,7 +35,7 @@ export default function HomePage(): JSX.Element {
         <img className={styles.photo} src="/landingPic legacy.png"></img>
       </div>
       <div className={styles.button}>
-        <Button onClick={() => navigate('/configs')} variant="contained">
+        <Button sx={{width:'200px', fontSize:'20px'}} onClick={() => navigate('/configs')} variant="contained">
           Собрать ПК
         </Button>
         {user.email && (
@@ -48,13 +48,14 @@ export default function HomePage(): JSX.Element {
             }}
           >
             <Button
+            sx={{width:'200px', fontSize:'20px'}}
               onClick={() => {
                 setChatOpen(true);
                 resetCount();
               }}
               variant="contained"
             >
-              Chat
+              Чат
             </Button>
           </Badge>
         )}

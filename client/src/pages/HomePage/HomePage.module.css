@@ -5,13 +5,17 @@
   padding: 20px;
 }
 .photo {
-  height: 400px;
+  height: 500px;
   width: auto;
 }
 .button {
-  justify-content: center;
+  display: flex;
+  justify-content: space-evenly;
   font-size: 40px;
-  margin-left: 45%;
-  width: 30%;
-  height: 10%;
+  margin: auto;
+  width: 35%;
+  margin-top: 3%;
+}
+.text{
+  width: 35%;
 }
