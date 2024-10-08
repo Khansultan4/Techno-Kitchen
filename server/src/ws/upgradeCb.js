@@ -1,8 +1,8 @@
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { WebSocketServer } = require('ws');
 const jwt = require('jsonwebtoken');
 
-require('dotenv').config();
 
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 
