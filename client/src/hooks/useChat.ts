@@ -8,7 +8,6 @@ export default function useChat() {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [typing, setTyping] = useState<boolean>(false);
-  const [newMessagesCount, setNewMessagesCount] = useState<number>(0);
   const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
@@ -17,6 +16,23 @@ export default function useChat() {
       .then(({ data }) => setMessages(data));
   }, []);
 
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem(
+      'unread',
+      JSON.stringify({ unreadMessages, id: loggedUser.id })
+    );
+  }, [unreadMessages, loggedUser.id]);
+
+  const incrementUnreadMessages = () => {
+    setUnreadMessages((prev) => prev + 1);
+  };
+
+  const resetUnreadMessages = () => {
+    setUnreadMessages(0);
+  };
+
   useEffect(() => {
     socketRef.current = new WebSocket('ws://localhost:3000');
 
@@ -24,7 +40,6 @@ export default function useChat() {
 
     socket.onmessage = (event) => {
       const { type, payload } = JSON.parse(event.data);
-      console.log(payload);
 
       switch (type) {
         case 'SET_USERS_FROM_SERVER':
@@ -32,10 +47,11 @@ export default function useChat() {
           break;
 
         case 'ADD_MESSAGE_FROM_SERVER':
-          setMessages((prev) => [...prev, payload]);
+          setMessages((prev) => {
+            incrementUnreadMessages();
 
-          setNewMessagesCount((prev) => prev + 1);
-
+            return [...prev, payload];
+          });
           break;
 
         case 'CLIENT_TYPING_FROM_SERVER':
@@ -62,17 +78,13 @@ export default function useChat() {
     }
   };
 
-  const resetCount = () => {
-    setNewMessagesCount(0);
-  };
-
   return {
     messages,
     users,
     typing,
     submitMessage,
     socketRef,
-    resetCount,
-    newMessagesCount,
+    resetUnreadMessages,
+    unreadMessages,
   };
 }

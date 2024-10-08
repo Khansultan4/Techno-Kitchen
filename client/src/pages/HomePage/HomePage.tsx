@@ -3,14 +3,17 @@ import styles from './HomePage.module.css';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ChatComponent from '../../components/chat/ui/ChatComponent';
-import useChat from '../../hooks/useChat';
 import { useAppSelector } from '../../redux/hooks';
 
 export default function HomePage(): JSX.Element {
   const { user } = useAppSelector((store) => store.user);
   const navigate: NavigateFunction = useNavigate();
   const [isChatOpen, setChatOpen] = useState<boolean>(false);
-  const { newMessagesCount, resetCount } = useChat();
+
+  const unread = JSON.parse(localStorage.getItem('unread')) || {
+    unreadMessages: 0,
+  };
+
   return (
     <div>
       <div className={styles.wrapper}>
@@ -40,7 +43,8 @@ export default function HomePage(): JSX.Element {
         </Button>
         {user.email && (
           <Badge
-            badgeContent={newMessagesCount}
+            sx={{ zIndex: 0 }}
+            badgeContent={user.id !== unread.id ? unread.unreadMessages : 0}
             color="error"
             anchorOrigin={{
               vertical: 'top',
@@ -50,7 +54,10 @@ export default function HomePage(): JSX.Element {
             <Button
               onClick={() => {
                 setChatOpen(true);
-                resetCount();
+
+                if (unread.id !== user.id) {
+                  unread.unreadMessages = 0;
+                }
               }}
               variant="contained"
             >

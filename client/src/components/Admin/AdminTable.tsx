@@ -19,7 +19,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
-    fontSize: 20
+    fontSize: 20,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -112,20 +112,28 @@ export default function AdminTable({
                     alt="image"
                   />
                 </StyledTableCell>
-                <StyledTableCell align="left" sx={{minWidth: '100px', maxWidth: '350px'}} >
+                <StyledTableCell
+                  align="left"
+                  sx={{ minWidth: '100px', maxWidth: '350px' }}
+                >
                   <Tooltip title={item.description} placement="top" arrow>
-                    <Box color='text.secondary'>
+                    <Box color="text.secondary">
                       {item.description.length > 500
                         ? item.description.slice(0, 21) + '...'
                         : item.description}
                     </Box>
                   </Tooltip>
                 </StyledTableCell>
-                  <StyledTableCell align="left">{item.title}</StyledTableCell>
+                <StyledTableCell align="left">{item.title}</StyledTableCell>
                 <StyledTableCell align="center">
                   <DropDown specifications={item.specifications} />
                 </StyledTableCell>
-                <StyledTableCell align="left">{item.price}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {item.price}{' '}
+                  <strong>
+                    <i>₽</i>
+                  </strong>
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   <Tooltip title="Edit Item">
                     <div>
