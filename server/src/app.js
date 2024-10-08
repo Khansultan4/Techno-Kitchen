@@ -9,12 +9,11 @@ const app = express();
 
 const cors = require('cors');
 const removeHeaders = require('../middlewares/removeHeaders');
-
+const IPs = process.env.CORS_LOCALIP[0] === '[' ? JSON.parse(process.env.CORS_LOCALIP) : process.env.CORS_LOCALIP
 const corsConfig = {
-  origin: ['http://localhost:5173', process.env.CORS_LOCALIP],
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', IPs],
   credentials: true,
 };
-
 const apiRouter = require('./routers/routers.api');
 
 app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));

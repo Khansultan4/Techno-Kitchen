@@ -12,7 +12,6 @@ const upgradeCb = (request, socket, head) => {
   cookieParser()(request, {}, () => {
     try {
       const token = request.cookies.refreshToken;
-
       const { user } = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
 
       socket.removeListener('error', () => {});

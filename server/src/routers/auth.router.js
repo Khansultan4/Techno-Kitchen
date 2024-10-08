@@ -28,7 +28,8 @@ router.post('/signup', async (req, res) => {
       const { accessToken, refreshToken } = generateToken({ user: plainUser });
 
       res
-        .cookie('refreshToken', refreshToken, cookieConfig.refresh)
+        // .cookie('refreshToken', refreshToken, cookieConfig.refresh)
+        .cookie('11111111', 22222222, cookieConfig.refresh)
         .json({ user: plainUser, accessToken });
     }
   } catch (error) {
@@ -43,7 +44,7 @@ router.post('/signin', async (req, res) => {
   if (!(email && password)) {
     res.status(400).json({ message: 'All fields are required' });
   }
-
+  try {
   const user = await User.findOne({ where: { email } });
 
   const isCorrectPassword = await bcrypt.compare(password, user.password);
@@ -61,7 +62,7 @@ router.post('/signin', async (req, res) => {
       .json({ user: plainUser, accessToken });
   }
 
-  try {
+
   } catch (error) {
     console.error(error);
     res.sendStatus(400);
