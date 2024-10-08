@@ -12,12 +12,11 @@ export default function Configurator(): JSX.Element {
   const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
 
 
- //? const {configuratorBuild} = useAppSelector((state) => state.configuratorBuild)
 
 
   return (
     <div className={style.wrapper}>
-      <Left className={style.left} />
+      {/* <Left className={style.left} /> */}
       <Center className={style.center} />
       <Right className={style.right}/>
     </div>

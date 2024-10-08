@@ -14,7 +14,7 @@ export type configuratorBuildState = {
     configuratorBuild: initConfiguratorBuild,
     selectedItems: initSelectedItems,
     loading: true,
-    error: { message: '' },
+    error: null
   };
 
   const configuratorBuildSlace = createSlice({
@@ -78,10 +78,10 @@ export type configuratorBuildState = {
     },
     extraReducers: (builder) => {
       builder.addCase(fetchAddBuild.fulfilled, (state, action) => {
-        console.log('reducer', action.payload)
+        console.log('fetchAddBuild reducer', action.payload)
       })
       builder.addCase(fetchAddBuild.rejected, (state, action) => {
-        console.log('reducer rej', action.payload)
+        console.log('fetchAddBuild reducer rej', action.payload)
       })
     },
   })

@@ -34,7 +34,7 @@ export default function useChat() {
   };
 
   useEffect(() => {
-    socketRef.current = new WebSocket('ws://localhost:3000');
+    socketRef.current = new WebSocket(import.meta.env.VITE_BASE_URL);
 
     const socket = socketRef.current;
 

@@ -60,23 +60,31 @@ export default function Navsearch() {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [results, setResults] = useState<Result[]>([]);
   const navigate: NavigateFunction = useNavigate();
+  const [showResults, setShowResults] = useState(false);  
 
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const val: string = e.target.value;
     setSearchTerm(val);
-
     if (val.length > 2) {
       try {
-        const res = await axiosInstance.get<Result[]>(
-          `${import.meta.env.VITE_API}/build/search?query=${val}`
-        );
+        const res = await axiosInstance.get(`${import.meta.env.VITE_API}/build/search?query=${val}`);
         setResults(res.data);
+        setShowResults(true); 
       } catch (error) {
         console.error(error);
       }
     } else {
       setResults([]);
+      setShowResults(false); 
     }
+  };
+
+  const handleMouseEnter = () => {
+    setShowResults(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowResults(false);
   };
 
   return (
@@ -91,11 +99,14 @@ export default function Navsearch() {
           inputProps={{ 'aria-label': 'search' }}
           value={searchTerm}
           onChange={handleSearch}
+          onMouseEnter={handleMouseEnter} 
+          onMouseLeave={handleMouseLeave}
         />
       </Search>
-      <Paper style={{ position:'fixed', maxWidth: 1500,maxHeight: 1000, overflow: 'auto' }}>
+      {showResults && (
+      <Paper style={{ position:'fixed',  maxWidth: 1500,maxHeight: 1000, overflow: 'auto' }}>
         {results.map((item: Result) => (
-          <ResultItem key={item.id}>
+          <ResultItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={item.id}>
             <Typography
               onClick={() => navigate(`/Config/${item.id}`)}
               variant="body1"
@@ -105,6 +116,7 @@ export default function Navsearch() {
           </ResultItem>
         ))}
       </Paper>
+          )}
       </div>
     </>
   );
