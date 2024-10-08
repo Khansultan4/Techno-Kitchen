@@ -57,9 +57,9 @@ export default function Footer(): JSX.Element {
                 'SSD и HDD',
                 'Охлаждение',
               ].map((item) => (
-                <Grid size={1}>
+                <Grid size={1} key={item}>
                 <Typography
-                  key={item}
+                  
                   align='right'
                   style={{ color: 'white' }}
                   variant='body2'

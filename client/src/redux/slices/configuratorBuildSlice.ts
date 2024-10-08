@@ -1,6 +1,7 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
 import { initConfiguratorBuild, initSelectedItems } from "../../types/initStates";
 import { IConfiguratorBuild, IItem, ISelectedItems } from "../../types/types";
+import { fetchAddBuild } from "../thunkActions";
 
 export type configuratorBuildState = {
     configuratorBuild: IConfiguratorBuild;
@@ -25,9 +26,6 @@ export type configuratorBuildState = {
         },
         changeDescription(state:Draft<configuratorBuildState>, action: PayloadAction<string>):void {
             state.configuratorBuild.description = action.payload
-        },
-        changeItems(state:Draft<configuratorBuildState>, action: PayloadAction<IItem[]>):void {
-            state.configuratorBuild.Items = action.payload;
         },
         changeSelectedItems(state:Draft<configuratorBuildState>, action: PayloadAction<IItem>) {
             switch (action.payload.TypeId) {
@@ -78,9 +76,15 @@ export type configuratorBuildState = {
           }
         }
     },
-    extraReducers: () => {
+    extraReducers: (builder) => {
+      builder.addCase(fetchAddBuild.fulfilled, (state, action) => {
+        console.log('reducer', action.payload)
+      })
+      builder.addCase(fetchAddBuild.rejected, (state, action) => {
+        console.log('reducer rej', action.payload)
+      })
     },
   })
 
 export default configuratorBuildSlace.reducer
-export const {changeTitle, changeDescription, changeItems, changeSelectedItems, changeSeveralSelectedImes} = configuratorBuildSlace.actions
+export const {changeTitle, changeDescription, changeSelectedItems, changeSeveralSelectedImes} = configuratorBuildSlace.actions
