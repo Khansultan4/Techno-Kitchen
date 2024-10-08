@@ -152,6 +152,35 @@ router.get('/byuser/:UserId', async (req, res) => {
   }
 });
 
+router.post('/:buildId/comments', async (req, res, next) => {
+  const { UserId, BuildId, content, score } = req.body;
+  console.log('Received request to create comment and rating:', req.body);
+  if (!content || score === null || score < 1 || score > 5 || !UserId || !BuildId) {
+    return res.status(400).json({ error: 'Invalid comment or rating' });
+  }
+  try {
+    console.log('Creating comment...');
+    const comment = await Comment.create({
+      UserId,
+      BuildId,
+      content,
+    });
+    console.log('Comment created:', comment);
+    console.log('Creating rating...');
+    const rating = await Rating.create({
+      UserId,
+      BuildId,
+      score,
+    });
+    console.log('Rating created:', rating);
+
+    res.status(201).json({ comment, rating });
+  } catch (error) {
+    console.error('Error creating comment or rating:', error);
+    next(error);
+  }
+});
+
 router.post('/add', async (req, res) => {
   const { UserId, Items, image, title } = req.body;
   let body = {};
