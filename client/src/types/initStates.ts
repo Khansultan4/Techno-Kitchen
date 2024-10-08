@@ -12,7 +12,7 @@ import {
 
 export const initUserState: IUser = {
   id: 0,
-  username: '',
+  login: '',
   email: '',
   role: 'user',
 };
@@ -62,8 +62,8 @@ export const initBuild: IBuild = {
   image: '',
   description: '',
   UserId: 0,
-  createdAt: '',
-  updatedAt: '',
+  createdAt: String(new Date(0)),
+  updatedAt: String(new Date(0)),
   Items: [initItem],
   Ratings: [initRating],
   Comments: [initComment],
