@@ -15,6 +15,19 @@ import {
 } from '../../redux/slices/configuratorBuildSlice';
 import { initItem } from '../../types/initStates';
 
+const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
+  return (
+    item.price ?
+    <Box
+      sx={{ display: 'flex', flexDirection:'column', width: '100%' }}
+    >
+      <div>{item.title}</div>
+      <div>{item.price} ₽</div>
+    </Box>
+    : <p/>
+  );
+};
+
 export default memo(function RadioItemsList({
   type = 'single',
   items,
@@ -23,19 +36,8 @@ export default memo(function RadioItemsList({
   items: Array<IItem>;
 }): JSX.Element {
   const dispatch = useAppDispatch();
-  const { selectedItems } = useAppSelector((state) => state.configuratorBuild);
 
   const form = useRef<HTMLFormElement | null>(null);
-
-  const testHandler = () => {
-    const formData = form.current
-      ? new FormData(form.current as HTMLFormElement).getAll('Radio')
-      : [];
-    console.log('formData',
-      formData.map((el) => items.find((el2) => el2.id == Number(el)))
-    );
-    console.log('selected', selectedItems)
-  };
 
   const severalSelectHandler = (): IItem[] => {
     const formData = form.current
@@ -65,7 +67,7 @@ export default memo(function RadioItemsList({
                   key={el.id}
                   value={el.id}
                   control={<Radio />}
-                  label={el.title}
+                  label={<RadioContent item={el}/>}
                   onClick={() => dispatch(changeSelectedItems(el))}
                 />
               ))}
@@ -81,27 +83,26 @@ export default memo(function RadioItemsList({
             }}
           >
             <RadioGroup>
-            {items.map((el) => {
-              const RadioElement = ({checked}:{checked: boolean}) => <Radio checked={checked} name={String(el.id)} />
-              return (
-                <FormControlLabel
-                  key={el.id}
-                  label={el.title}
-                  name="Radio"
-                  className='curt'
-                  control={
-                    <Checkbox
-                         icon={<RadioElement checked={false}/> }
-                      checkedIcon={
-                        <RadioElement checked={true}/> 
-                      }
-                      key={el.id}
-                      value={el.id}
-                    />
-                  }
-                />
-              );
-            })}
+              {items.map((el) => {
+                const RadioElement = ({ checked }: { checked: boolean }) => (
+                  <Radio checked={checked} name={String(el.id)} />
+                );
+                return (
+                  <FormControlLabel
+                    key={el.id}
+                    label={<RadioContent item={el} />}
+                    name="Radio"
+                    control={
+                      <Checkbox
+                        icon={<RadioElement checked={false} />}
+                        checkedIcon={<RadioElement checked={true} />}
+                        key={el.id}
+                        value={el.id}
+                      />
+                    }
+                  />
+                );
+              })}
             </RadioGroup>
           </form>
         )}
