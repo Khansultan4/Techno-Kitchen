@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import './App.css'
+import './App.css';
 import HomePage from './pages/HomePage/HomePage';
 import Root from './Root';
 import { fetchUser } from './redux/thunkActions';
@@ -10,13 +10,14 @@ import AdminPage from './pages/AdminPage/AdminPage';
 import MyConfigsPage from './pages/MyConfigPage/MyConfigsPage';
 import ConfigPage from './pages/ConfigPage/ConfigPage';
 import ConfigsPage from './pages/ConfigsPage/ConfigsPage';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
   useEffect(() => {
     dispatch(fetchUser());
-  }, []);
+  }, [user.id]);
 
   const router = createBrowserRouter([
     {
@@ -45,7 +46,9 @@ function App() {
         },
         {
           path: '/dashboard',
-          element: <AdminPage />,
+          element: ( <ProtectedRoute authUser = {user.login} redirectTo="/">
+            <AdminPage />
+            </ProtectedRoute>),
         },
       ],
     },

@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { changeItems } from '../../redux/slices/configuratorBuildSlice';
+import { fetchAddBuild } from '../../redux/thunkActions';
 
 export default function PreveiwPanel({ className }: { className?: string }) {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
 
   const submitHandler = () => {
     console.log(Object.values(selectedItems));
-    dispatch(changeItems(Object.values(selectedItems)))
+    dispatch(fetchAddBuild(Object.values(selectedItems)))
   };
 
   return (

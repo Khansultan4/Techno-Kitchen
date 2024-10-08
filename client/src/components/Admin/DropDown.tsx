@@ -1,8 +1,8 @@
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
-
+import ArticleIcon from '@mui/icons-material/Article';
 type DropDownProps = {
   specifications: object;
 };
@@ -20,7 +20,9 @@ export default function DropDown({ specifications }: DropDownProps) {
   const specs = Object.entries(specifications);
   return (
     <div>
-      <Button onClick={handleClick}>Spec</Button>
+      <IconButton color='primary' onClick={handleClick}>
+        <ArticleIcon />
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}

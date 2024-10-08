@@ -1,6 +1,23 @@
 .table{
     margin-left: 10%;
+    margin-bottom: 10%;
 }
 .wrapper{
     margin-left: 45%;
+}
+.image{
+    margin-right:10px ;
+}
+.text{
+    margin-top: 10px;
+}
+.name{
+    display: flex
+}
+.rating{
+    display: flex;
+    margin-bottom: 9px;
+}
+.info{
+    margin-top: 15px;   
 }
