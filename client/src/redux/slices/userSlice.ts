@@ -15,7 +15,7 @@ export type Error = {
 export type UserState = {
   user: IUser;
   loading: boolean;
-  error: unknown;
+  error: Error;
 };
 
 const initialState:UserState = {
