@@ -74,13 +74,14 @@ export default function ConfigPage(): JSX.Element {
           id: 0,
           UserId: user.id,
           BuildId: Number(id),
+          createdAt: String(new Date()),
         });
         newPrev.Ratings.push({
           UserId: user.id,
           BuildId: Number(id),
           score: rating,
           id: 0,
-          createdAt: String(new Date())
+          createdAt: String(new Date()),
         });
         return newPrev;
       });
@@ -154,10 +155,18 @@ export default function ConfigPage(): JSX.Element {
                     const specs = Object.entries(item.specifications);
                     return (
                       <TableRow key={item.id}>
-                        <TableCell>{item.Type?.title}:</TableCell>
-                        <TableCell>{item.title}</TableCell>
-
-                        <TableCell>
+                        <TableCell sx={{ fontSize: 20 }}>
+                          {item.Type?.title}:
+                        </TableCell>
+                        <TableCell sx={{ fontSize: 16 }}>
+                          <Box
+                            sx={{ display: 'flex', flexDirection: 'column' }}
+                          >
+                            <span>{item.title}</span>
+                            <span>{item.price} ₽</span>
+                          </Box>
+                        </TableCell>
+                        <TableCell sx={{ fontSize: 14 }}>
                           {specs.map((spec, i) => (
                             <p key={i}> {`${spec[0]}: ${spec[1]}`}</p>
                           ))}
@@ -237,7 +246,6 @@ export default function ConfigPage(): JSX.Element {
               </Typography>
             </Box>
           ))}
-
           {user.id ? (
             <>
               <Typography variant="h5" gutterBottom>
