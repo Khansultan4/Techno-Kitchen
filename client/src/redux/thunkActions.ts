@@ -68,7 +68,14 @@ export const fetchLogoutUser = createAsyncThunk('user/logout', async () => {
 
 //? ===============================Build Thunk Actions===============================
 
-export const fetchAddBuild = createAsyncThunk('build/add', async (build) => {
-  await axiosInstance.post('/build/add', build)
-  return 
+export const fetchAddBuild = createAsyncThunk('build/add', async (build, {rejectWithValue}) => {
+  console.log(build)
+  try {
+  const response = await axiosInstance.post('api/build/add', build)
+  return response
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || 'An unknown error occurred';
+    const statusCode = error.response?.status;
+    return rejectWithValue({ message: errorMessage, status: statusCode });
+  }
 })
