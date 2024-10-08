@@ -49,7 +49,7 @@ export default function MyConfigsPage(): JSX.Element {
 
   return (
     <div >
-    <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Конфигурации</Typography>
+    <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Мои конфигурации</Typography>
     <Paper  sx={{ maxWidth: 1200, margin: 'auto', marginBottom:'100px' }}>
 
     <TableContainer className={styles.table} sx={{ width: '98%', margin: 'auto' }} >

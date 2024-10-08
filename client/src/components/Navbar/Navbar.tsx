@@ -8,6 +8,7 @@ import {
   IconButton,
   Typography,
   InputBase,
+  Paper,
 } from '@mui/material';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -16,6 +17,7 @@ import Auth from '../Auth/Auth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogoutUser } from '../../redux/thunkActions';
 import { NavigateFunction, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Navbar(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
@@ -29,6 +31,13 @@ export default function Navbar(): JSX.Element {
       console.log(error);
     }
   };
+
+  const [navOpen, setNavOpen] = useState(false); 
+
+  const handleMenuClick = () => {
+    setNavOpen(!navOpen);
+  };
+
   return (
     <Box sx={{ flexGrow: 1, position: 'fixed', width:'100vw', top: 0, zIndex:10 }}>
       <AppBar position="static">
@@ -42,9 +51,26 @@ export default function Navbar(): JSX.Element {
             color="inherit"
             aria-label="open drawer"
             sx={{ ml: 1, mr: 2 }}
+            onClick={handleMenuClick}
           >
             <MenuIcon />
           </IconButton>
+          {navOpen && ( 
+
+          <Box component = {Paper} style={{ position:'fixed', width: '160px', height: '180px', overflow: 'auto', marginTop: '240px' }}>
+            <Button onClick={() => navigate('/')} variant="text" sx={{ mt: 2, marginLeft:'14px' }}>
+              Главная
+            </Button>
+            <Button  onClick={() => {
+              navigate('/configurator');
+            }} variant="text" sx={{ mt: 2, marginLeft:'14px'}}>
+              Конфигуратор
+            </Button>
+            <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px' }}>
+              Конфигурации
+            </Button>
+          </Box>
+          )}
 
           <Typography
             variant="h6"
@@ -61,15 +87,6 @@ export default function Navbar(): JSX.Element {
             Kitchen
           </Typography>
 
-          <Button
-            variant="text"
-            onClick={() => {
-              navigate('/configurator');
-            }}
-            sx={{ ml: 2 }}
-          >
-            Конфигуратор
-          </Button>
 
           <Navsearch />
 

@@ -7,7 +7,7 @@ export default function ProtectedRoute({
   redirectTo,
 }: {
   children: JSX.Element;
-  authUser: string | undefined;
+  authUser: string | undefined | boolean;
   redirectTo: string;
 }): JSX.Element {
   if (authUser) {
