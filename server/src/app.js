@@ -15,6 +15,7 @@ const corsConfig = {
   credentials: true,
 };
 const apiRouter = require('./routers/routers.api');
+const ipConsole = require('../middlewares/consoleIp');
 
 app.use('/uploads', express.static(path.join(__dirname, '../', 'uploads')));
 
@@ -26,6 +27,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(process.cwd(), 'public')));
 app.use(removeHeaders);
 
+app.use(ipConsole)
 app.use('/api', apiRouter);
 
 module.exports = app;
