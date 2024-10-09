@@ -94,7 +94,7 @@ export default function ConfigPage(): JSX.Element {
 
   const handleDeleteComment = async (UserId: number) => {
     try {
-      console.log('UserId', UserId)
+      console.log('UserId', UserId);
       const res = await axiosInstance.delete(
         `${import.meta.env.VITE_API}/build/${id}/comments/${UserId}`
       );
@@ -132,7 +132,8 @@ export default function ConfigPage(): JSX.Element {
             <Box
               sx={{
                 padding: 2,
-                border: '1px dotted  #ddd',
+                border: '3px solid',
+                borderColor: 'gray.d',
                 borderRadius: 1,
                 fontSize: 14,
               }}
@@ -227,7 +228,8 @@ export default function ConfigPage(): JSX.Element {
                 backgroundColor: 'background.paper',
                 marginBottom: '20px',
                 padding: '10px',
-                border: '1px dotted  #ddd',
+                border: '3px solid',
+                borderColor: 'gray.d',
                 borderRadius: '5px',
               }}
             >
@@ -267,9 +269,7 @@ export default function ConfigPage(): JSX.Element {
               </Typography>
 
               {comment.UserId === user.id || user.id === 1 ? (
-                <Button
-                  onClick={() => handleDeleteComment(comment.UserId)}
-                >
+                <Button onClick={() => handleDeleteComment(comment.UserId)}>
                   Удалить
                 </Button>
               ) : null}
