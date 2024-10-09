@@ -84,66 +84,89 @@ export default function PreveiwPanel({ className }: { className?: string }) {
     navigate('/');
   };
 
-
-
   return (
     <Box
       sx={{
         bgcolor: 'background.paper',
         width: '500px',
         padding: '20px',
-        height: 'fit-content'
+        height: 'fit-content',
+        borderRadius: '10px',
       }}
       className={className}
     >
       <Box
-        className={styles.imageWrapper}
-        sx={{
-          bgcolor: 'gray.g',
+        sx={{ 
+          borderRadius: '15px', 
+          overflow: 'hidden', 
+          height: 'min-content', 
+          width: 'fit-content'
         }}
       >
-        <img
-          style={{ width: '100%' }}
-          src={`${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`}
-        />
-        <Typography sx={{textAlign:'left', p: '0 20px 10px 10px'}}>Общая стоимость: {buildPrice} ₽</Typography>
-      </Box>
-      <Box sx={{ bgcolor: 'gray.g', margin: 1, width: '95%', padding: 1  }}>
-        <TextField
-          sx={{ mt: 3, width: '100%', mx: 'auto'}}
-          id="standard-size-normal"
-          value={titleDesc[0]}
-          onChange={(e) => changeTitleDesc((prev) => [e.target.value, prev[1]])}
-          variant="standard"
-        />
-        <TextField
+        <Box
+          className={styles.imageWrapper}
           sx={{
-            width: '100%',
-            margin: '20px 0 40px',
+            bgcolor: 'gray.g',
+            borderRadius: '5px',
           }}
-          id="standard-size-normal2"
-          value={titleDesc[1]}
-          onClick={(e) => changeTitleDesc((prev) => [prev[0], e.target.value])}
-          variant="standard"
-        />
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'gray.f',
-          width: '95%',
-          height: 'fit-content',
-        }}
-      >
-        <DamnBox title="Процессор" value={selectedItems.CPU.title} />
-        <DamnBox title="Видеокарта" value={selectedItems.GPU.title} />
-        <DamnBox title="Материнская плата" value={selectedItems.mother.title} />
-        <DamnBox title="Оперативная память" value={selectedItems.RAM} />
-        <DamnBox title="SSD накопитель" value={selectedItems.SSD} />
-        <DamnBox title="Система охлаждения" value={selectedItems.cooling} />
-        <DamnBox title="Жесткий диск" value={selectedItems.HHD} />
-        <DamnBox title="Блок питания" value={selectedItems.power.title} />
-        <DamnBox title="Корпус" value={selectedItems.case.title} />
-        <DamnBox title="Термоинтерфейс" value={selectedItems.termo.title} />
+        >
+          <img
+            style={{ width: '100%' }}
+            src={`${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`}
+          />
+          <Typography sx={{ textAlign: 'left', p: '0 20px 10px 10px' }}>
+            Общая стоимость: {buildPrice} ₽
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: 'gray.f',
+            width: '100%',
+            height: 'min-content',
+            borderRadius: '5px',
+            overflow: 'hidden',
+            margin: '10px 0'
+          }}
+        >
+        <Box
+          sx={{ bgcolor: 'gray.g', width: '100%', padding: 1, }}
+        >
+          <TextField
+            sx={{ mt: 3, width: '100%', mx: 'auto', borderRadius: '5px' }}
+            id="standard-size-normal"
+            value={titleDesc[0]}
+            onChange={(e) =>
+              changeTitleDesc((prev) => [e.target.value, prev[1]])
+            }
+            variant="standard"
+          />
+          <TextField
+            sx={{
+              width: '100%',
+              margin: '20px 0 40px',
+            }}
+            id="standard-size-normal2"
+            value={titleDesc[1]}
+            onClick={(e) =>
+              changeTitleDesc((prev) => [prev[0], e.target.value])
+            }
+            variant="standard"
+          />
+        </Box>
+          <DamnBox title="Процессор" value={selectedItems.CPU.title} />
+          <DamnBox title="Видеокарта" value={selectedItems.GPU.title} />
+          <DamnBox
+            title="Материнская плата"
+            value={selectedItems.mother.title}
+          />
+          <DamnBox title="Оперативная память" value={selectedItems.RAM} />
+          <DamnBox title="SSD накопитель" value={selectedItems.SSD} />
+          <DamnBox title="Система охлаждения" value={selectedItems.cooling} />
+          <DamnBox title="Жесткий диск" value={selectedItems.HHD} />
+          <DamnBox title="Блок питания" value={selectedItems.power.title} />
+          <DamnBox title="Корпус" value={selectedItems.case.title} />
+          <DamnBox title="Термоинтерфейс" value={selectedItems.termo.title} />
+        </Box>
       </Box>
       <Button
         variant="contained"

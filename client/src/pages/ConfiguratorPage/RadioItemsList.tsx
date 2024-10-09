@@ -58,6 +58,7 @@ export default memo(function RadioItemsList({
         bgcolor: 'background.paper',
         m: '20px 0 0 30px',
         p: '15px 0 1px 20px',
+        borderRadius: '10px',
       }}
     >
       <Typography>{items[0]?.Type.title}</Typography>
