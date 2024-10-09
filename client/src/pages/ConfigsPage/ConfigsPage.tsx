@@ -16,6 +16,7 @@ export default function ConfigsPage(): JSX.Element {
   const handleOpen = (): void => setIsOpen(true);
   const handleClose = (): void => setIsOpen(false);
   const [entries, setEntries] = useState<IBuild[]>([initBuild]);
+  const [userNames, setUserNames] = useState<string[]>([]);
   
   useEffect(() => {
     axiosInstance
@@ -45,11 +46,18 @@ export default function ConfigsPage(): JSX.Element {
       // console.log('2121', entries);
       
 
-
+      useEffect(() => {
+        axiosInstance
+          .get<string[]>(`${import.meta.env.VITE_API}/users/logins`)
+          .then((res) => setUserNames(res.data));
+      }, []);
+    
+    
+      console.log('2121', userNames);
 
     return (
        <div >
-        <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Конфигурации</Typography>
+        <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Сборки пользователей</Typography>
         <Paper  sx={{ maxWidth: 1200, margin: 'auto', marginBottom:'100px' }}>
 
         <TableContainer className={styles.table} sx={{ width: '98%', margin: 'auto' }} >
@@ -73,7 +81,7 @@ export default function ConfigsPage(): JSX.Element {
                <TableCell>
                 <div className={styles.name}>
                 <img className={styles.image} src={el.image} height='40px'></img>
-                <div className={styles.text}>{el.title}</div>
+                <div className={styles.text}>{el.title}<div style={{color:'#c0ff01'}}>{userNames[el?.UserId]}</div></div>
                 </div>
                 </TableCell>
                <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>

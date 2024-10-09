@@ -17,10 +17,11 @@ import { initBuild } from '../../types/initStates';
 import { useAppSelector } from '../../redux/hooks';
 import ConfigInfo from '../../components/ConfigInfo/ConfigInfo';
 
+
 export default function MyConfigsPage(): JSX.Element {
   const [entries, setEntries] = useState<IBuild[]>([initBuild]);
   const { user } = useAppSelector((state) => state.user);
-
+  const [userNames, setUserNames] = useState<string[]>([]);
   useEffect(() => {
     console.log('123214',user.id);
     
@@ -43,15 +44,21 @@ export default function MyConfigsPage(): JSX.Element {
       hour12: false,
     });
   };
+  useEffect(() => {
+    axiosInstance
+      .get<string[]>(`${import.meta.env.VITE_API}/users/logins`)
+      .then((res) => setUserNames(res.data));
+  }, []);
 
+  console.log('123212233234',entries);
+  console.log('2121', userNames);
 
-  // console.log('2121', user.id);
 
   return (
     <div >
-    <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Мои конфигурации</Typography>
-    <Paper  sx={{ maxWidth: 1200, margin: 'auto', marginBottom:'100px' }}>
+    <Typography textAlign={'center'} className={styles.wrapper} variant="h3" margin='30px' component="h2">Сборки {userNames[entries[0].UserId]}</Typography>
 
+    <Paper  sx={{ maxWidth: 1200, margin: 'auto', marginBottom:'100px' }}>
     <TableContainer className={styles.table} sx={{ width: '98%', margin: 'auto' }} >
    <Table  size="medium" aria-label="a dense table">
      <TableHead>

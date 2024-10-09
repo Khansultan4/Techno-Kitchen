@@ -57,18 +57,21 @@ export default function Navbar(): JSX.Element {
           </IconButton>
           {navOpen && ( 
 
-          <Box component = {Paper} style={{ position:'fixed', width: '160px', height: '180px', overflow: 'auto', marginTop: '240px' }}>
-            <Button onClick={() => navigate('/')} variant="text" sx={{ mt: 2, marginLeft:'14px' }}>
+          <Box onClick={handleMenuClick} component = {Paper} style={{ position:'fixed', width: '165px', height: '190px', overflow: 'auto', marginTop: '250px' }}>
+            <Button onClick={() => navigate('/')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '10px' }}>
               Главная
             </Button>
             <Button  onClick={() => {
               navigate('/configurator');
-            }} variant="text" sx={{ mt: 2, marginLeft:'14px'}}>
+            }} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '5px'}}>
               Конфигуратор
             </Button>
-            <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px' }}>
-              Конфигурации
+            <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '5px' }}>
+              Сборки
             </Button>
+            <Button onClick={() => navigate('/myConfigs')} variant="text" sx={{ ml: 2, marginLeft:'14px',marginTop: '5px' }}>
+                  Мои сборки
+                </Button>
           </Box>
           )}
 
@@ -100,7 +103,7 @@ export default function Navbar(): JSX.Element {
                 </NavLink>
               ) : (
                 <Button onClick={() => navigate('/myConfigs')} variant="contained" sx={{ ml: 2 }}>
-                  Личный кабинет
+                  Мои сборки
                 </Button>
               )}
               <Button
