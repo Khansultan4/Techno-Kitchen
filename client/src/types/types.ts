@@ -1,3 +1,5 @@
+import { Theme } from "@mui/material";
+
 export interface IUser {
   id: number;
   login: string;

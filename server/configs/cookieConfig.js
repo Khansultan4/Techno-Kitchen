@@ -17,6 +17,6 @@ module.exports = {
     // sameSite: 'None',
     // domain: 'http://tk.ru/',
     // domain: '.tk.ru',
-    sameSite: 'lax'
+    // sameSite: 'lax'
   },
 };

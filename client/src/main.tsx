@@ -21,8 +21,16 @@ const darkTheme = createTheme({
     text: {
       primary: '#ffffff',   //белый
       secondary: '#b0b0b0', //серо-белый текст   
-      
     },
+    gray: {
+      a: '#ABABAB',
+      b: '#8D8D8D',
+      c: '#808080',
+      d: '#5E5E5E',
+      e: '#4D4D4D',
+      f: '#191919',
+      g: '#121212',
+    }
   },
 });
 
