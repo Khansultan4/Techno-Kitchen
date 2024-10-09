@@ -92,7 +92,6 @@ export default function ConfigPage(): JSX.Element {
     }
   };
 
-
   const handleDeleteComment = async (commentId: number) => {
     try {
       const res = await axiosInstance.delete(
@@ -100,17 +99,18 @@ export default function ConfigPage(): JSX.Element {
       );
       setBuild((prev) => {
         const newPrev: IBuild = { ...(prev as IBuild) };
-        newPrev.Comments = newPrev.Comments.filter((comment) => comment.id !== commentId);
-        newPrev.Ratings = newPrev.Ratings.filter((rating) => rating.id !== commentId);
+        newPrev.Comments = newPrev.Comments.filter(
+          (comment) => comment.id !== commentId
+        );
+        newPrev.Ratings = newPrev.Ratings.filter(
+          (rating) => rating.id !== commentId
+        );
         return newPrev;
       });
     } catch (error) {
       console.log('Error deleting comment:', error);
     }
   };
-
-
-
 
   return (
     <div style={{ padding: 50 }}>
@@ -266,16 +266,13 @@ export default function ConfigPage(): JSX.Element {
               </Typography>
 
               {comment.UserId === user.id && (
-      <Button
-        variant="contained"
-        color="error"
-        onClick={() => handleDeleteComment(comment.id)}
-      >
-        Удалить
-      </Button>
-    )}
-
-
+                <Button
+                  href="#text-buttons"
+                  onClick={() => handleDeleteComment(comment.id)}
+                >
+                  Удалить
+                </Button>
+              )}
             </Box>
           ))}
           {user.id ? (
