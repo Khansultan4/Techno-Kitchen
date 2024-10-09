@@ -92,18 +92,18 @@ export default function ConfigPage(): JSX.Element {
     }
   };
 
-  const handleDeleteComment = async (commentId: number) => {
+  const handleDeleteComment = async (UserId: number) => {
     try {
       const res = await axiosInstance.delete(
-        `${import.meta.env.VITE_API}/build/${id}/comments/${commentId}`
+        `${import.meta.env.VITE_API}/build/${id}/comments/${UserId}`
       );
       setBuild((prev) => {
         const newPrev: IBuild = { ...(prev as IBuild) };
         newPrev.Comments = newPrev.Comments.filter(
-          (comment) => comment.id !== commentId
+          (comment) => comment.UserId !== UserId
         );
         newPrev.Ratings = newPrev.Ratings.filter(
-          (rating) => rating.id !== commentId
+          (rating) => rating.UserId !== UserId
         );
         return newPrev;
       });
@@ -268,7 +268,7 @@ export default function ConfigPage(): JSX.Element {
               {comment.UserId === user.id && (
                 <Button
                   href="#text-buttons"
-                  onClick={() => handleDeleteComment(comment.id)}
+                  onClick={() => handleDeleteComment(comment.UserId)}
                 >
                   Удалить
                 </Button>
