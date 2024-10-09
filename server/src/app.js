@@ -11,7 +11,13 @@ const cors = require('cors');
 const removeHeaders = require('../middlewares/removeHeaders');
 const IPs = process.env.CORS_LOCALIP[0] === '[' ? JSON.parse(process.env.CORS_LOCALIP) : process.env.CORS_LOCALIP
 const corsConfig = {
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', IPs],
+  origin: [
+    'http://localhost:5173',
+    'http://26.179.213.238:5173',
+    'http://127.0.0.1:5173',
+    'http://26.179.213.238:5173',
+    'http://26.126.227.55:5173',
+    IPs,],
   credentials: true,
 };
 const apiRouter = require('./routers/routers.api');

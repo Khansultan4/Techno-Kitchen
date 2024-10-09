@@ -14,25 +14,26 @@ type ChatComponentProps = {
 
 export default function ChatComponent({ setChatOpen }: ChatComponentProps) {
   const { user: loggedUser } = useAppSelector((store) => store.user);
-  const { messages, users, submitMessage, socketRef, resetCount } = useChat();
+  const { messages, users, submitMessage, socketRef } = useChat();
   return (
     <>
       <Box
         sx={{
           width: '400px',
           position: 'absolute',
+          zIndex: '10',
           top: '30%',
           left: '30%',
           transform: 'translate(-30%, -30%)',
           border: '2px solid yellow',
           bgcolor: 'black',
           padding: '1rem',
+          borderRadius: '10px',
         }}
       >
         <IconButton
           onClick={() => {
             setChatOpen(false);
-            resetCount();
           }}
           sx={{ position: 'absolute', top: '0', right: '0' }}
           color="primary"

@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Card, Paper, Typography } from '@mui/material';
 import { IMessage, IUser } from '../../../types/types';
 
 type ChatMessageProps = {
@@ -17,19 +17,25 @@ export default function ChatMessage({ message, loggedUser }: ChatMessageProps) {
         margin: '5px',
       }}
     >
-      <Box
+      <Paper
         sx={{
-          minWidth: '15rem',
-          maxWidth: '20rem',
-          padding: '15px',
-          overflowWrap: 'break-word',
+          width: '15rem',
         }}
       >
-        <Box>
-          <Typography color="primary">{message.User?.login}</Typography>
-          <Typography>{message.text}</Typography>
+        <Box
+          sx={{
+            minWidth: '15rem',
+            maxWidth: '20rem',
+            padding: '15px',
+            overflowWrap: 'break-word',
+          }}
+        >
+          <Box>
+            <Typography color="primary">{message.User?.login}</Typography>
+            <Typography>{message.text}</Typography>
+          </Box>
         </Box>
-      </Box>
+      </Paper>
     </Box>
   );
 }

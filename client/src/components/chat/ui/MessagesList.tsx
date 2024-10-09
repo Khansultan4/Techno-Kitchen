@@ -33,6 +33,7 @@ export default function MessagesList({
         },
         scrollbarWidth: 'none',
         msOverflowStyle: 'none',
+        borderTop: '3px solid yellow',
       }}
     >
       {messages.map((message: IMessage) => (
