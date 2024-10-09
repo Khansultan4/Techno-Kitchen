@@ -94,6 +94,7 @@ export default function ConfigPage(): JSX.Element {
 
   const handleDeleteComment = async (UserId: number) => {
     try {
+      console.log('UserId', UserId)
       const res = await axiosInstance.delete(
         `${import.meta.env.VITE_API}/build/${id}/comments/${UserId}`
       );
@@ -265,14 +266,13 @@ export default function ConfigPage(): JSX.Element {
                   : 'No date available'}
               </Typography>
 
-              {comment.UserId === user.id && (
+              {comment.UserId === user.id || user.id === 1 ? (
                 <Button
-                  href="#text-buttons"
                   onClick={() => handleDeleteComment(comment.UserId)}
                 >
                   Удалить
                 </Button>
-              )}
+              ) : null}
             </Box>
           ))}
           {user.id ? (

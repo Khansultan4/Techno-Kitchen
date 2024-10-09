@@ -206,11 +206,11 @@ router.post('/add', async (req, res) => {
 
 
 
-router.delete('/:buildId/comments/:commentId', async (req, res, next) => {
-  const { buildId, commentId } = req.params;
+router.delete('/:buildId/comments/:UserId', async (req, res, next) => {
+  const { UserId } = req.params;
   try {
-    await Comment.destroy({ where: { id: commentId, BuildId: buildId } });
-    await Rating.destroy({ where: { id: commentId, BuildId: buildId } });
+    await Comment.destroy({ where: { UserId } });
+    await Rating.destroy({ where: { UserId } });
     res.status(200).json({ message: 'Comment and rating deleted successfully' });
   } catch (error) {
     console.error('Error deleting comment or rating:', error);
