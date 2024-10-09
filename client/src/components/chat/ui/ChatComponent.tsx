@@ -26,7 +26,7 @@ export default function ChatComponent({ setChatOpen }: ChatComponentProps) {
           left: '30%',
           transform: 'translate(-30%, -30%)',
           border: '2px solid yellow',
-          bgcolor: 'black',
+          bgcolor: 'background.paper',
           padding: '1rem',
           borderRadius: '10px',
         }}
