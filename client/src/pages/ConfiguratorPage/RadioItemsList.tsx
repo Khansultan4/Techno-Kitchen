@@ -16,15 +16,17 @@ import {
 import { initItem } from '../../types/initStates';
 
 const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
-  return (
-    item.price ?
-    <Box
-      sx={{ display: 'flex', flexDirection:'column', width: '100%' }}
-    >
-      <div>{item.title}</div>
-      <div>{item.price} ₽</div>
+  return item.price ? (
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      width: '100%',
+     }}>
+      <Typography variant='body2'>{item.title}</Typography>
+      <Typography variant='body2'>{item.price} ₽</Typography>
     </Box>
-    : <p/>
+  ) : (
+    <p />
   );
 };
 
@@ -50,13 +52,18 @@ export default memo(function RadioItemsList({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        bgcolor: 'background.paper',
+        m: '20px 0 0 30px',
+        p: '15px 0 1px 20px',
+      }}
+    >
       <Typography>{items[0]?.Type.title}</Typography>
       <Box
         sx={{
-          bgcolor: 'background.paper',
           borderRadius: '2px',
-          margin: '20px',
+          margin: '5px',
         }}
       >
         {type === 'single' ? (
@@ -64,10 +71,11 @@ export default memo(function RadioItemsList({
             <RadioGroup name="Group">
               {items.map((el) => (
                 <FormControlLabel
+                  sx={{ m: '5px 0' }}
                   key={el.id}
                   value={el.id}
                   control={<Radio />}
-                  label={<RadioContent item={el}/>}
+                  label={<RadioContent item={el} />}
                   onClick={() => dispatch(changeSelectedItems(el))}
                 />
               ))}
