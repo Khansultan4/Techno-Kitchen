@@ -16,11 +16,19 @@ const jwt = require('jsonwebtoken');
 
 const verifyRefreshToken = (req, res, next) => {
   try {
+    console.log('tokentokentokentokentokentoken')
+    console.log(req.cookies.refreshToken)
+    console.log('tokentokentokentokentokentoken')
     const { refreshToken } = req.cookies;
-    const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-    res.locals.user = user;
+    if(refreshToken) {
 
-    next();
+      const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+      res.locals.user = user;
+      next();
+    } else {
+      console.log(' (?) refreshToken not provided')
+    }
+
   } catch (error) {
     console.log('Invalid refresh', error);
     res.status(200).json({ message: 'Invalid refresh' });

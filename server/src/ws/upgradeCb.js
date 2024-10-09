@@ -1,8 +1,8 @@
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const { WebSocketServer } = require('ws');
 const jwt = require('jsonwebtoken');
 
-require('dotenv').config();
 
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 
@@ -12,7 +12,6 @@ const upgradeCb = (request, socket, head) => {
   cookieParser()(request, {}, () => {
     try {
       const token = request.cookies.refreshToken;
-
       const { user } = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
 
       socket.removeListener('error', () => {});

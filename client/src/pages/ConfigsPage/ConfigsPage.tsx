@@ -27,7 +27,7 @@ export default function ConfigsPage(): JSX.Element {
       .catch((err) => console.error(err));
   }, []);
 
-  console.log('124',typeof entries[0]?.updatedAt);
+ 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('ru-RU', {
@@ -42,10 +42,9 @@ export default function ConfigsPage(): JSX.Element {
 
       // const rows = entries
       // const avergeScore = entries.reduce((acc,el) => acc + el, 0)/entries.length
-      console.log('2121', entries);
+      // console.log('2121', entries);
       
 
-// console.log('123214', InfoButton);
 
 
     return (
