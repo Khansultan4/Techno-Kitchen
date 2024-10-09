@@ -39,6 +39,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
         />
       </Box>
 
+    <Box sx={{backgroundColor: 'blue'}}>
       <DamnBox>
         <Typography>Процессор:</Typography>
         <Typography>{selectedItems.CPU.title}</Typography>
@@ -87,6 +88,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
         <Typography>Термоинтерфейс:</Typography>
         <Typography>{selectedItems.termo.title}</Typography>
       </DamnBox>
+      </Box>
       <Button variant="contained" sx={{ marginTop: '40px' }}
       onClick={submitHandler}>
         Сохранить

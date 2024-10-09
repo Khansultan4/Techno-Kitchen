@@ -28,8 +28,7 @@ router.post('/signup', async (req, res) => {
       const { accessToken, refreshToken } = generateToken({ user: plainUser });
 
       res
-        // .cookie('refreshToken', refreshToken, cookieConfig.refresh)
-        .cookie('11111111', 22222222, cookieConfig.refresh)
+        .cookie('refreshToken', refreshToken, cookieConfig.refresh)
         .json({ user: plainUser, accessToken });
     }
   } catch (error) {
