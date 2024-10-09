@@ -126,11 +126,12 @@ export default function ConfigPage(): JSX.Element {
               alignItems: 'center',
             }}
           >
+            <Box sx={{width: '400px'}}>
             <img
               src={build?.image}
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+              />
             <Box
               sx={{
                 padding: 2,
@@ -139,7 +140,7 @@ export default function ConfigPage(): JSX.Element {
                 borderRadius: 1,
                 fontSize: 14,
               }}
-            >
+              >
               <Typography variant="h3" sx={{ marginTop: 2 }}>
                 {build?.title}
               </Typography>
@@ -147,7 +148,7 @@ export default function ConfigPage(): JSX.Element {
               <Typography
                 variant="h6"
                 sx={{ marginTop: 2, color: 'text.secondary' }}
-              >
+                >
                 Пользователь: {userNames[build?.UserId]}
               </Typography>
 
@@ -160,7 +161,8 @@ export default function ConfigPage(): JSX.Element {
                 value={calculateAverageRating(build?.Ratings)}
                 readOnly
                 precision={0.1}
-              />
+                />
+                </Box>
             </Box>
           </Box>
         </Grid>

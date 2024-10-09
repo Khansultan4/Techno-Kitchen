@@ -20,24 +20,24 @@ export default function Auth() {
       {!isRegister ? (
         <>
           <Box sx={{ minWidth: '200px' }}>
-            <Typography>Still don't have an acoount?</Typography>
+            <Typography>Нет аккаунта?</Typography>
             <Link
               sx={{ cursor: 'pointer' }}
               onClick={() => setIsregister(true)}
             >
-              Sign up
+              Регистрация
             </Link>
           </Box>
         </>
       ) : (
         <>
           <Box sx={{ minWidth: '200px' }}>
-            <Typography>Already have an account?</Typography>
+            <Typography>Уже зарегистрированы?</Typography>
             <Link
               sx={{ cursor: 'pointer' }}
               onClick={() => setIsregister(false)}
             >
-              Sign in
+              Войти
             </Link>
           </Box>
         </>

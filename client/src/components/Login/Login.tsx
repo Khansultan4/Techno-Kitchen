@@ -5,10 +5,10 @@ export default function Login() {
   return (
     <>
       <Typography variant="h5" sx={{ color: 'white' }}>
-        Welcome Back!
+        С возвращением!
       </Typography>
       <Typography sx={{ color: '#b9bbbe' }}>
-        We are happy that you are with us!
+        Мы рады видеть вас здесь!
       </Typography>
       <LoginPageInputs />
     </>

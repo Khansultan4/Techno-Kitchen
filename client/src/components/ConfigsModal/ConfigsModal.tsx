@@ -36,7 +36,7 @@ export default function ConfigModal({
       </TableContainer>
       <div className={styles.buttons}>
       <InfoButton id={id} />
-      <Button
+      {/* <Button
             variant="contained"
             onClick={() => {
               navigate(`/configurator/${id}`);
@@ -45,7 +45,7 @@ export default function ConfigModal({
             size="small"
           >
             Изменить
-          </Button>
+          </Button> */}
     </div>
     </div>
   );

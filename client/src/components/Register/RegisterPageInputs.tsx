@@ -57,34 +57,34 @@ export default function RegisterPageInputs() {
         </Alert>
       )}
       <InputWithLabels
-        label="Name"
+        label="Имя пользователя"
         value={username}
         type="text"
         name="username"
         onChangeHandler={nameChangeHandler}
-        placeHolder="Type your name"
+        placeHolder="Введите имя"
       />
       <InputWithLabels
-        label="Email address"
+        label="Email"
         value={email}
         type="email"
         name="email"
         onChangeHandler={emailChangeHandler}
-        placeHolder="Type your email address"
+        placeHolder="Введите почту"
       />
       <InputWithLabels
-        label="Password"
+        label="Пароль"
         value={password}
         type="password"
         name="password"
         onChangeHandler={passwordChangeHandler}
-        placeHolder="Type your password"
+        placeHolder="Введите пароль"
       />
       <Tooltip
         title={
           !isFormValid
-            ? 'Email should contain @ and password should be more than 5 charac ters'
-            : 'Press to sign up'
+            ? 'Почта должна содержать @ и пароль должен быть длиннее 5 символов'
+            : 'Регистрация'
         }
       >
         <div>
@@ -94,7 +94,7 @@ export default function RegisterPageInputs() {
             variant="contained"
             disabled={!isFormValid}
           >
-            Sign up
+            Зарегистрироваться
           </Button>
         </div>
       </Tooltip>

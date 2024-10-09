@@ -4,11 +4,11 @@ import RegisterPageInputs from './RegisterPageInputs';
 export default function Register() {
   return (
     <>
-      <Typography variant="h5" sx={{ color: 'white' }}>
-        Create an Acoount!
+      <Typography variant="h5" sx={{ color: 'text.primary' }}>
+        Регистрация
       </Typography>
-      <Typography sx={{ color: '#b9bbbe' }}>
-        Start configurate your own PC
+      <Typography sx={{ color: 'text.primary' }}>
+        
       </Typography>
       <RegisterPageInputs />
     </>
