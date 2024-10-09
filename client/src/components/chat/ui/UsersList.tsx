@@ -70,7 +70,7 @@ export default function UsersList({ users, loggedUser }: USersListProps) {
             >
               <AdjustRounded color="primary" />
               <Typography marginLeft="10px">
-                {user.id !== loggedUser.id ? user.login : 'Вы сами'}
+               {user.login} {user.id !== loggedUser.id ? null : ' (вы)'}
               </Typography>
             </Box>
           ))}
