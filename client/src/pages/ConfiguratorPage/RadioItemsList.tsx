@@ -14,6 +14,7 @@ import {
   changeSeveralSelectedImes,
 } from '../../redux/slices/configuratorBuildSlice';
 import { initItem } from '../../types/initStates';
+import {priceSeparator} from '../../utils/functions'
 
 const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
   return item.price ? (
@@ -23,7 +24,7 @@ const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
       width: '100%',
      }}>
       <Typography variant='body2'>{item.title}</Typography>
-      <Typography variant='body2'>{item.price} ₽</Typography>
+      <Typography variant='body2'>{priceSeparator(item.price)} ₽</Typography>
     </Box>
   ) : (
     <p />
