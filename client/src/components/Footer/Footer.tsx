@@ -29,13 +29,13 @@ export default function Footer(): JSX.Element {
             <Typography variant="h5" align="center" style={{ color: 'white' }}>
               Модели
             </Typography>
-            <Box mx={'auto'} width={'50%'}>
-              {['Игровые компьютеры', 'Рабочие станции', 'каталог'].map(
+            <Box mx={'auto'} width={'70%'} sx={{maxWidth:'300px', justifyContent: 'space-between', display: 'flex', flexWrap: 'wrap'}}>
+              {['Игровые компьютеры', 'Рабочие станции', 'Периферия', 'Офисные компьютеры'].map(
                 (item) => (
                   <Typography
                     key={item}
                     align="center"
-                    style={{ color: 'white' }}
+                    style={{ color: 'white', textWrap: 'nowrap', margin: '0 5px' }}
                     variant='body2'
                   >
                     {item}
