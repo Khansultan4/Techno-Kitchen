@@ -138,7 +138,7 @@ export default function ModifyForm({ types, setItems }: ModifyFormProps) {
   return (
     <form className={styles.form} onSubmit={addSubmitHandle}>
       <Typography align="center" mb={2}>
-        Add Item Inputs
+        Создать новую позицию
       </Typography>
       <TextField
         id="outlined-basic"
@@ -172,7 +172,7 @@ export default function ModifyForm({ types, setItems }: ModifyFormProps) {
         size="small"
       />
       <Button component="label" variant="contained" startIcon={<UploadFile />}>
-        Upload image
+        Загрузить изображение
         <VisuallyHiddenInput
           type="file"
           onChange={handleImageChange}
@@ -213,7 +213,7 @@ export default function ModifyForm({ types, setItems }: ModifyFormProps) {
         specifications={specifications}
       />
       <Button variant="contained" type="submit">
-        Add Item
+        Сохранить
       </Button>
     </form>
   );

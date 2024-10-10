@@ -27,7 +27,7 @@ export default function DynamicSpecificationForm({
             <TextField
               type="text"
               name="key"
-              placeholder="Specification Name"
+              placeholder="Характеристика"
               value={spec.key}
               onChange={(e) => handleSpecificationChange(index, e)}
               size="small"
@@ -36,7 +36,7 @@ export default function DynamicSpecificationForm({
             <TextField
               type="text"
               name="value"
-              placeholder="Specification Value"
+              placeholder="Значение"
               value={spec.value}
               onChange={(e) => handleSpecificationChange(index, e)}
               size="small"
@@ -50,7 +50,7 @@ export default function DynamicSpecificationForm({
         ))}
       <Box>
         <Button type="button" onClick={handleAddField}>
-          Add More Specification
+          Добавить
         </Button>
       </Box>
     </Box>

@@ -39,7 +39,7 @@ export default function Navbar(): JSX.Element {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, position: 'fixed', width:'100vw', top: 0, zIndex:10 }}>
+    <Box sx={{ flexGrow: 1, position: 'fixed', width:'100vw', top: 0, zIndex:10, height: 'fit-content' }}>
       <AppBar position="static">
         <Toolbar>
           <img                   src="/icons/computer.svg"

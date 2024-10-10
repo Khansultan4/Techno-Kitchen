@@ -14,14 +14,16 @@ module.exports = {
         references: {
           model: "Users",
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       BuildId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Builds",
           key: 'id'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       score: {
         type: Sequelize.INTEGER

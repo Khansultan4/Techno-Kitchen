@@ -6,6 +6,12 @@ module.exports = {
       await queryInterface.bulkInsert('Builds', 
         [
           {
+            UserId: "6",
+            image: "https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-305x171.jpg",
+            title: "Робокоп",
+            description: "Компьютер для настоящих мужчин",
+          },
+          {
             UserId: "2",
             image: "https://hyperpc.ru/images/product/lumen/teaser/green-table/content/hyperpc-original-dual-green.jpg",
             title: "Игровой ПК",

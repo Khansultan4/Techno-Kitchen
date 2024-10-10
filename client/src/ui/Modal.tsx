@@ -4,7 +4,7 @@ import { Backdrop, Box, Modal, Fade, Button, IconButton } from '@mui/material';
 import { ReactNode } from 'react';
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'relative',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -18,6 +18,11 @@ const style = {
   display: 'flex',
   flexDirection: 'column',
   overflowY: 'auto',
+  '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none',
 };
 
 type FormModalProps = {

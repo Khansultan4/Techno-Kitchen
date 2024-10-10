@@ -91,6 +91,48 @@ module.exports = {
         BuildId: 2,
         ItemId: 32,
       },
+      {
+        BuildId: 3,
+        ItemId: 3,
+      },
+      {
+        BuildId: 3,
+        ItemId: 6,
+      },
+      {
+        BuildId: 3,
+        ItemId: 9,
+      },
+      {
+        BuildId: 3,
+        ItemId: 12,
+      },
+      {
+        BuildId: 3,
+        ItemId: 15,
+      },
+      {
+        BuildId: 3,
+        ItemId: 18,
+      },
+      {
+        BuildId: 3,
+        ItemId: 21,
+      },
+      {
+        BuildId: 3,
+        ItemId: 24,
+      },      {
+        BuildId: 3,
+        ItemId: 27,
+      },      {
+        BuildId: 3,
+        ItemId: 30,
+      },
+      {
+        BuildId: 3,
+        ItemId: 33,
+      },
 
      ], 
     {}

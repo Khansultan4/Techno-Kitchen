@@ -177,7 +177,7 @@ export default function EditModal({ types, id, setItems }: EditModalProps) {
     >
       <form className={styles.form} onSubmit={editSubmitHandle}>
         <Typography align="center" mb={2}>
-          Edit Item Inputs
+          Редактирование компонента
         </Typography>
         <TextField
           id="outlined-basic"
@@ -215,7 +215,7 @@ export default function EditModal({ types, id, setItems }: EditModalProps) {
           variant="contained"
           startIcon={<UploadFile />}
         >
-          Upload image
+          Загрузить изображение
           <VisuallyHiddenInput
             type="file"
             onChange={handleImageChange}
@@ -256,7 +256,7 @@ export default function EditModal({ types, id, setItems }: EditModalProps) {
           specifications={specifications}
         />
         <Button variant="contained" type="submit">
-          Edit Item
+          Изменить
         </Button>
       </form>
     </FormModal>

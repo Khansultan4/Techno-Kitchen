@@ -19,15 +19,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
   const [imagePreview, setImagePreview] = useState('');
   const { selectedItems, configuratorBuild } = useAppSelector((state) => state.configuratorBuild); //prettier-ignore
   const [titleDesc, changeTitleDesc] = useState([configuratorBuild.title,configuratorBuild.description,]); //prettier-ignore
-  const VisuallyHiddenInput = styled('input')({
-    height: '100%',
-    width: '100%',
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-  });
+
   
   const buildPrice = priceSeparator(
     Object.values(selectedItems).reduce((acc: number, el: IItem | IItem[]) => {
@@ -45,7 +37,8 @@ export default function PreveiwPanel({ className }: { className?: string }) {
         fetchAddBuild({
           UserId: user.id,
           Items,
-          image: `${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`,
+          // image: `${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`,
+          image: 'https://hyperpc.ru/images/product/workstation/g5/pc/hyperpc-pro-g5.jpg',
           title: titleDesc[0],
           description: titleDesc[1],
         })
@@ -71,6 +64,8 @@ export default function PreveiwPanel({ className }: { className?: string }) {
         padding: '20px',
         height: 'fit-content',
         borderRadius: '10px',
+        // position: 'fixed',
+        // right: 0
       }}
       className={className}
     >
@@ -89,21 +84,14 @@ export default function PreveiwPanel({ className }: { className?: string }) {
             borderRadius: '5px',
           }}
         >
-          <img
+          {/* <img
             style={{ width: '100%' }}
             src={`${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`}
+          /> */}
+          <img
+            style={{ width: '100%' }}
+            src={'https://hyperpc.ru/images/product/workstation/g5/pc/hyperpc-pro-g5.jpg'}
           />
-
-          <VisuallyHiddenInput
-            type="file"
-            onChange={() => {
-              console.log(12312);
-            }}
-            className="curt"
-            multiple
-            accept="image/*"
-          />
-
           <Typography sx={{ textAlign: 'left', p: '0 20px 10px 10px' }}>
             Общая стоимость: {buildPrice} ₽
           </Typography>
