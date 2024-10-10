@@ -10,7 +10,19 @@ export default function HomePage(): JSX.Element {
   const navigate: NavigateFunction = useNavigate();
   const [isChatOpen, setChatOpen] = useState<boolean>(false);
 
-  const unread = JSON.parse(localStorage.getItem('unread')) || {};
+  const unread = JSON.parse(localStorage.getItem(user.id.toString())) || 0;
+
+  const keys: any = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    keys.push(localStorage.key(i));
+  }
+
+  const handleOpenChat = () => {
+    setChatOpen(true);
+
+    localStorage.setItem(user.id.toString(), JSON.stringify(0));
+  };
+
   return (
     <div>
       <div className={styles.wrapper}>
@@ -35,7 +47,11 @@ export default function HomePage(): JSX.Element {
         <img className={styles.photo} src="/landingPic2.png"></img>
       </div>
       <div className={styles.button}>
-        <Button sx={{width:'200px', fontSize:'20px'}} onClick={() => navigate('/configurator')} variant="contained">
+        <Button
+          sx={{ width: '200px', fontSize: '20px' }}
+          onClick={() => navigate('/configurator')}
+          variant="contained"
+        >
           Собрать ПК
         </Button>
       </div>
@@ -52,7 +68,7 @@ export default function HomePage(): JSX.Element {
             sx={{
               zIndex: 9,
             }}
-            badgeContent={user.id !== unread.id ? unread.unreadMessages : 0}
+            badgeContent={unread}
             color="error"
             anchorOrigin={{
               vertical: 'top',
@@ -60,13 +76,8 @@ export default function HomePage(): JSX.Element {
             }}
           >
             <Button
-            sx={{width:'200px', fontSize:'20px'}}
-              onClick={() => {
-                setChatOpen(true);
-                if (unread.id !== user.id) {
-                  unread.unreadMessages = 0;
-                }
-              }}
+              sx={{ width: '200px', fontSize: '20px' }}
+              onClick={handleOpenChat}
               variant="contained"
             >
               Чат
