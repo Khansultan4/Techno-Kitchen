@@ -20,7 +20,11 @@ export default function HomePage(): JSX.Element {
   const handleOpenChat = () => {
     setChatOpen(true);
 
-    localStorage.setItem(user.id.toString(), JSON.stringify(0));
+    keys.forEach((key) => {
+      if (Number(key) === user.id) {
+        localStorage.setItem(user.id.toString(), JSON.stringify(0));
+      }
+    });
   };
 
   return (
