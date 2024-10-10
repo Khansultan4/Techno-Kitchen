@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Theme } from '@emotion/react';
 import { priceSeparator } from '../../utils/functions';
+import Auth from '../../components/Auth/Auth';
 
 const DamnBox = ({
   title,
@@ -71,19 +72,23 @@ export default function PreveiwPanel({ className }: { className?: string }) {
     configuratorBuild.description,
   ]);
   const submitHandler = () => {
-    const Items: IItem[] = Object.values(selectedItems);
-    dispatch(
-      fetchAddBuild({
-        UserId: user.id,
-        Items,
-        image: `${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`,
-        title: titleDesc[0],
-        description: titleDesc[1],
-      })
-    );
-    navigate('/');
+    if (user.id) {
+      const Items: IItem[] = Object.values(selectedItems);
+      dispatch(
+        fetchAddBuild({
+          UserId: user.id,
+          Items,
+          image: `${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`,
+          title: titleDesc[0],
+          description: titleDesc[1],
+        })
+      );
+      navigate('/');
+    } else {
+      navigate('/');
+    }
   };
-
+  console.log(user.id)
   return (
     <Box
       sx={{
@@ -96,11 +101,11 @@ export default function PreveiwPanel({ className }: { className?: string }) {
       className={className}
     >
       <Box
-        sx={{ 
-          borderRadius: '15px', 
-          overflow: 'hidden', 
-          height: 'min-content', 
-          width: 'fit-content'
+        sx={{
+          borderRadius: '15px',
+          overflow: 'hidden',
+          height: 'min-content',
+          width: 'fit-content',
         }}
       >
         <Box
@@ -125,34 +130,34 @@ export default function PreveiwPanel({ className }: { className?: string }) {
             height: 'min-content',
             borderRadius: '5px',
             overflow: 'hidden',
-            margin: '10px 0'
+            margin: '10px 0',
           }}
         >
-        <Box
-          sx={{ bgcolor: 'gray.g', width: '100%', padding: 1, }}
-        >
-          <TextField
-            sx={{ mt: 3, width: '100%', mx: 'auto', borderRadius: '5px' }}
-            id="standard-size-normal"
-            value={titleDesc[0]}
-            onChange={(e) =>
-              changeTitleDesc((prev) => [e.target.value, prev[1]])
-            }
-            variant="standard"
-          />
-          <TextField
-            sx={{
-              width: '100%',
-              margin: '20px 0 40px',
-            }}
-            id="standard-size-normal2"
-            value={titleDesc[1]}
-            onClick={(e) =>
-              changeTitleDesc((prev) => [prev[0], e.target.value])
-            }
-            variant="standard"
-          />
-        </Box>
+          <Box sx={{ bgcolor: 'gray.g', width: '100%', padding: 1 }}>
+            <TextField
+              sx={{ mt: 3, width: '100%', mx: 'auto', borderRadius: '5px' }}
+              id="standard-size-normal"
+              autoComplete="off"
+              value={titleDesc[0]}
+              onChange={(e) =>
+                changeTitleDesc((prev) => [e.target.value, prev[1]])
+              }
+              variant="standard"
+            />
+            <TextField
+              sx={{
+                width: '100%',
+                margin: '20px 0 40px',
+              }}
+              autoComplete="off"
+              id="standard-size-normal2"
+              value={titleDesc[1]}
+              onChange={(e) =>
+                changeTitleDesc((prev) => [prev[0], e.target.value])
+              }
+              variant="standard"
+            />
+          </Box>
           <DamnBox title="Процессор" value={selectedItems.CPU.title} />
           <DamnBox title="Видеокарта" value={selectedItems.GPU.title} />
           <DamnBox
@@ -168,13 +173,17 @@ export default function PreveiwPanel({ className }: { className?: string }) {
           <DamnBox title="Термоинтерфейс" value={selectedItems.termo.title} />
         </Box>
       </Box>
-      <Button
-        variant="contained"
-        sx={{ marginTop: '40px' }}
-        onClick={submitHandler}
-      >
-        Сохранить
-      </Button>
+      {user.id ? (
+        <Button
+          variant="contained"
+          sx={{ marginTop: '40px' }}
+          onClick={submitHandler}
+        >
+          Сохранить
+        </Button>
+      ) : (
+        <Auth btnVariant="contained" btnText="Сохранить" />
+      )}
     </Box>
   );
 }

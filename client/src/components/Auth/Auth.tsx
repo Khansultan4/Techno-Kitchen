@@ -4,7 +4,13 @@ import { Box, Link, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 
-export default function Auth() {
+export default function Auth({
+  btnVariant = 'text',
+  btnText = 'Login',
+}: {
+  btnVariant?: 'text' | 'contained' | 'outlined';
+  btnText?: string;
+}) {
   const [isRegister, setIsregister] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = (): void => setIsOpen(true);
@@ -14,7 +20,8 @@ export default function Auth() {
       isOpen={isOpen}
       handleOpen={handleOpen}
       handleClose={handleClose}
-      btnText="Login"
+      variant={btnVariant}
+      btnText={btnText}
     >
       {!isRegister ? <Login /> : <Register />}
       {!isRegister ? (

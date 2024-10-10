@@ -24,7 +24,7 @@ const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
       width: '100%',
      }}>
       <Typography variant='body2'>{item.title}</Typography>
-      <Typography variant='body2'>{priceSeparator(item.price)} ₽</Typography>
+      <Typography variant='body2' color='primary.dark'>{priceSeparator(item.price)} ₽</Typography>
     </Box>
   ) : (
     <p />
@@ -100,7 +100,7 @@ export default memo(function RadioItemsList({
                 return (
                   <FormControlLabel
                     key={el.id}
-                    label={<RadioContent item={el} />}
+                    label={<RadioContent item={el} />} 
                     name="Radio"
                     control={
                       <Checkbox

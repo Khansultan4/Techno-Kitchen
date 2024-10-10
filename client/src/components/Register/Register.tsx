@@ -8,7 +8,7 @@ export default function Register() {
         Регистрация
       </Typography>
       <Typography sx={{ color: 'text.primary' }}>
-        
+        Чтобы оставлять отзывы и сохранять свои конфигурации, необходимо создать аккаунт
       </Typography>
       <RegisterPageInputs />
     </>

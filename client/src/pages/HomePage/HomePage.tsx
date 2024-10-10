@@ -69,7 +69,7 @@ export default function HomePage(): JSX.Element {
               }}
               variant="contained"
             >
-              Голосня
+              Чат
             </Button>
           </Badge>
         </Box>
