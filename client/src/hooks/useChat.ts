@@ -9,20 +9,27 @@ export default function useChat() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [typing, setTyping] = useState<boolean>(false);
   const socketRef = useRef<WebSocket | null>(null);
-  const [allUsers, setAllUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     axiosInstance
       .get(`${import.meta.env.VITE_API}/messages`)
       .then(({ data }) => setMessages(data));
+  }, []);
+
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
+
+  useEffect(() => {
     axiosInstance.get('/api/users/all').then((res) => setAllUsers(res.data));
   }, []);
 
   useEffect(() => {
-    for (let i = 0; i < allUsers.length; i++) {
-      localStorage.setItem(allUsers[i].id.toString(), JSON.stringify(0));
-    }
-  }, []);
+    allUsers.forEach((user) => {
+      const existingValue = localStorage.getItem(user.id.toString());
+      if (!existingValue) {
+        localStorage.setItem(user.id.toString(), JSON.stringify(0));
+      }
+    });
+  }, [allUsers]);
 
   const incrementUnreadMessagesForUser = (userId) => {
     const currentUnreadMessages = JSON.parse(localStorage.getItem(userId)) || 0;
@@ -41,6 +48,7 @@ export default function useChat() {
 
     socket.onmessage = (event) => {
       const { type, payload } = JSON.parse(event.data);
+      console.log(payload);
 
       switch (type) {
         case 'SET_USERS_FROM_SERVER':
