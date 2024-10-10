@@ -182,13 +182,13 @@ router.post('/:buildId/comments', async (req, res, next) => {
 });
 
 router.post('/add', async (req, res) => {
-  const { UserId, Items, image, title } = req.body;
+  const { UserId, Items, image, title, description } = req.body;
   let body = {};
   // console.log('=====================Новая сборка=====================')
   // console.log(req.body)
   // console.log('======================конец======================')
   try {
-    const build = await Build.create({ UserId, image, title });
+    const build = await Build.create({ UserId, image, title, description });
     const itemIdBuildId = Items.flatMap((el) => {
       return Array.isArray(el)
         ? el.map((el2) => ({ ItemId: el2.id || null, BuildId: build.id }))

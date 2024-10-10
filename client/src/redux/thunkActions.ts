@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance, { setAccessToken } from '../../axiosInstance';
 import axios from 'axios';
-import { IAuth, IUser } from '../types/types';
+import { IAuth, IBuild, IUser } from '../types/types';
 
 export const fetchUser = createAsyncThunk('user/get', async () => {
   const response = await axiosInstance.get<{
@@ -68,7 +68,7 @@ export const fetchLogoutUser = createAsyncThunk('user/logout', async () => {
 
 //? ===============================Build Thunk Actions===============================
 
-export const fetchAddBuild = createAsyncThunk('build/add', async (build, {rejectWithValue}) => {
+export const fetchAddBuild = createAsyncThunk('build/add', async (build: object, {rejectWithValue}) => {
   console.log(build)
   try {
   const response = await axiosInstance.post('api/build/add', build)
