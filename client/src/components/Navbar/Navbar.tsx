@@ -56,22 +56,29 @@ export default function Navbar(): JSX.Element {
             <MenuIcon />
           </IconButton>
           {navOpen && ( 
-
-          <Box onClick={handleMenuClick} component = {Paper} style={{ position:'fixed', width: '165px', height: '190px', overflow: 'auto', marginTop: '250px' }}>
-            <Button onClick={() => navigate('/')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '10px' }}>
+          <Box onClick={handleMenuClick} component = {Paper} style={{ position:'fixed', width: '165px', height: 'auto', overflow: 'auto', marginTop: '230px', justifyContent: 'space-evenly' }}>
+            <Button onClick={() => navigate('/')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '9px' }}>
               Главная
             </Button>
             <Button  onClick={() => {
               navigate('/configurator');
-            }} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '5px'}}>
+            }} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '6px'}}>
               Конфигуратор
             </Button>
-            <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '5px' }}>
+            {user?.email ? (
+              <div>
+            <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '6px' }}>
               Сборки
             </Button>
-            <Button onClick={() => navigate('/myConfigs')} variant="text" sx={{ ml: 2, marginLeft:'14px',marginTop: '5px' }}>
+            <Button onClick={() => navigate('/myConfigs')} variant="text" sx={{ ml: 2, marginLeft:'14px',marginTop: '3px',marginBottom: '4px' }}>
                   Мои сборки
                 </Button>
+                </div>
+                ) : ( 
+                <Button onClick={() => navigate('/configs')} variant="text" sx={{ mt: 2, marginLeft:'14px',marginTop: '16px',marginBottom: '26px' }}>
+                Сборки
+              </Button>)
+              }
           </Box>
           )}
 
