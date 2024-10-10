@@ -53,26 +53,26 @@ export default function LoginPageInputs() {
         </Alert>
       )}
       <InputWithLabels
-        label="Email address"
+        label="Email"
         value={email}
         type="email"
         name="email"
         onChangeHandler={emailChangeHandler}
-        placeHolder="Type your email address"
+        placeHolder="Введите почту"
       />
       <InputWithLabels
-        label="Password"
+        label="Пароль"
         value={password}
         type="password"
         name="password"
         onChangeHandler={passwordChangeHandler}
-        placeHolder="Type your password"
+        placeHolder="Введите пароль"
       />
       <Tooltip
         title={
           !isFormValid
-            ? 'Fill your correct data to enable log in'
-            : 'Press to log in'
+            ? 'Заполните все поля правильно, чтобы войти'
+            : 'Войти'
         }
       >
         <div>
@@ -82,7 +82,7 @@ export default function LoginPageInputs() {
             variant="contained"
             disabled={!isFormValid}
           >
-            Log in
+            Войти
           </Button>
         </div>
       </Tooltip>

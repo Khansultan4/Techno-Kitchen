@@ -14,17 +14,20 @@ import {
   changeSeveralSelectedImes,
 } from '../../redux/slices/configuratorBuildSlice';
 import { initItem } from '../../types/initStates';
+import {priceSeparator} from '../../utils/functions'
 
 const RadioContent = ({ item }: { item: IItem }): JSX.Element => {
-  return (
-    item.price ?
-    <Box
-      sx={{ display: 'flex', flexDirection:'column', width: '100%' }}
-    >
-      <div>{item.title}</div>
-      <div>{item.price} ₽</div>
+  return item.price ? (
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      width: '100%',
+     }}>
+      <Typography variant='body2'>{item.title}</Typography>
+      <Typography variant='body2' color='primary.dark'>{priceSeparator(item.price)} ₽</Typography>
     </Box>
-    : <p/>
+  ) : (
+    <p />
   );
 };
 
@@ -50,13 +53,19 @@ export default memo(function RadioItemsList({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        bgcolor: 'background.paper',
+        m: '20px 0 0 30px',
+        p: '15px 0 1px 20px',
+        borderRadius: '10px',
+      }}
+    >
       <Typography>{items[0]?.Type.title}</Typography>
       <Box
         sx={{
-          bgcolor: 'background.paper',
           borderRadius: '2px',
-          margin: '20px',
+          margin: '5px',
         }}
       >
         {type === 'single' ? (
@@ -64,10 +73,11 @@ export default memo(function RadioItemsList({
             <RadioGroup name="Group">
               {items.map((el) => (
                 <FormControlLabel
+                  sx={{ m: '5px 0' }}
                   key={el.id}
                   value={el.id}
                   control={<Radio />}
-                  label={<RadioContent item={el}/>}
+                  label={<RadioContent item={el} />}
                   onClick={() => dispatch(changeSelectedItems(el))}
                 />
               ))}
@@ -90,7 +100,7 @@ export default memo(function RadioItemsList({
                 return (
                   <FormControlLabel
                     key={el.id}
-                    label={<RadioContent item={el} />}
+                    label={<RadioContent item={el} />} 
                     name="Radio"
                     control={
                       <Checkbox

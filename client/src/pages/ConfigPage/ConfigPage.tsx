@@ -5,12 +5,14 @@ import {
   TextField,
   Button,
   TableContainer,
-  Table,
   TableBody,
   TableRow,
   TableCell,
-  Paper,
+  IconButton,
+  Table,
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import Grid from '@mui/material/Grid2';
 import axiosInstance from '../../../axiosInstance';
 import { useEffect, useState } from 'react';
@@ -94,7 +96,7 @@ export default function ConfigPage(): JSX.Element {
 
   const handleDeleteComment = async (UserId: number) => {
     try {
-      console.log('UserId', UserId)
+      console.log('UserId', UserId);
       const res = await axiosInstance.delete(
         `${import.meta.env.VITE_API}/build/${id}/comments/${UserId}`
       );
@@ -124,19 +126,21 @@ export default function ConfigPage(): JSX.Element {
               alignItems: 'center',
             }}
           >
+            <Box sx={{width: '400px'}}>
             <img
               src={build?.image}
               alt="Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+              />
             <Box
               sx={{
                 padding: 2,
-                border: '1px dotted  #ddd',
+                border: '3px solid',
+                borderColor: 'gray.d',
                 borderRadius: 1,
                 fontSize: 14,
               }}
-            >
+              >
               <Typography variant="h3" sx={{ marginTop: 2 }}>
                 {build?.title}
               </Typography>
@@ -144,7 +148,7 @@ export default function ConfigPage(): JSX.Element {
               <Typography
                 variant="h6"
                 sx={{ marginTop: 2, color: 'text.secondary' }}
-              >
+                >
                 Пользователь: {userNames[build?.UserId]}
               </Typography>
 
@@ -157,7 +161,8 @@ export default function ConfigPage(): JSX.Element {
                 value={calculateAverageRating(build?.Ratings)}
                 readOnly
                 precision={0.1}
-              />
+                />
+                </Box>
             </Box>
           </Box>
         </Grid>
@@ -227,51 +232,58 @@ export default function ConfigPage(): JSX.Element {
                 backgroundColor: 'background.paper',
                 marginBottom: '20px',
                 padding: '10px',
-                border: '1px dotted  #ddd',
+                border: '3px solid',
+                borderColor: 'gray.d',
                 borderRadius: '5px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
             >
-              <Typography variant="h5" gutterBottom>
-                {userNames[comment.UserId] || 'Anonymous'}
-              </Typography>
+              <div>
+                <Typography variant="h5" gutterBottom>
+                  {userNames[comment.UserId] || 'Anonymous'}
+                </Typography>
 
-              <div style={{ marginBottom: '10px' }}>
-                <StarsReadOnly
-                  value={
-                    (
-                      build.Ratings.find(
-                        (el) => el.UserId === comment.UserId
-                      ) as IRating
-                    )?.score
-                  }
-                />
+                <div style={{ marginBottom: '10px' }}>
+                  <StarsReadOnly
+                    value={
+                      (
+                        build.Ratings.find(
+                          (el) => el.UserId === comment.UserId
+                        ) as IRating
+                      )?.score
+                    }
+                  />
+                </div>
+                <Typography variant="body1" gutterBottom key={comment.id}>
+                  {comment.content}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  style={{ marginTop: '10px' }}
+                >
+                  {comment.createdAt
+                    ? `${new Date(comment.createdAt).toLocaleDateString(
+                        'ru-RU',
+                        {
+                          year: '2-digit',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: false,
+                        }
+                      )}`
+                    : 'No date available'}
+                </Typography>
               </div>
-              <Typography variant="body1" gutterBottom key={comment.id}>
-                {comment.content}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                style={{ marginTop: '10px' }}
-              >
-                {comment.createdAt
-                  ? `${new Date(comment.createdAt).toLocaleDateString('ru-RU', {
-                      year: '2-digit',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: false,
-                    })}`
-                  : 'No date available'}
-              </Typography>
 
               {comment.UserId === user.id || user.id === 1 ? (
-                <Button
-                  onClick={() => handleDeleteComment(comment.UserId)}
-                >
-                  Удалить
-                </Button>
+                <IconButton onClick={() => handleDeleteComment(comment.UserId)}>
+                  <DeleteIcon />
+                </IconButton>
               ) : null}
             </Box>
           ))}

@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, SxProps, TextField, Typography } from '@mui/material';
 import styles from './styles.module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchAddBuild } from '../../redux/thunkActions';
@@ -6,93 +6,184 @@ import { IItem } from '../../types/types';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Theme } from '@emotion/react';
+import { priceSeparator } from '../../utils/functions';
+import Auth from '../../components/Auth/Auth';
+
+const DamnBox = ({
+  title,
+  value,
+}: {
+  title: string;
+  value: string | IItem[];
+}) => {
+  const sxVar: SxProps<Theme> = {
+    color: 'text.secondary',
+    textAlign: 'right',
+    padding: 1,
+  };
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        backgroundColor: 'gray.g',
+        padding: 1,
+        mt: '10px',
+        ':first-child': {
+          mt: 0,
+        },
+      }}
+    >
+      <Typography>{title}:</Typography>
+      {Array.isArray(value) ? (
+        value.map((el) => (
+          <Typography sx={sxVar} key={el.id}>
+            {el.title}
+          </Typography>
+        ))
+      ) : (
+        <Typography sx={sxVar}>{value}</Typography>
+      )}
+    </Box>
+  );
+};
 
 export default function PreveiwPanel({ className }: { className?: string }) {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
-  const {user} = useAppSelector((state) => state.user)
+  const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.user);
+
   const { selectedItems, configuratorBuild } = useAppSelector(
     (state) => state.configuratorBuild
   );
-  const [buildTitle, changeBuildTitle] = useState(configuratorBuild.title)
+
+  const buildPrice = priceSeparator(
+    Object.values(selectedItems).reduce((acc: number, el: IItem | IItem[]) => {
+      if (Array.isArray(el)) {
+        return acc + el.reduce((acc2, el2) => acc2 + el2.price, 0);
+      } else {
+        return acc + el.price;
+      }
+    }, 0)
+  );
+
+  const [titleDesc, changeTitleDesc] = useState([
+    configuratorBuild.title,
+    configuratorBuild.description,
+  ]);
   const submitHandler = () => {
-    const Items: IItem[] = Object.values(selectedItems);
-    dispatch(fetchAddBuild({UserId: user.id, Items, image: 'https://hyperpc.ru/images/product/workstation/g5/pc/hyperpc-pro-g5.jpg', title: buildTitle}))
-    navigate('/')
+    if (user.id) {
+      const Items: IItem[] = Object.values(selectedItems);
+      dispatch(
+        fetchAddBuild({
+          UserId: user.id,
+          Items,
+          image: `${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`,
+          title: titleDesc[0],
+          description: titleDesc[1],
+        })
+      );
+      navigate('/');
+    } else {
+      navigate('/');
+    }
   };
-  
-  const DamnBox = styled(Box)(({ theme }) => ({
-    width:'100%',
-    backgroundColor:'red',
-    margin: '10px 0'
-}));
-
+  console.log(user.id)
   return (
-    <Box sx={{ bgcolor: 'background.paper', padding: '20px'}} className={className}>
-      <Box className={styles.imageWrapper}>
-        <img src="https://hyperpc.ru/cache/hp_position_hyperpc_gaming_1468/hyperpc-lumen-plus-black-green-table-305x171.jpg" />
-        <TextField
-          id="standard-size-normal"
-          value={buildTitle}
-          onChange={(e) => changeBuildTitle(e.target.value)}
-          variant="standard"
-        />
+    <Box
+      sx={{
+        bgcolor: 'background.paper',
+        width: '500px',
+        padding: '20px',
+        height: 'fit-content',
+        borderRadius: '10px',
+      }}
+      className={className}
+    >
+      <Box
+        sx={{
+          borderRadius: '15px',
+          overflow: 'hidden',
+          height: 'min-content',
+          width: 'fit-content',
+        }}
+      >
+        <Box
+          className={styles.imageWrapper}
+          sx={{
+            bgcolor: 'gray.g',
+            borderRadius: '5px',
+          }}
+        >
+          <img
+            style={{ width: '100%' }}
+            src={`${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`}
+          />
+          <Typography sx={{ textAlign: 'left', p: '0 20px 10px 10px' }}>
+            Общая стоимость: {buildPrice} ₽
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: 'gray.f',
+            width: '100%',
+            height: 'min-content',
+            borderRadius: '5px',
+            overflow: 'hidden',
+            margin: '10px 0',
+          }}
+        >
+          <Box sx={{ bgcolor: 'gray.g', width: '100%', padding: 1 }}>
+            <TextField
+              sx={{ mt: 3, width: '100%', mx: 'auto', borderRadius: '5px' }}
+              id="standard-size-normal"
+              autoComplete="off"
+              value={titleDesc[0]}
+              onChange={(e) =>
+                changeTitleDesc((prev) => [e.target.value, prev[1]])
+              }
+              variant="standard"
+            />
+            <TextField
+              sx={{
+                width: '100%',
+                margin: '20px 0 40px',
+              }}
+              autoComplete="off"
+              id="standard-size-normal2"
+              value={titleDesc[1]}
+              onChange={(e) =>
+                changeTitleDesc((prev) => [prev[0], e.target.value])
+              }
+              variant="standard"
+            />
+          </Box>
+          <DamnBox title="Процессор" value={selectedItems.CPU.title} />
+          <DamnBox title="Видеокарта" value={selectedItems.GPU.title} />
+          <DamnBox
+            title="Материнская плата"
+            value={selectedItems.mother.title}
+          />
+          <DamnBox title="Оперативная память" value={selectedItems.RAM} />
+          <DamnBox title="SSD накопитель" value={selectedItems.SSD} />
+          <DamnBox title="Система охлаждения" value={selectedItems.cooling} />
+          <DamnBox title="Жесткий диск" value={selectedItems.HHD} />
+          <DamnBox title="Блок питания" value={selectedItems.power.title} />
+          <DamnBox title="Корпус" value={selectedItems.case.title} />
+          <DamnBox title="Термоинтерфейс" value={selectedItems.termo.title} />
+        </Box>
       </Box>
-
-    <Box sx={{backgroundColor: 'blue'}}>
-      <DamnBox>
-        <Typography>Процессор:</Typography>
-        <Typography>{selectedItems.CPU.title}</Typography>
-      </DamnBox>
-      <DamnBox>
-        <Typography>Видеокарта:</Typography>
-        <Typography>{selectedItems.GPU.title}</Typography>
-      </DamnBox>
-      <DamnBox>
-        <Typography>Материнская плата:</Typography>
-        <Typography>{selectedItems.mother.title}</Typography>
-      </DamnBox>
-      <DamnBox>
-        <Typography>Оперативная память:</Typography>
-        {selectedItems.RAM.map((el) => (
-          <Typography key={el.id}>{el.title}</Typography>
-        ))}
-      </DamnBox>
-      <DamnBox>
-        <Typography>SSD накопитель:</Typography>
-        {selectedItems.SSD.map((el) => (
-          <Typography key={el.id}>{el.title}</Typography>
-        ))}
-      </DamnBox>
-      <DamnBox>
-        <Typography>Система охлаждения:</Typography>
-        {selectedItems.cooling.map((el) => (
-          <Typography key={el.id}>{el.title}</Typography>
-        ))}
-      </DamnBox>
-      <DamnBox>
-        <Typography>Жесткий диск:</Typography>
-        {selectedItems.HHD.map((el) => (
-          <Typography key={el.id}>{el.title}</Typography>
-        ))}
-      </DamnBox>
-      <DamnBox>
-        <Typography>Блок питания:</Typography>
-        <Typography>{selectedItems.power.title}</Typography>
-      </DamnBox>
-      <DamnBox>
-        <Typography>Корпус:</Typography>
-        <Typography>{selectedItems.case.title}</Typography>
-      </DamnBox>
-      <DamnBox>
-        <Typography>Термоинтерфейс:</Typography>
-        <Typography>{selectedItems.termo.title}</Typography>
-      </DamnBox>
-      </Box>
-      <Button variant="contained" sx={{ marginTop: '40px' }}
-      onClick={submitHandler}>
-        Сохранить
-      </Button>
+      {user.id ? (
+        <Button
+          variant="contained"
+          sx={{ marginTop: '40px' }}
+          onClick={submitHandler}
+        >
+          Сохранить
+        </Button>
+      ) : (
+        <Auth btnVariant="contained" btnText="Сохранить" />
+      )}
     </Box>
   );
 }

@@ -44,7 +44,8 @@ export default function MessageForm({
       <Box sx={{ width: '100%', display: 'flex' }}>
         <TextField
           sx={{ flexGrow: 1 }}
-          placeholder="Your message"
+          placeholder="Введите сообщение..."
+          autoComplete="off"
           value={input}
           onChange={changeHandler}
         />

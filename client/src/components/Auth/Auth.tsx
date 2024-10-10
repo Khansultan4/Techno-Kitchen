@@ -4,7 +4,13 @@ import { Box, Link, Typography } from '@mui/material';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 
-export default function Auth() {
+export default function Auth({
+  btnVariant = 'text',
+  btnText = 'Login',
+}: {
+  btnVariant?: 'text' | 'contained' | 'outlined';
+  btnText?: string;
+}) {
   const [isRegister, setIsregister] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleOpen = (): void => setIsOpen(true);
@@ -14,30 +20,31 @@ export default function Auth() {
       isOpen={isOpen}
       handleOpen={handleOpen}
       handleClose={handleClose}
-      btnText="Login"
+      variant={btnVariant}
+      btnText={btnText}
     >
       {!isRegister ? <Login /> : <Register />}
       {!isRegister ? (
         <>
           <Box sx={{ minWidth: '200px' }}>
-            <Typography>Still don't have an acoount?</Typography>
+            <Typography>Нет аккаунта?</Typography>
             <Link
               sx={{ cursor: 'pointer' }}
               onClick={() => setIsregister(true)}
             >
-              Sign up
+              Регистрация
             </Link>
           </Box>
         </>
       ) : (
         <>
           <Box sx={{ minWidth: '200px' }}>
-            <Typography>Already have an account?</Typography>
+            <Typography>Уже зарегистрированы?</Typography>
             <Link
               sx={{ cursor: 'pointer' }}
               onClick={() => setIsregister(false)}
             >
-              Sign in
+              Войти
             </Link>
           </Box>
         </>
