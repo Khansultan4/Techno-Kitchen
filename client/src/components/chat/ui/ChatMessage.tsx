@@ -7,6 +7,14 @@ type ChatMessageProps = {
 };
 
 export default function ChatMessage({ message, loggedUser }: ChatMessageProps) {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
   const justifyContent =
     loggedUser.id === message.User?.id ? 'flex-end' : 'flex-start';
   return (
@@ -31,8 +39,10 @@ export default function ChatMessage({ message, loggedUser }: ChatMessageProps) {
           }}
         >
           <Box>
-            <Typography color="primary">{message.User?.login}</Typography>
-            <Typography>{message.text}</Typography>
+            <Typography color="primary" variant='body2'>{message.User?.login}</Typography>
+            <Typography color='primary.dark' variant='body2'>{formatDate(message.updatedAt)}</Typography>
+            <Typography  variant='body2'>{message.text} </Typography>
+            <Typography></Typography>
           </Box>
         </Box>
       </Paper>
