@@ -9,29 +9,30 @@ export default function useChat() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [typing, setTyping] = useState<boolean>(false);
   const socketRef = useRef<WebSocket | null>(null);
+  const [allUsers, setAllUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     axiosInstance
       .get(`${import.meta.env.VITE_API}/messages`)
       .then(({ data }) => setMessages(data));
+    axiosInstance.get('/api/users/all').then((res) => setAllUsers(res.data));
   }, []);
 
-  const [unreadMessages, setUnreadMessages] = useState(0);
-
   useEffect(() => {
-    localStorage.setItem(
-      'unread',
-      JSON.stringify({ unreadMessages, id: loggedUser.id })
-    );
-  }, [unreadMessages, loggedUser.id]);
+    for (let i = 0; i < allUsers.length; i++) {
+      localStorage.setItem(allUsers[i].id.toString(), JSON.stringify(0));
+    }
+  }, []);
 
-  const incrementUnreadMessages = () => {
-    setUnreadMessages((prev) => prev + 1);
+  const incrementUnreadMessagesForUser = (userId) => {
+    const currentUnreadMessages = JSON.parse(localStorage.getItem(userId)) || 0;
+    localStorage.setItem(userId, JSON.stringify(currentUnreadMessages + 1));
   };
 
-  const resetUnreadMessages = () => {
-    setUnreadMessages(0);
-  };
+  const keys: any = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    keys.push(localStorage.key(i));
+  }
 
   useEffect(() => {
     socketRef.current = new WebSocket(import.meta.env.VITE_BASE_URL);
@@ -48,7 +49,11 @@ export default function useChat() {
 
         case 'ADD_MESSAGE_FROM_SERVER':
           setMessages((prev) => {
-            incrementUnreadMessages();
+            keys.forEach((key) => {
+              if (Number(key) !== loggedUser.id) {
+                incrementUnreadMessagesForUser(Number(key));
+              }
+            });
 
             return [...prev, payload];
           });
@@ -84,7 +89,5 @@ export default function useChat() {
     typing,
     submitMessage,
     socketRef,
-    resetUnreadMessages,
-    unreadMessages,
   };
 }
