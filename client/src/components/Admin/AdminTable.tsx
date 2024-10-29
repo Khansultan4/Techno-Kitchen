@@ -14,6 +14,7 @@ import EditModal from './EditModal';
 import { Box, Button, Pagination, Tooltip } from '@mui/material';
 import { DeleteForeverOutlined } from '@mui/icons-material';
 import axiosInstance from '../../../axiosInstance';
+import { priceSeparator } from '../../utils/functions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -129,10 +130,7 @@ export default function AdminTable({
                   <DropDown specifications={item.specifications} />
                 </StyledTableCell>
                 <StyledTableCell align="left">
-                  {item.price}{' '}
-                  <strong>
-                    <i>₽</i>
-                  </strong>
+                  {priceSeparator(item.price)} ₽
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <Tooltip title="Edit Item">

@@ -8,8 +8,8 @@ export default function Footer(): JSX.Element {
       <Divider />
       <div className={styles.footerContent}>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 3 }}>
-              <Box sx={{my: 'auto', display:'flex', alignContent:'center', px:3, alignItems:"center", height:'100%'}}>
+          <Grid size={{ xs: 1, md: 1.6 }}>
+              <Box sx={{my: 'auto', display:'flex', alignContent:'center', pl:2, alignItems:"center", height:'100%'}}>
                 <img
                   src="/icons/computer.svg"
                   style={{ width: '50px', height: 'auto', display: 'inline-block' }}

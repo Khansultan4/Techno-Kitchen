@@ -109,9 +109,7 @@ export default function Navbar(): JSX.Element {
                   </Button>
                 </NavLink>
               ) : (
-                <Button onClick={() => navigate('/myConfigs')} variant="contained" sx={{ ml: 2 }}>
-                  Мои сборки
-                </Button>
+null
               )}
               <Button
                 onClick={logoutHandler}

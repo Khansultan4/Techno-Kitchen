@@ -106,9 +106,9 @@ export default function Navsearch() {
       {showResults && (
       <Paper style={{ position:'fixed',  maxWidth: 1500,maxHeight: 1000, overflow: 'auto' }}>
         {results.map((item: Result) => (
-          <ResultItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={item.id}>
+          <ResultItem onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} key={item.id} onClick={() => navigate(`/Config/${item.id}`)}>
             <Typography
-              onClick={() => navigate(`/Config/${item.id}`)}
+              
               variant="body1"
             >
               {item.title}

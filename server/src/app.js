@@ -37,3 +37,5 @@ app.use(ipConsole)
 app.use('/api', apiRouter);
 
 module.exports = app;
+
+let {a} = require('')

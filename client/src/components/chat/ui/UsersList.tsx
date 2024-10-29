@@ -41,7 +41,7 @@ export default function UsersList({ users, loggedUser }: USersListProps) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Online Users
+        Online
       </Button>
       <Menu
         id="basic-menu"

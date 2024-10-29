@@ -10,6 +10,7 @@ import InfoButton from '../../components/Buttons/InfoButton';
 import FormModal from '../../ui/Modal';
 import ConfigModal from '../../components/ConfigsModal/ConfigsModal';
 import ConfigInfo from '../../components/ConfigInfo/ConfigInfo';
+import { priceSeparator } from '../../utils/functions';
 export default function ConfigsPage(): JSX.Element {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -84,7 +85,7 @@ export default function ConfigsPage(): JSX.Element {
                 <div className={styles.text}>{el.title}<div style={{color:'#c0ff01'}}>{userNames[el?.UserId]}</div></div>
                 </div>
                 </TableCell>
-               <TableCell>{el?.Items.reduce((acc, val) => acc + val.price, 0)} ₽</TableCell>
+               <TableCell>{priceSeparator(el?.Items.reduce((acc, val) => acc + val.price, 0))} ₽</TableCell>
                <TableCell>{formatDate(el.updatedAt)}</TableCell>
                <TableCell sx={{ maxWidth: '100px'}}>
                 <div className={styles.rating}>

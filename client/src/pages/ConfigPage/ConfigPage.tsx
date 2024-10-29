@@ -22,6 +22,7 @@ import StarsReadOnly from '../../components/Stars/StarsReadOnly';
 import { useAppSelector } from '../../redux/hooks';
 import Auth from '../../components/Auth/Auth';
 import styles from '../../components/ConfigsModal/ConfigsModal.module.css';
+import { priceSeparator } from '../../utils/functions';
 
 export default function ConfigPage(): JSX.Element {
   const [build, setBuild] = useState<IBuild | null>(null);
@@ -147,13 +148,13 @@ export default function ConfigPage(): JSX.Element {
 
               <Typography
                 variant="h6"
-                sx={{ marginTop: 2, color: 'text.secondary' }}
+                sx={{ color: 'text.primary', marginTop: 2}}
                 >
-                Пользователь: {userNames[build?.UserId]}
+                Пользователь: <Typography variant='span' sx={{color: 'primary.main'}}> {userNames[build?.UserId]}</Typography>
               </Typography>
 
-              <Typography variant="h5" sx={{ marginTop: 2 }}>
-                {build?.Items.reduce((acc, rating) => acc + rating.price, 0)} ₽
+              <Typography variant="h5" sx={{marginTop: 2, color: 'text.secondary' }}>
+              {priceSeparator(build?.Items.reduce((acc, rating) => acc + rating.price, 0))} ₽
               </Typography>
 
               <Rating
@@ -189,9 +190,9 @@ export default function ConfigPage(): JSX.Element {
                             sx={{ display: 'flex', flexDirection: 'column' }}
                           >
                             <span>{item.title}</span>
-                            <span>{item.price} ₽</span>
+                            <span>{priceSeparator(item.price)} ₽</span>
                           </Box>
-                        </TableCell>
+                        </TableCell>  
                         <TableCell sx={{ fontSize: 14 }}>
                           {specs.map((spec, i) => (
                             <p key={i}> {`${spec[0]}: ${spec[1]}`}</p>

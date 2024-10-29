@@ -61,7 +61,7 @@ await queryInterface.bulkInsert('Ratings',
      {
       UserId: 5,
       BuildId: 2,
-      score: 0,
+      score: 5,
      },
      {
       UserId: 5,
