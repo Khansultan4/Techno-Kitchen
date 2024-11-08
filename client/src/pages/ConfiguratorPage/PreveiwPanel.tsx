@@ -84,10 +84,7 @@ export default function PreveiwPanel({ className }: { className?: string }) {
             borderRadius: '5px',
           }}
         >
-          {/* <img
-            style={{ width: '100%' }}
-            src={`${import.meta.env.VITE_BASE_URL}/uploads/pngegg.png`}
-          /> */}
+
           <img
             style={{ width: '100%' }}
             src={'https://hyperpc.ru/images/product/workstation/g5/pc/hyperpc-pro-g5.jpg'}

@@ -1,12 +1,11 @@
 const http = require('http');
-const app = require('./app');
+const app = require('./app.js');
 const { wss, upgradeCb } = require('./ws/upgradeCb');
 const connectionCb = require('./ws/connectionCb');
 
 require('dotenv').config();
 
 const { PORT } = process.env;
-
 const server = http.createServer(app);
 
 server.on('upgrade', upgradeCb);

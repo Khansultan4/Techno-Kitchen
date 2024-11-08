@@ -97,7 +97,6 @@ export default function ConfigPage(): JSX.Element {
 
   const handleDeleteComment = async (UserId: number) => {
     try {
-      console.log('UserId', UserId);
       const res = await axiosInstance.delete(
         `${import.meta.env.VITE_API}/build/${id}/comments/${UserId}`
       );

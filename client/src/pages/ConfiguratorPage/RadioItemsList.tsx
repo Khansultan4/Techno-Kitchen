@@ -36,20 +36,20 @@ export default memo(function RadioItemsList({
   items,
 }: {
   type?: 'single' | 'several';
-  items: Array<IItem>;
+  items: IItem[];
 }): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const initItemWithId = {...initItem}
+  initItemWithId.TypeId = items.length ? items[0].TypeId : 0
   const form = useRef<HTMLFormElement | null>(null);
+  
 
   const severalSelectHandler = (): IItem[] => {
-    const formData = form.current
-      ? new FormData(form.current as HTMLFormElement).getAll('Radio')
-      : [];
+    const formData = new FormData(form.current as HTMLFormElement).getAll('Radio');
     const result = formData
-      .map((el) => items.find((el2) => el2.id == Number(el)))
-      .filter((el) => el !== undefined);
-    return result.some((el) => 'TypeId' in el) ? result : [initItem];
+    .map((el) => items.find((el2) => el2.id == Number(el)))
+    .filter((el) => el !== undefined);
+    return result.length ? result : [initItemWithId];
   };
 
   return (
@@ -68,6 +68,7 @@ export default memo(function RadioItemsList({
           margin: '5px',
         }}
       >
+        {/* ==================================================SINGLE CHOICE================================================== */}
         {type === 'single' ? (
           <form id="Form" ref={form}>
             <RadioGroup name="Group">
@@ -83,7 +84,7 @@ export default memo(function RadioItemsList({
               ))}
             </RadioGroup>
           </form>
-        ) : (
+        ) : /* ==================================================SEVERAL CHOICE================================================== */ (
           <form
             id="Form"
             ref={form}
@@ -115,6 +116,7 @@ export default memo(function RadioItemsList({
               })}
             </RadioGroup>
           </form>
+          /* =================================================================================================================== */
         )}
       </Box>
     </Box>
